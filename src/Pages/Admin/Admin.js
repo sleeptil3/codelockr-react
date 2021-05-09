@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { UserDataContext } from '../../App'
+import { DataContext } from '../../App'
 import { Switch, Route, Link } from 'react-router-dom'
 import AdminDashboard from "./Dashboard/AdminDashboard"
 import Users from "./Users/Users"
 export const AdminDataContext = React.createContext()
 
 export default function Admin() {
-	const { loggedIn, handleLogout, BASE_URL } = useContext(UserDataContext)
+	const { loggedIn, handleLogout, BASE_URL } = useContext(DataContext)
 	const [allUsers, setAllUsers] = useState([])
 
 	const getAllUsers = async () => {

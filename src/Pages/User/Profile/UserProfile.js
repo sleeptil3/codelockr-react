@@ -1,8 +1,9 @@
 import { useContext } from 'react'
-import { UserDataContext } from '../../../App'
+import { UserContext } from '../User'
 
 export default function UserProfile() {
-	const { userData } = useContext(UserDataContext)
+	const { userData } = useContext(UserContext)
+
 	return (
 		<div className="">
 			<h2>{userData.firstName}'s Profile</h2>

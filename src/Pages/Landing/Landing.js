@@ -1,41 +1,34 @@
-import { useContext } from 'react'
-import { UserDataContext } from '../../App'
-import { Link, Switch, Route } from 'react-router-dom'
+import { useContext, useState } from 'react'
+import { DataContext } from '../../App'
 import LoginForm from '../../Components/Forms/LoginForm'
 import Home from '../Landing/Home/Home'
-import Register from '../Landing/Register/Register'
+import RegistrationForm from '../../Components/Forms/RegistrationForm'
 
 export default function Landing() {
-	const { loggedIn, handleLogout } = useContext(UserDataContext)
-
+	const { setShowRegistration } = useContext(DataContext)
+	const [showLogin, setShowLogin] = useState(false)
 	return (
-		<div className="w-screen h-screen bg-gray-800">
-			<header className="h-auto bg-black">
-				<h2>Landing Page</h2>
-				<ul className="p-4">
-					<li className="">
-						<Link to="/">Home</Link>
-					</li>
-					{loggedIn.state ?
-						<li className="cursor-pointer">
-							<p onClick={handleLogout}>Logout</p>
-						</li>
-						: ""
-					}
-					<li>
-						<Link to="/register">Register</Link>
-					</li>
-				</ul>
-				<div className="text-gray-50 w-1/4">
-					<LoginForm />
-				</div>
+		<div className="bg-gray-800 text-gray-50">
+			<header className="bg-black flex justify-between py-8">
+				<h1 className="pl-10 text-4xl">Codelockr</h1>
+				{showLogin ?
+					<div className="flex">
+						<LoginForm setShowLogin={setShowLogin} />
+					</div> :
+					<div className="flex">
+						<div className="cursor-pointer mr-10 border border-gray-50 p-2">
+							<p onClick={() => setShowRegistration(true)}>Create an Account</p>
+						</div>
+						<div className="cursor-pointer mr-10 border border-gray-50 p-2">
+							<p onClick={() => setShowLogin(true)}>Login</p>
+						</div>
+					</div>
+				}
 			</header>
+			<RegistrationForm />
 			<main>
-				<Switch>
-					<Route path="/register" component={Register} />
-					<Route path="/" component={Home} />
-				</Switch>
+				<Home />
 			</main>
-		</div>
+		</div >
 	)
 }
