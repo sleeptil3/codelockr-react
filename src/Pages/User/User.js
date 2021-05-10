@@ -25,10 +25,10 @@ export default function User() {
 		return <h2>Loading</h2>
 	} else {
 		return (
-			<div className="container-max h-full w-full bg-gray-800 flex-col justify-start items-center">
-				<div className="m-5 rounded-xl bg-black text-gray-50 flex justify-between items-center">
+			<div className="h-full w-full flex-col justify-start items-center">
+				<div className="relative z-0 m-5 rounded-xl bg-gradient-to-br from-red-900 shadow-lg to-yellow-800 text-gray-50 flex justify-between items-center">
 					<div>
-						<h2 className="ml-5 text-4xl">Codelockr</h2>
+						<h2 className="dropshadow-md ml-5 text-4xl">Codelockr</h2>
 					</div>
 					<div>
 						<ul className="p-4 text-gray-50 flex space-x-10">
@@ -44,7 +44,9 @@ export default function User() {
 						</ul>
 					</div>
 				</div>
-				<main className="text-gray-50 border m-5 rounded-xl flex p-10">
+
+				<main className="text-gray-50">
+
 					<UserContext.Provider value={{ userData }}>
 						<Switch>
 							<Route path="/user/:username/profile" component={UserProfile} />
@@ -52,7 +54,7 @@ export default function User() {
 						</Switch>
 					</UserContext.Provider>
 				</main>
-			</div>
+			</div >
 		)
 	}
 }
