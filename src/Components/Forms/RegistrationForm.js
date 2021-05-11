@@ -47,8 +47,8 @@ export default function RegistrationForm() {
 
 	if (!showRegistration) return null
 	return (
-		<div className="fixed top-0 right-0 left-0 bottom-0 flex justify-center items-center">
-			<div className="z-10 absolute top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md"></div>
+		<div className="fixed z-10 top-0 right-0 left-0 bottom-0 flex justify-center items-center">
+			<div className="absolute top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md"></div>
 			<div className="bg-gray-100 z-20 absolute w-3/4 h-3/4 flex rounded-2xl">
 				<div className="w-1/2 h-full">
 					<h1 className="text-2xl text-black m-10">Create an account</h1>
