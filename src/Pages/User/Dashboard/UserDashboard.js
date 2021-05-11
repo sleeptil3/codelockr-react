@@ -33,5 +33,16 @@ export default function UserDashboard() {
 				<h1>Snippet View</h1>
 			</div>
 		</div>
+		// <div className="flex justify-start w-screen h-full">
+		// 	<div className="w-1/6">
+		// 		<h1>Folders</h1>
+		// 	</div>
+		// 	<div className="w-1/6">
+		// 		<h1>Snippets</h1>
+		// 	</div>
+		// 	<div className="w-full">
+		// 		<h1>Snippet View</h1>
+		// 	</div>
+		// </div>
 	)
 }

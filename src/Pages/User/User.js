@@ -79,7 +79,7 @@ export default function User() {
 						</Switch>
 					</UserContext.Provider>
 				</main>
-			</div>
+			</div >
 		)
 	}
 }

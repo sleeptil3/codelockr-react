@@ -54,37 +54,44 @@ export default function RegistrationForm() {
 					<h1 className="text-2xl text-black m-10">Create an account</h1>
 					<p className="text-md text-gray-700 m-10">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores laborum tempora, omnis quod, natus vero eius impedit quibusdam soluta doloribus sequi odio incidunt rem! Praesentium qui ipsa beatae quidem. Quas.</p>
 				</div>
-				<div className="w-1/2 h-full bg-blue-700 rounded-2xl">
+				<div className="w-1/2 h-full bg-gradient-to-br from-red-800 to-yellow-600 rounded-2xl">
 					{!formSubmitted ?
 						(
 							<form className="h-full" onSubmit={handleSubmit}>
-								<div className="text-gray-50 flex flex-col mr-10 items-center justify-evenly py-4 w-full h-full px-8">
-									<label className="w-full">
-										First Name
-							<input required onChange={handleChange} value={formData.firstName} className="p-2 text-xl text-gray-900 border border-gray-500 w-full" id="firstName" type="text" autoComplete="first-name" />
+								<div className="font-thin text-gray-50 flex flex-col mr-10 items-center justify-evenly py-4 w-full h-full px-8">
+									<label className="text-gray-300 w-full">
+										<input required onChange={handleChange} value={formData.firstName} className=" outline-none bg-transparent pt-2 text-xl text-gray-100 tracking-wider border-b-2 border-gray-50 w-full" id="firstName" type="text" autoComplete="first-name" />
+									First Name
 									</label>
 									<label className="w-full">
-										Last Name
-							<input required onChange={handleChange} value={formData.lastName} className=" p-2 text-xl text-gray-900 border border-gray-500 w-full" id="lastName" type="text" autoComplete="family-name" />
+
+										<input required onChange={handleChange} value={formData.lastName} className="outline-none bg-transparent pt-2 text-xl text-gray-100 tracking-wide border-b-2 border-gray-50 w-full" id="lastName" type="text" autoComplete="family-name" />
+									Last Name
 									</label>
 									<label className="w-full">
-										Email Address
-							<input required onChange={handleChange} value={formData.email} className=" p-2 text-xl text-gray-900 border border-gray-500 w-full" id="email" type="text" autoComplete="email" />
+
+										<input required onChange={handleChange} value={formData.email} className="outline-none bg-transparent pt-2 text-xl text-gray-100 tracking-wide border-b-2 border-gray-50 w-full" id="email" type="text" autoComplete="email" />
+									Email Address
 									</label>
 									<label className="w-full">
-										Username
-							<input required onChange={handleChange} value={formData.username} className=" p-2 text-xl text-gray-900 border border-gray-500 w-full" id="username" type="text" autoComplete="off" />
+
+										<input required onChange={handleChange} value={formData.username} className="outline-none bg-transparent pt-2 text-xl text-gray-100 tracking-wide border-b-2 border-gray-50 w-full" id="username" type="text" autoComplete="off" />
+									Username
 									</label>
 									<label className="w-full">
-										Password
-							<input required onChange={handleChange} value={formData.password} className=" p-2 text-xl text-gray-900 border border-gray-500 w-full" id="password" type="password" autoComplete="new-password" />
+
+										<input required onChange={handleChange} value={formData.password} className="outline-none bg-transparent pt-2 text-xl text-gray-100 tracking-wide border-b-2 border-gray-50 w-full" id="password" type="password" autoComplete="new-password" />
+									Password
 									</label>
-									<label className={formData.password !== formData.confirmPassword ? "w-full text-red-500 font-bold" : "w-full"}>
-										Confirm Password
-							<input required onChange={handleChange} value={formData.confirmPassword} className="p-2 text-xl text-gray-900 border border-gray-500 w-full" id="confirmPassword" type="password" autoComplete="password" />
+									<label className={formData.password !== formData.confirmPassword ? "w-full underline font-bold" : "w-full"}>
+
+										<input required onChange={handleChange} value={formData.confirmPassword} className="outline-none bg-transparent pt-2 text-xl text-gray-100 tracking-wide border-b-2 border-gray-50 w-full" id="confirmPassword" type="password" autoComplete="password" />
+									Confirm Password
 									</label>
-									<button disabled={formData.password !== formData.confirmPassword ? true : false} className="mt-4 p-2 bg-gray-50 text-gray-900 w-full" type="submit">Create Account</button>
-									<button className="p-2 text-gray-50 border border-gray-50 bg-transparent w-full" onClick={() => setShowRegistration(false)}>Cancel</button>
+									<div className=" my-4 w-full flex justify-between">
+										<button disabled={formData.password !== formData.confirmPassword ? true : false} className="mr-2 p-2  text-gray-100 tracking-wide w-1/2 transform transition-all hover:scale-105 border border-opacity-0 border-gray-50  hover:border-opacity-100 hover:shadow-xl rounded-lg" type="submit">Create Account</button>
+										<button className="relative top-24 left-8 mr-2 p-2 text-gray-100 tracking-wide w-1/4 transform transition-all hover:scale-105 border border-opacity-0 border-gray-50  hover:border-opacity-100 hover:shadow-xl rounded-lg" onClick={() => setShowRegistration(false)}>Cancel</button>
+									</div>
 								</div>
 							</form>
 						)
