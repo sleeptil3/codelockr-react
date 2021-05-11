@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react'
 import { DataContext } from '../../../App'
 import { UserContext } from '../User'
 import Snippet from '../../../Components/Snippet'
+import SnippetForm from '../../../Components/Forms/SnippetForm'
 
 export default function UserDashboard() {
 	const { userData } = useContext(UserContext)
@@ -30,19 +31,8 @@ export default function UserDashboard() {
 				</div>
 			</div>
 			<div className="p-4">
-				<h1>Snippet View</h1>
+				<SnippetForm />
 			</div>
 		</div>
-		// <div className="flex justify-start w-screen h-full">
-		// 	<div className="w-1/6">
-		// 		<h1>Folders</h1>
-		// 	</div>
-		// 	<div className="w-1/6">
-		// 		<h1>Snippets</h1>
-		// 	</div>
-		// 	<div className="w-full">
-		// 		<h1>Snippet View</h1>
-		// 	</div>
-		// </div>
 	)
 }
