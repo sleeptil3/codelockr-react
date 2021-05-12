@@ -31,8 +31,8 @@ export const getUserData = async (BASE_URL, username, token) => {
 	}
 }
 
-export const createSnippet = async (BASE_URL, username, token, formData) => {
-	const body = { ...formData }
+export const createSnippet = async (BASE_URL, username, token, owner, formData) => {
+	const body = { ...formData, owner: owner }
 	try {
 		const response = await fetch(`${BASE_URL}/user/${username}/${formData.folder_id}/addsnippet`, {
 			method: 'POST',

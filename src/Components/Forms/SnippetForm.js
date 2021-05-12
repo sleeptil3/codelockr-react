@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { DataContext } from '../../App'
 import { UserContext } from '../../Pages/User/User'
 import { createSnippet } from '../../API/apiData'
@@ -19,7 +20,7 @@ export default function SnippetForm() {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const token = window.localStorage.getItem("token")
-		console.log(BASE_URL, userData.username, token, formData)
+		console.log(BASE_URL, userData.username, token, userData._id, formData)
 		// createSnippet(BASE_URL, userData.username, token, formData)
 		// setFormData({ "": "" })
 	}
@@ -56,6 +57,20 @@ export default function SnippetForm() {
 				</label>
 			</div>
 			<div className="">
+				<label className="block">Language
+				<select
+						className="w-full block py-1 px-2 border border-gray-500 rounded-md shadow-md"
+						id="parseFormat"
+						onChange={handleChange}
+						value={formData.parseFormat}
+					>
+						{userData.folders.map(folder => {
+							return <option className="" key={uuid()} value={folder._id}>{folder.title}</option>
+						})}
+					</select>
+				</label>
+			</div>
+			<div className="">
 				<label className="block">Code
 				<textarea
 						className="block p-2 w-full h-96 border border-gray-500 rounded-md"
@@ -82,6 +97,7 @@ export default function SnippetForm() {
 				</label>
 			</div>
 			<button className="bg-darkBlue tracking-widest rounded-md shadow-md px-4 py-2 text-sm text-gray-50 font-thin flex justify-center items-center">Create</button>
+			<Link to={`/user/${userData.username}/dashboard/`}>Cancel</Link>
 		</form>
 	)
 }
