@@ -9,8 +9,8 @@ export default function UserDashboard() {
 	const { userData } = useContext(UserContext)
 
 	return (
-		<div className="flex justify-start items-start h-screen w-screen">
-			<div className="bg-gray-300 px-8 py-4 h-full space-y-4 flex-col shadow-lg">
+		<div className="flex justify-start items-start h-screen w-scree">
+			<div className="bg-gray-300 px-8 py-4 h-full space-y-4 flex-col shadow-lg flex-shrink-0">
 				<h2 className="text-lg font-normal">All Snippets</h2>
 				<div>
 					<h3 className="text-md font-normal">Folders</h3>
@@ -30,7 +30,7 @@ export default function UserDashboard() {
 					</button>
 				</div>
 			</div>
-			<div className="p-4">
+			<div className="p-4 w-full">
 				<SnippetForm />
 			</div>
 		</div>
