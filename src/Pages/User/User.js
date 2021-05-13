@@ -9,7 +9,16 @@ export const UserContext = React.createContext()
 export default function User() {
 	const { handleLogout, BASE_URL } = useContext(DataContext)
 	const [userData, setUserData] = useState({})
-
+	const [filter, setFilter] = useState('')
+	const [refreshTrigger, setRefreshTrigger] = useState(false)
+	const [snippetSubmitMode, setSnippetSubmitMode] = useState('POST')
+	const [snippetForm, setSnippetForm] = useState({
+		title: '',
+		parentFolder: '',
+		parseFormat: '',
+		code: '',
+		notes: ''
+	})
 
 	useEffect(() => {
 		const username = window.localStorage.getItem("username")
@@ -19,7 +28,7 @@ export default function User() {
 			setUserData({ ...data })
 		}
 		setData()
-	}, [])
+	}, [refreshTrigger])
 
 	if (userData.username === undefined) {
 		return <h2>Loading</h2>
@@ -71,15 +80,15 @@ export default function User() {
 						</ul>
 					</div>
 				</nav>
-				<main className="text-gray-900">
-					<UserContext.Provider value={{ userData }}>
+				<main className="text-gray-900 h-full">
+					<UserContext.Provider value={{ userData, filter, setFilter, refreshTrigger, setRefreshTrigger, snippetSubmitMode, setSnippetSubmitMode, snippetForm, setSnippetForm }}>
 						<Switch>
 							<Route path="/user/:username/profile" component={UserProfile} />
 							<Route path="/user/:username/" component={UserDashboard} />
 						</Switch>
 					</UserContext.Provider>
 				</main>
-			</div >
+			</div>
 		)
 	}
 }

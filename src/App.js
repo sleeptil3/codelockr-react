@@ -14,6 +14,7 @@ export default function App() {
 		token: ""
 	})
 	const BASE_URL = 'https://codelockr-api.herokuapp.com'
+	// const BASE_URL = 'http://localhost:3030'
 
 	const handleLogout = () => {
 		window.localStorage.clear()
@@ -25,7 +26,6 @@ export default function App() {
 		history.push('/')
 	}
 
-
 	// IF on page load, there is a token in LS, set loggedIn data
 	useEffect(() => {
 		if (window.localStorage.getItem("token")) {
@@ -36,13 +36,6 @@ export default function App() {
 			})
 		}
 	}, [])
-
-	// getUserData if user is logged in
-	// useEffect(() => {
-	// 	if (loggedIn.state) {
-	// 		getUserData(BASE_URL, loggedIn)
-	// 	}
-	// }, [loggedIn])
 
 	return (
 		<DataContext.Provider value={{ setShowRegistration, showRegistration, loggedIn, setLoggedIn, BASE_URL, handleLogout }}>

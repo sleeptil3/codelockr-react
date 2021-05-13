@@ -1,3 +1,37 @@
+// SHOW
+export const getUserData = async (BASE_URL, username, token) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}`, {
+			method: 'GET',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+export const getAllSnippets = async (BASE_URL, username, token, user_id) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/${user_id}/allsnippets`, {
+			method: 'GET',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+// CREATE
 export const createUser = async (e, BASE_URL, formData) => {
 	const body = { ...formData }
 	try {
@@ -15,26 +49,10 @@ export const createUser = async (e, BASE_URL, formData) => {
 	}
 }
 
-export const getUserData = async (BASE_URL, username, token) => {
+export const createSnippet = async (BASE_URL, username, token, formData, user_id) => {
+	const body = { ...formData, owner: user_id }
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}`, {
-			method: 'GET',
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			}
-		})
-		const data = await response.json()
-		return data
-	} catch (err) {
-		console.error(err)
-	}
-}
-
-export const createSnippet = async (BASE_URL, username, token, owner, formData) => {
-	const body = { ...formData, owner: owner }
-	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/${formData.folder_id}/addsnippet`, {
+		const response = await fetch(`${BASE_URL}/user/${username}/${formData.parentFolder}/addsnippet`, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
@@ -48,5 +66,61 @@ export const createSnippet = async (BASE_URL, username, token, owner, formData) 
 		return err
 	} finally {
 		getUserData(BASE_URL, username, token)
+	}
+}
+
+export const addFolder = async (BASE_URL, username, token, formData) => {
+	const body = { ...formData }
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/addfolder`, {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(body)
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+// EDIT
+
+export const editSnippet = async (BASE_URL, username, token, formData) => {
+	const body = { ...formData }
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/snippets/${formData.snippet_id}/edit`, {
+			method: 'PUT',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(body)
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+// DELETE
+
+export const deleteSnippet = async (BASE_URL, username, token, snippet_id) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/snippets/${snippet_id}/delete`, {
+			method: 'DELETE',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = response.json()
+		return data
+	} catch (error) {
+		console.error(error)
 	}
 }

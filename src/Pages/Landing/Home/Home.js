@@ -1,4 +1,3 @@
-import PrismCode from '../../../Components/PrismCode'
 
 export default function Home() {
 
