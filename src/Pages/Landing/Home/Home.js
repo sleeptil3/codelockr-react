@@ -1,11 +1,10 @@
 import { useContext, useState } from 'react'
-
+import { Link } from 'react-router-dom'
 import { DataContext } from '../../../App'
 import LoginForm from '../../../Components/Forms/LoginForm'
 
 export default function Home() {
 	const { setShowRegistration, loggedIn } = useContext(DataContext)
-	// const [showLogin, setShowLogin] = useState(false)
 	const [slide, setSlide] = useState('')
 
 	const revealLogin = () => {
@@ -25,14 +24,20 @@ export default function Home() {
 				<div>
 					<h1 className="text-gray-900 text-3xl">Because your notes app wasn't built for that.</h1>
 					<div>
-						<div className="flex mt-8">
-							<div className="flex justify-center items-center cursor-pointer px-4 py-1 mr-5 bg-darkBlue rounded-lg shadow-lg">
-								<p onClick={() => setShowRegistration(true)}>Sign Up</p>
+						{loggedIn.state ?
+							<div className="flex mt-8">
+								<Link to={`/user/${loggedIn.username}/dashboard`} className="btn-primary">Go to My Dashboard</Link>
 							</div>
-							<div className="flex justify-center items-center cursor-pointer px-2 py-1 border border-darkBlue text-darkBlue rounded-lg shadow-lg">
-								<p onClick={revealLogin}>Login</p>
+							:
+							<div className="flex mt-8">
+								<div className="flex justify-center items-center cursor-pointer px-4 py-1 mr-5 bg-darkBlue rounded-lg shadow-lg">
+									<p onClick={() => setShowRegistration(true)}>Sign Up</p>
+								</div>
+								<div className="flex justify-center items-center cursor-pointer px-2 py-1 border border-darkBlue text-darkBlue rounded-lg shadow-lg">
+									<p onClick={revealLogin}>Login</p>
+								</div>
 							</div>
-						</div>
+						}
 					</div>
 				</div>
 			</div>

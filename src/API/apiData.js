@@ -32,7 +32,7 @@ export const getAllSnippets = async (BASE_URL, username, token, user_id) => {
 }
 
 // CREATE
-export const createUser = async (e, BASE_URL, formData) => {
+export const createUser = async (BASE_URL, formData) => {
 	const body = { ...formData }
 	try {
 		const response = await fetch(`${BASE_URL}/register`, {
@@ -45,7 +45,7 @@ export const createUser = async (e, BASE_URL, formData) => {
 		const data = await response.json()
 		return data
 	} catch (err) {
-		return err
+		console.error(err)
 	}
 }
 

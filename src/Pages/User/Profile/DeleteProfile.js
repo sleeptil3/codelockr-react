@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import { DataContext } from '../../../App'
 import { UserContext } from '../User'
 import { deleteUser } from '../../../API/apiData'
@@ -13,15 +13,17 @@ export default function DeleteProfile() {
 		const token = window.localStorage.getItem('token')
 		const res = await deleteUser(BASE_URL, userData.username, token)
 		console.log(res)
-		history.push('/')
+		// history.push('/')
 	}
 	return (
-		<div>
-			<h1 className="mb-6 text-lg font-bold">DELETE PROFILE</h1>
-			<p className=""><span className="text-red-700 font-bold">CAUTION</span>: THIS IS NOT REVERSABLE and your data will not be retrieved after deletion.</p>
-			<p>I am very sorry to see you go, and I hope you enjoyed your time here at Codelockrs, even though you are, it seems.  a quitter....</p>
-			<button className="focus:ring-0 btn-primary px-2 py-1 item-grow-0 mt-4 bg-red-600" onClick={handleDelete}>Yes, I'm sure!</button>
-			<button className="ml-10 focus:ring-0 btn-primary px-2 py-1 item-grow-0 mt-4 bg-darkBlue" onClick={() => history.push('/')}>No, take me back!</button>
-		</div >
+		<div className="space-y-4 tracking-wide">
+			<h1 className="mb-6 text-lg font-bold">Delete Profile</h1>
+			<p><span className="text-red-700 font-bold">CAUTION</span>: <strong>THIS IS NOT REVERSABLE</strong> and your data cannot be retrieved after deletion.</p>
+			<p>If there is anything we could have done better at <strong className="tracking-widest font-black">CODELOCKR</strong>, please <Link className="underline" to="#">let us know</Link>!</p>
+			<div className="flex justify-between">
+				<button className="focus:ring-0 btn-primary px-4 py-2 item-grow-0 mt-4 bg-darkBlue" onClick={() => history.push('/')}>No, take me back!</button>
+				<button className="ml-20 focus:ring-0 btn-primary px-2 py-1 item-grow-0 mt-4 bg-red-600" onClick={handleDelete}>Yes, I'm sure!</button>
+			</div>
+		</div>
 	)
 }

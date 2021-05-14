@@ -13,7 +13,7 @@ export default function UserDashboard() {
 
 	return (
 		<div className="flex justify-start items-start w-screen h-screen">
-			<div className="relative top-20  left-5 bg-gray-300 h-max rounded-xl border border-gray-900 px-8 py-4 space-y-4 flex-col shadow-lg flex-shrink-0">
+			<div className="relative top-20 left-5 bg-gray-300 h-max rounded-xl border border-gray-900 px-8 py-4 space-y-4 flex-col shadow-lg flex-shrink-0">
 				<div className="mb-2">
 					<Link to={`/user/${userData.username}/dashboard/addsnippet`} onClick={() => setFilter("")} className="bg-darkBlue tracking-widest rounded-md shadow-md px-2 py-1 text-sm text-gray-50 font-thin flex justify-center items-center">
 						<svg className="mr-1" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +34,7 @@ export default function UserDashboard() {
 				</div>
 					: null}
 			</div>
-			<div className="ml-5 w-full">
+			<div className=" ml-5 w-full">
 				<Switch>
 					<Route path="/user/:username/dashboard/addsnippet" component={SnippetForm} />
 					<Route path="/user/:username/dashboard/" component={SnippetView} />

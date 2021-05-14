@@ -37,7 +37,7 @@ export default function User() {
 		return (
 			<div className="w-screen flex-col justify-start items-center tracking-widest">
 				<Header userData={userData} handleLogout={handleLogout} />
-				<main className="text-gray-900 h-full">
+				<main className="relative z-0 text-gray-900 h-full">
 					<UserContext.Provider value={{ userData, filter, setFilter, refreshTrigger, setRefreshTrigger, snippetSubmitMode, setSnippetSubmitMode, snippetForm, setSnippetForm }}>
 						<Switch>
 							<Route path="/user/:username/profile" component={UserProfile} />
