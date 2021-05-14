@@ -107,6 +107,42 @@ export const editSnippet = async (BASE_URL, username, token, formData) => {
 	}
 }
 
+export const editUser = async (BASE_URL, username, token, formData) => {
+	const body = { ...formData }
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/edit`, {
+			method: 'PUT',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(body)
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+export const editFolder = async (BASE_URL, username, token, folder_id, formData) => {
+	const body = { ...formData }
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/folders/${folder_id}/edit`, {
+			method: 'PUT',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			},
+			body: JSON.stringify(body)
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
 // DELETE
 
 export const deleteSnippet = async (BASE_URL, username, token, snippet_id) => {
@@ -118,8 +154,41 @@ export const deleteSnippet = async (BASE_URL, username, token, snippet_id) => {
 				Authorization: `Bearer ${token}`
 			}
 		})
-		const data = response.json()
+		const data = await response.json()
 		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+export const deleteFolder = async (BASE_URL, username, token, folder_id) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/folders/${folder_id}/delete`, {
+			method: 'DELETE',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+export const deleteUser = async (BASE_URL, username, token) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/delete/`, {
+			method: 'DELETE',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+
 	} catch (error) {
 		console.error(error)
 	}

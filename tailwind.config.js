@@ -11,7 +11,8 @@ module.exports = {
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		fontFamily: {
-			'redHat': ['"Red Hat Display"', 'sans-serif']
+			'redHat': ['"Red Hat Display"', 'sans-serif'],
+			'mono': ['Roboto', 'monospace']
 		},
 		fontWeight: {
 			thin: 400,
@@ -32,5 +33,7 @@ module.exports = {
 	variants: {
 		extend: {},
 	},
-	plugins: [],
+	plugins: [
+		require('@tailwindcss/forms'),
+	],
 }

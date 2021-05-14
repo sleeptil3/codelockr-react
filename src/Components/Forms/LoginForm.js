@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { DataContext } from '../../App'
 
-export default function LoginForm({ setShowLogin }) {
+export default function LoginForm({ setSlide }) {
 	const { BASE_URL, setLoggedIn } = useContext(DataContext)
 	const history = useHistory()
 	const [formData, setFormData] = useState({ username: "", password: "" })
@@ -26,7 +26,7 @@ export default function LoginForm({ setShowLogin }) {
 				window.localStorage.setItem("username", data.username)
 				setLoggedIn({ username: data.username, token: data.token, state: true })
 				if (data.username === 'admin') history.push('/admin/dashboard')
-				else history.push(`/user/${data.username}`)
+				else history.push(`/user/${data.username}/dashboard`)
 			}
 			setFormData({ username: "", password: "" })
 		} catch (err) {
@@ -35,28 +35,20 @@ export default function LoginForm({ setShowLogin }) {
 	}
 
 	return (
-		<div>
+		<div className="absolute right-0">
 			<form onSubmit={handleSubmit}>
-				<div className="flex flex-row justify-end items-end">
-					<div className="flex flex-col">
-						<label id="username" className="mx-4">
-							Username:
-							<input className="border border-gray-500 w-full px-2 py-1" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
-						</label>
-					</div>
-					<div className="flex flex-col">
-						<label id="password" className="mx-4">
-							Password:
-							<input className="border border-gray-500 w-full px-2 py-1" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
-						</label>
-					</div>
-					<div className="flex flex-col">
-						<label id="submit">
-							<button className="p-1 mx-4 border border-gray-100 hover:bg-gray-50 hover:text-gray-800" type="submit">Login</button>
-						</label>
-					</div>
-					<div className="p-1 mx-2 mr-10 cursor-pointer border border-gray-100 hover:bg-gray-50 hover:text-gray-800">
-						<p onClick={() => setShowLogin(false)}>Cancel</p>
+				<div className="flex flex-col items-start h-96 justify-center mr-14 text-gray-900 lg:mr-24">
+					<label className="w-full">
+						Username:
+							<input className="bg-gray-50 border border-gray-500 w-full px-2 py-1" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
+					</label>
+					<label className="w-full">
+						Password:
+							<input className="bg-gray-50 border border-gray-500 w-full px-2 py-1" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
+					</label>
+					<div className="flex mt-5">
+						<button type="submit" className="bg-darkBlue tracking-widest rounded-md shadow-md px-8 py-2 mr-4 text-sm text-gray-50 font-thin">Login</button>
+						<p onClick={() => setSlide('')} className="cursor-pointer bg-transparent tracking-widest rounded-md border border-darkBlue px-2 py-2 text-sm text-darkBlue font-thin">Cancel</p>
 					</div>
 				</div>
 			</form>

@@ -62,7 +62,7 @@ export default function SnippetForm() {
 	}, [newFolder])
 
 	return (
-		<form noValidate className="ml-10 mt-6 mb-20 w-4/12 space-y-4" onSubmit={handleSubmit}>
+		<form noValidate className="ml-10 mt-24 mb-20 w-3/4 space-y-4" onSubmit={handleSubmit}>
 			<h1 className="text-2xl font-bold">{snippetSubmitMode === "POST" ? "Create a New Snippet" : `Edit ${snippetForm.title}`}</h1>
 			<div className="">
 				<label className="block">Title
@@ -150,7 +150,7 @@ export default function SnippetForm() {
 				<div className="mt-4">
 					{snippetSubmitMode === "PUT" ? <button onClick={handleDelete} className="bg-red-800 tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin">Delete</button> : null}
 				</div>
-			</div >
+			</div>
 		</form >
 	)
 }

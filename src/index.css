@@ -4,3 +4,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.btn-primary {
+		@apply bg-darkBlue tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin
+	}
+	.btn-secondary {
+		@apply bg-transparent border border-darkBlue tracking-widest rounded-md shadow-md px-4 py-2 text-sm text-darkBlue font-thin
+	}
+}

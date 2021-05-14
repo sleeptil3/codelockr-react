@@ -10,29 +10,43 @@ export default function App() {
 	const history = useHistory()
 	const [loggedIn, setLoggedIn] = useState({
 		state: false,
+		isAdmin: false,
 		username: "",
-		token: ""
+		firstName: "",
+		lastName: ""
 	})
-	const BASE_URL = 'https://codelockr-api.herokuapp.com'
-	// const BASE_URL = 'http://localhost:3030'
+	// const BASE_URL = 'https://codelockr-api.herokuapp.com'
+	const BASE_URL = 'http://localhost:3030'
 
 	const handleLogout = () => {
 		window.localStorage.clear()
 		setLoggedIn({
 			state: false,
+			isAdmin: false,
 			username: "",
-			token: ""
+			firstName: "",
+			lastName: ""
 		})
 		history.push('/')
 	}
 
 	// IF on page load, there is a token in LS, set loggedIn data
 	useEffect(() => {
-		if (window.localStorage.getItem("token")) {
+		if (window.localStorage.getItem("token") && window.localStorage.getItem("username") === 'admin') {
 			setLoggedIn({
 				state: true,
-				username: window.localStorage.getItem("username"),
-				token: window.localStorage.getItem("token")
+				isAdmin: true,
+				username: window.localStorage.getItem('username'),
+				firstName: "",
+				lastName: ""
+			})
+		} else if (window.localStorage.getItem("token")) {
+			setLoggedIn({
+				state: true,
+				isAdmin: false,
+				username: window.localStorage.getItem('username'),
+				firstName: "",
+				lastName: ""
 			})
 		}
 	}, [])
