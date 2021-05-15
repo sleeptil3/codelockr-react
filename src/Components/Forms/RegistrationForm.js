@@ -52,7 +52,7 @@ export default function RegistrationForm() {
 	return (
 		<div className="fixed z-30 top-0 right-0 left-0 bottom-0 flex justify-center items-center">
 			<div className="absolute top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md"></div>
-			<div className="bg-gray-100 z-40 absolute w-3/4 h-1/2 flex rounded-2xl">
+			<div className="bg-gray-100 z-40 absolute w-3/4 h-3/4 flex rounded-2xl">
 				<div className="w-1/2 ml-10 mt-10 pr-10 h-full space-y-4">
 					<h1 className="text-2xl text-black">Create an account</h1>
 					{error.password ? <p className="text-red-500">Error: Passwords do not match</p> : null}

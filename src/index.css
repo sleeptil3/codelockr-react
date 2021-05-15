@@ -7,9 +7,9 @@
 
 @layer components {
 	.btn-primary {
-		@apply bg-darkBlue tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin
+		@apply transform transition-transform hover:scale-105 bg-gradient-to-br from-darkBlue to-red-800 tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin
 	}
 	.btn-secondary {
-		@apply bg-transparent border border-darkBlue tracking-widest rounded-md shadow-md px-4 py-2 text-sm text-darkBlue font-thin
+		@apply transform transition-transform hover:scale-105 bg-transparent border border-darkBlue tracking-widest rounded-md shadow-md px-4 py-2 text-sm text-darkBlue font-thin
 	}
 }

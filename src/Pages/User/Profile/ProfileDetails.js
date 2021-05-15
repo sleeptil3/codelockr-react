@@ -51,7 +51,7 @@ export default function ProfileDetails() {
 						{!editMode ? <button onClick={() => setEditMode(true)} className="focus:outline-none btn-primary">Edit Profile</button>
 							: <button onClick={() => setEditMode(false)} className="focus:outline-none btn-secondary">Cancel</button>
 						}
-						<p className="cursor-pointer text-sm" onClick={() => setEditPassword(true)}>Reset Password</p>
+						<p className="transform transition-transform hover:scale-105 cursor-pointer text-sm" onClick={() => setEditPassword(true)}>Reset Password</p>
 					</div>
 				</div>
 				: <PasswordReset username={userData.username} setEditPassword={setEditPassword} BASE_URL={BASE_URL} />

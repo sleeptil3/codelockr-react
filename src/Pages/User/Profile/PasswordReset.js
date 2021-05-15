@@ -59,7 +59,7 @@ export default function PasswordReset({ setEditPassword, username, BASE_URL }) {
 				</div>
 				<div className="mt-8 flex space-x-8 items-baseline">
 					<button className="btn-primary" type="submit">Update</button>
-					<p className="cursor-pointer" onClick={handleCancel}>Cancel</p>
+					<p className="cursor-pointer transform transition-transform hover:scale-105" onClick={handleCancel}>Cancel</p>
 				</div>
 			</form>
 		</div >

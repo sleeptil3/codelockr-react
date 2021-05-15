@@ -37,18 +37,18 @@ export default function LoginForm({ setSlide }) {
 	return (
 		<div className="absolute right-0">
 			<form onSubmit={handleSubmit}>
-				<div className="flex flex-col items-start h-96 justify-center mr-14 text-gray-900 lg:mr-24">
+				<div className="flex flex-col items-start space-y-3 h-96 mr-14 justify-center text-gray-50 lg:mr-28">
 					<label className="w-full">
 						Username:
-							<input className="bg-gray-50 border border-gray-500 w-full px-2 py-1" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
+							<input className="bg-white border border-white w-full px-2 py-1" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
 					</label>
 					<label className="w-full">
 						Password:
-							<input className="bg-gray-50 border border-gray-500 w-full px-2 py-1" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
+							<input className="bg-white border border-white w-full px-2 py-1" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
 					</label>
 					<div className="flex mt-5">
-						<button type="submit" className="bg-darkBlue tracking-widest rounded-md shadow-md px-8 py-2 mr-4 text-sm text-gray-50 font-thin">Login</button>
-						<p onClick={() => setSlide('')} className="cursor-pointer bg-transparent tracking-widest rounded-md border border-darkBlue px-2 py-2 text-sm text-darkBlue font-thin">Cancel</p>
+						<button type="submit" className="transform transition-transform hover:scale-105 bg-gradient-to-br from-darkBlue to-red-500 tracking-widest rounded-md border border-gray-50 shadow-md px-8 py-2 mr-4 text-sm text-gray-50 font-thin">Login</button>
+						<p onClick={() => setSlide('')} className="transform transition-transform hover:scale-105 cursor-pointer bg-transparent tracking-widest rounded-md border border-gray-50 px-2 py-2 text-sm text-gray-50 font-thin">Cancel</p>
 					</div>
 				</div>
 			</form>

@@ -21,7 +21,7 @@ export default function Snippet({ title, code, parentFolder, parseFormat, notes,
 	}, [])
 
 	return (
-		<div className="shadow-2xl rounded-lg py-5 px-8 space-y-5 bg-gradient-to-br from-darkBlue to-black">
+		<div className="shadow-2xl rounded-lg py-5 px-8 space-y-5 bg-gradient-to-b from-darkBlue to-red-800">
 			<div className="flex justify-between items-center">
 				<h2 className="text-2xl text-gray-50 font-bold">{title} {!filter ? <span className="font-thin text-sm">({userData.folders.find(folder => folder._id == parentFolder).title})</span> : null}</h2>
 				<Link to={`/user/${userData.username}/dashboard/addsnippet`} onClick={handleClick}>
