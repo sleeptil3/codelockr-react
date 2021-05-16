@@ -5,6 +5,7 @@ import { getUserData } from '../../API/apiData'
 import UserDashboard from "./Dashboard/UserDashboard"
 import UserProfile from "./Profile/UserProfile"
 import Header from '../../Components/Header'
+import Footer from '../../Components/Footer'
 export const UserContext = React.createContext()
 
 export default function User() {
@@ -35,16 +36,19 @@ export default function User() {
 		return <h2>Loading</h2>
 	} else {
 		return (
-			<div className="w-screen flex-col justify-start items-center tracking-widest">
-				<Header userData={userData} handleLogout={handleLogout} />
-				<main className="relative z-0 bg-gray-700 text-gray-50 h-full">
-					<UserContext.Provider value={{ userData, filter, setFilter, refreshTrigger, setRefreshTrigger, snippetSubmitMode, setSnippetSubmitMode, snippetForm, setSnippetForm }}>
-						<Switch>
-							<Route path="/user/:username/profile" component={UserProfile} />
-							<Route path="/user/:username/" component={UserDashboard} />
-						</Switch>
-					</UserContext.Provider>
-				</main>
+			<div className="w-screen flex flex-col justify-between tracking-widest min-h-screen">
+				<div>
+					<Header userData={userData} handleLogout={handleLogout} />
+					<main className="relative mt-4 z-0 text-gray-50">
+						<UserContext.Provider value={{ userData, filter, setFilter, refreshTrigger, setRefreshTrigger, snippetSubmitMode, setSnippetSubmitMode, snippetForm, setSnippetForm }}>
+							<Switch>
+								<Route path="/user/:username/profile" component={UserProfile} />
+								<Route path="/user/:username/" component={UserDashboard} />
+							</Switch>
+						</UserContext.Provider>
+					</main>
+				</div>
+				<Footer />
 			</div>
 		)
 	}

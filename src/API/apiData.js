@@ -1,4 +1,20 @@
 // SHOW
+export const getAllUsers = async (BASE_URL, token) => {
+	try {
+		const response = await fetch(`${BASE_URL}/admin/users`, {
+			method: 'GET',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+	} catch (err) {
+		console.error(err)
+	}
+}
+
 export const getUserData = async (BASE_URL, username, token) => {
 	try {
 		const response = await fetch(`${BASE_URL}/user/${username}`, {
@@ -28,6 +44,22 @@ export const getAllSnippets = async (BASE_URL, username, token, user_id) => {
 		return data
 	} catch (err) {
 		console.error(err)
+	}
+}
+
+export const getAdminCounts = async (BASE_URL, token) => {
+	try {
+		const response = await fetch(`${BASE_URL}/admin/count`, {
+			method: 'GET',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
 	}
 }
 

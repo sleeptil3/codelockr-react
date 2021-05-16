@@ -6,7 +6,7 @@ export default function LoginForm({ setSlide }) {
 	const { BASE_URL, setLoggedIn } = useContext(DataContext)
 	const history = useHistory()
 	const [formData, setFormData] = useState({ username: "", password: "" })
-
+	const [error, setError] = useState(false)
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.id]: e.target.value })
 	}
@@ -21,14 +21,31 @@ export default function LoginForm({ setSlide }) {
 				body: body
 			})
 			const data = await response.json()
+			setFormData({ username: "", password: "" })
 			if (data.token && data.username) {
 				window.localStorage.setItem("token", data.token)
 				window.localStorage.setItem("username", data.username)
-				setLoggedIn({ username: data.username, token: data.token, state: true })
-				if (data.username === 'admin') history.push('/admin/dashboard')
-				else history.push(`/user/${data.username}/dashboard`)
+				if (data.username === 'admin') {
+					setLoggedIn({
+						state: true,
+						isAdmin: true,
+						username: "admin",
+						firstName: "Admin",
+						lastName: "Account"
+					})
+					history.push('/admin/dashboard')
+				} else {
+					setLoggedIn({
+						state: true,
+						isAdmin: false,
+						username: data.username
+					})
+					history.push(`/user/${data.username}/dashboard`)
+				}
+			} else {
+				console.error("login error")
+				setError(true)
 			}
-			setFormData({ username: "", password: "" })
 		} catch (err) {
 			console.error(err)
 		}
@@ -36,24 +53,23 @@ export default function LoginForm({ setSlide }) {
 
 	return (
 		<div className="absolute right-0">
-			<form onSubmit={handleSubmit}>
-				<div className="flex flex-col items-start space-y-3 h-96 mr-14 justify-center text-gray-50 lg:mr-28">
-					<label className="w-full">
+			<form noValidate onSubmit={handleSubmit}>
+				<div className="flex flex-col items-start space-y-3 h-96 mr-14 justify-center lg:mr-28">
+					{error ? <h3 className="font-bold text-red-600">Error: Username or Password incorrect</h3> : null}
+					<label className="w-full text-gray-50">
 						Username:
-							<input className="bg-white border border-white w-full px-2 py-1" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
+							<input className="focus:ring-0 w-full px-2 py-1 text-gray-900" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
 					</label>
-					<label className="w-full">
+					<label className="w-full text-gray-50">
 						Password:
-							<input className="bg-white border border-white w-full px-2 py-1" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
+							<input className="focus:ring-0 w-full px-2 py-1 mb-4 text-gray-900" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
 					</label>
-					<div className="flex mt-5">
-						<button type="submit" className="transform transition-transform hover:scale-105 bg-gradient-to-br from-darkBlue to-red-500 tracking-widest rounded-md border border-gray-50 shadow-md px-8 py-2 mr-4 text-sm text-gray-50 font-thin">Login</button>
-						<p onClick={() => setSlide('')} className="transform transition-transform hover:scale-105 cursor-pointer bg-transparent tracking-widest rounded-md border border-gray-50 px-2 py-2 text-sm text-gray-50 font-thin">Cancel</p>
+					<div className="flex space-x-6">
+						<button type="submit" className="btn-primary">Login</button>
+						<p onClick={() => setSlide('')} className="btn-secondary">Cancel</p>
 					</div>
 				</div>
 			</form>
 		</div>
-
-
 	)
 }

@@ -52,12 +52,14 @@ export default function App() {
 	}, [])
 
 	return (
-		<DataContext.Provider value={{ setShowRegistration, showRegistration, loggedIn, setLoggedIn, BASE_URL, handleLogout }}>
-			<Switch>
-				<Route path="/admin" component={Admin} />
-				<Route path="/user" component={User} />
-				<Route path="/" component={Landing} />
-			</Switch>
-		</DataContext.Provider>
+		<div>
+			<DataContext.Provider value={{ setShowRegistration, showRegistration, loggedIn, setLoggedIn, BASE_URL, handleLogout }}>
+				<Switch>
+					<Route path="/admin" component={Admin} />
+					<Route path="/user" component={User} />
+					<Route path="/" component={Landing} />
+				</Switch>
+			</DataContext.Provider>
+		</div>
 	);
 }

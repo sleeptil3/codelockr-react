@@ -13,7 +13,7 @@ export default function Home() {
 
 	return (
 		<div className="h-full mt-10">
-			<div className="absolute w-1/2 left-0 z-20 h-96 ml-10 pl-20 flex justify-center items-center bg-gradient-to-b from-darkBlue to-gray-900 shadow-lg rounded-2xl">
+			<div className="absolute w-1/2 left-0 z-20 h-96 ml-10 pl-20 flex justify-center items-center bg-gradient-to-b from-darkBlue to-black shadow-lg rounded-2xl">
 				<div className="mx-auto space-y-3">
 					<h1 className="text-4xl">{"Never forget { "}</h1>
 					<p className="pl-8 pr-20 font-mono font-light text-2xl">(<span className="text-yellow-500">code</span>, <span className="text-green-600">dependancies</span>, <span className="text-pink-500">project setup</span>, <span className="text-red-500">styling</span>)</p>
@@ -29,7 +29,7 @@ export default function Home() {
 								<Link to={`/user/${loggedIn.username}/dashboard`} className="btn-primary">Go to My Dashboard</Link>
 							</div>
 							:
-							<div className="flex text-lg mt-8">
+							<div className="flex text-md mt-8">
 								<div className="transform transition-transform hover:scale-105 flex justify-center items-center cursor-pointer px-6 py-1 mr-5 bg-gradient-to-br from-darkBlue to-red-500 rounded-lg shadow-lg">
 									<p onClick={() => setShowRegistration(true)}>Sign Up</p>
 								</div>

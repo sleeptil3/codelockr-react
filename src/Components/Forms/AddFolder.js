@@ -29,10 +29,10 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 	return (
 		<div>
 			<div className="ml-8 mt-4 space-y-4">
-				<label htmlFor="title" className="">Name</label>
+				<label htmlFor="title" className="">New Folder Title</label>
 				<div className="flex space-x-4 relative bottom-2">
 					<input
-						className="block py-1 px-2 w-96 border border-gray-500 rounded-md"
+						className="block py-1 px-2 w-96 border border-gray-500 rounded-md bg-transparent"
 						name="title"
 						id="title"
 						type="text"
@@ -42,8 +42,8 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 						value={formData.title}
 					>
 					</input>
-					<button onClick={handleSubmit} className="inline bg-darkBlue tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin">Add</button>
-					<button onClick={() => setShowAddFolder(false)} className="inline bg-transparent tracking-widest rounded-md shadow-md px-2 py-2 text-sm text-darkBlue font-thin border border-darkBlue">Cancel</button>
+					<button onClick={handleSubmit} className="inline btn-primary">Add</button>
+					<button onClick={() => setShowAddFolder(false)} className="inline btn-secondary">Cancel</button>
 				</div>
 			</div>
 		</div>

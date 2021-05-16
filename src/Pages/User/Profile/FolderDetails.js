@@ -76,6 +76,6 @@ export default function FolderDetails({ folder, username }) {
 					</div>
 					: null
 			}
-		</div >
+		</div>
 	)
 }

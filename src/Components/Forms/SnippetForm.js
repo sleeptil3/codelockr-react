@@ -62,12 +62,12 @@ export default function SnippetForm() {
 	}, [newFolder])
 
 	return (
-		<form noValidate className="ml-10 mt-24 mb-20 w-3/4 space-y-4" onSubmit={handleSubmit}>
+		<form noValidate className="ml-10 mt-5 mb-20 w-3/4 space-y-4" onSubmit={handleSubmit}>
 			<h1 className="text-2xl font-bold">{snippetSubmitMode === "POST" ? "Create a New Snippet" : `Edit ${snippetForm.title}`}</h1>
 			<div className="">
 				<label className="block">Title
 				<input
-						className="block w-full py-1 px-2 border border-gray-500 rounded-md shadow-md"
+						className="block w-full py-1 px-2 border border-gray-400 rounded-md shadow-md bg-transparent"
 						id="title"
 						type="text"
 						autoCorrect="off"
@@ -81,20 +81,20 @@ export default function SnippetForm() {
 			</div>
 			{ snippetSubmitMode === "POST" ?
 				<div className="">
-					<label className="block">Folder
-				<select
-							className="w-1/2 block py-1 px-2 border border-gray-500 rounded-md shadow-md"
-							id="parentFolder"
-							onChange={handleChange}
-							value={snippetForm.parentFolder}
-						>
-							{newFolder ? <option className="" value={newFolder._id}>{newFolder.title}</option> : <option className="" value=""></option>}
-							{userData.folders.sort((a, b) => a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1).map(folder => {
-								return <option className="" key={uuid()} value={folder._id}>{folder.title}</option>
-							})}
-						</select>
-					</label>
-					<h3 className="mt-2 cursor-pointer hover:text-darkBlue hover:underline" onClick={() => setShowAddFolder(!showAddFolder)}>{showAddFolder ? "" : "+ Add Folder"}</h3>
+					<label htmlFor="parentFolder" className="block">Folder</label>
+					<select
+						className="w-1/2 block mb-2 py-1 px-2 border border-gray-400 rounded-md shadow-md bg-transparent"
+						id="parentFolder"
+						name="parentFolder"
+						onChange={handleChange}
+						value={snippetForm.parentFolder}
+					>
+						{newFolder ? <option className="" value={newFolder._id}>{newFolder.title}</option> : <option className="" value=""></option>}
+						{userData.folders.sort((a, b) => a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1).map(folder => {
+							return <option className="" key={uuid()} value={folder._id}>{folder.title}</option>
+						})}
+					</select>
+					<h3 className="inline cursor-pointer hover:text-red-500" onClick={() => setShowAddFolder(!showAddFolder)}>{showAddFolder ? "" : "+ Add Folder"}</h3>
 					{showAddFolder ?
 						<AddFolder owner={userData._id} setShowAddFolder={setShowAddFolder} setNewFolder={setNewFolder} /> : ""}
 				</div>
@@ -103,7 +103,7 @@ export default function SnippetForm() {
 				<div className="">
 					<label className="block">Language
 				<select
-							className="w-1/2 block py-1 px-2 border border-gray-500 rounded-md shadow-md"
+							className="w-1/2 block py-1 px-2 border border-gray-400 rounded-md shadow-md bg-transparent"
 							id="parseFormat"
 							onChange={handleChange}
 							value={snippetForm.parseFormat}
@@ -119,7 +119,7 @@ export default function SnippetForm() {
 			<div className="">
 				<label className="block">Code
 				<textarea
-						className="w-full block p-2 h-96 border border-gray-500 rounded-md"
+						className="w-full block p-2 h-96 border border-gray-400 rounded-md bg-transparent"
 						id="code"
 						type="textArea"
 						spellCheck="false"
@@ -132,7 +132,7 @@ export default function SnippetForm() {
 			<div className="">
 				<label className="block">Notes
 				<textarea
-						className="w-full block p-2 h-48 border border-gray-500 rounded-md"
+						className="w-full block p-2 h-48 border border-gray-400 rounded-md bg-transparent"
 						id="notes"
 						type="textArea"
 						spellCheck="false"
@@ -144,13 +144,13 @@ export default function SnippetForm() {
 			</div>
 			<div className="flex justify-between">
 				<div className="mt-4">
-					<button className="bg-darkBlue tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin">{snippetSubmitMode === "POST" ? "Create" : "Update"}</button>
-					<Link className="ml-6 bg-transparent border border-darkBlue tracking-widest rounded-md shadow-md px-4 py-2 text-sm text-darkBlue font-thin" to={`/user/${userData.username}/dashboard/`}>Cancel</Link>
+					<button className="btn-primary">{snippetSubmitMode === "POST" ? "Create" : "Update"}</button>
+					<Link className="ml-6 btn-secondary" to={`/user/${userData.username}/dashboard/`}>Cancel</Link>
 				</div>
 				<div className="mt-4">
 					{snippetSubmitMode === "PUT" ? <button onClick={handleDelete} className="bg-red-800 tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin">Delete</button> : null}
 				</div>
 			</div>
-		</form >
+		</form>
 	)
 }
