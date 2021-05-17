@@ -7,14 +7,22 @@ import { deleteUser } from '../../../API/apiData'
 export default function DeleteProfile() {
 	const history = useHistory()
 	const { userData } = useContext(UserContext)
-	const { BASE_URL } = useContext(DataContext)
+	const { BASE_URL, setLoggedIn } = useContext(DataContext)
 
 	const handleDelete = async () => {
 		const token = window.localStorage.getItem('token')
-		const res = await deleteUser(BASE_URL, userData.username, token)
+		await deleteUser(BASE_URL, userData.username, token)
 		window.localStorage.clear()
+		setLoggedIn({
+			state: false,
+			isAdmin: false,
+			username: "",
+			firstName: "",
+			lastName: ""
+		})
 		history.push('/')
 	}
+
 	return (
 		<div className="space-y-4 tracking-wide">
 			<h1 className="mb-6 text-lg font-bold">Delete Profile</h1>

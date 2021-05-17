@@ -2,11 +2,16 @@ import { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { DataContext } from '../../App'
 import { createUser } from '../../API/apiData'
+import { v4 as uuid } from 'uuid'
 
 export default function RegistrationForm() {
 	const history = useHistory()
 	const { setShowRegistration, showRegistration, BASE_URL, setLoggedIn } = useContext(DataContext)
-	const [error, setError] = useState({ password: false })
+	const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+	const passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+	const [emailError, setEmailError] = useState(false)
+	const [passwordError, setPasswordError] = useState(false)
+	const [displayErrors, setDisplayErrors] = useState(null)
 	const [formData, setFormData] = useState({
 		firstName: "",
 		lastName: "",
@@ -16,13 +21,44 @@ export default function RegistrationForm() {
 		confirmPassword: ""
 	})
 
-	const handleSubmit = async (e) => {
+	const handleErrors = (e) => {
 		e.preventDefault()
-		if (formData.password !== formData.confirmPassword) setError({ password: true })
+		setDisplayErrors(null)
+		setEmailError(false)
+		setPasswordError(false)
+		const errors = []
+		if (formData.password !== formData.confirmPassword) {
+			errors.push("Passwords do not match")
+			setPasswordError(true)
+		}
+		if (!passwordRegex.test(formData.password)) {
+			errors.push("Password must be at least 8 characters long and contain at least one lowercase letter, capital letter, number, and a special character (!@#$%^&*)")
+			setPasswordError(true)
+		}
+		if (!emailRegex.test(formData.email)) {
+			errors.push('Email must be formatted "example@example.com"')
+			setEmailError(true)
+		}
+		if (Object.values(formData).includes("")) {
+			Object.entries(formData).forEach(entry => {
+				const [field, value] = entry
+				if (!value) {
+					errors.push(`${field} is required`)
+				}
+			})
+		}
+		if (errors.length === 0) handleSubmit()
+		else setDisplayErrors([...errors])
+	}
+
+	const handleSubmit = async () => {
+		console.log('started user creation')
+		const newUser = await createUser(BASE_URL, formData)
+		if (newUser.error) {
+			setDisplayErrors([`That ${newUser.error} is already taken`])
+		}
 		else {
-			console.log('started user creation')
-			setError({ password: false })
-			const { token, createdUser } = await createUser(BASE_URL, formData)
+			const { token, createdUser } = newUser
 			window.localStorage.setItem("token", token)
 			window.localStorage.setItem("username", createdUser.username)
 			setLoggedIn({
@@ -49,51 +85,76 @@ export default function RegistrationForm() {
 		setFormData({ ...formData, [e.target.id]: e.target.value })
 	}
 
+	const handleCancel = (e) => {
+		e.preventDefault()
+		setFormData({
+			firstName: "",
+			lastName: "",
+			email: "",
+			username: "",
+			password: "",
+			confirmPassword: ""
+		})
+		setDisplayErrors(null)
+		setShowRegistration(false)
+	}
+
 	if (!showRegistration) return null
 	return (
 		<div className="fixed z-30 top-0 right-0 left-0 bottom-0 flex justify-center items-center">
 			<div className="absolute top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md"></div>
-			<div className="bg-gray-100 z-40 absolute w-3/4 h-1/2 flex rounded-2xl rounded-r-3xl">
+			<div className="bg-gray-100 z-40 absolute w-3/4 h-max flex rounded-2xl rounded-r-3xl">
 				<div className="w-1/2 ml-10 mt-10 pr-10 h-full space-y-4">
 					<h1 className="text-2xl text-black">Create an account</h1>
-					{error.password ? <p className="text-red-500">Error: Passwords do not match</p> : null}
 					<p className="text-md text-gray-700">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores laborum tempora, omnis quod, natus vero eius impedit quibusdam soluta doloribus sequi odio incidunt rem! Praesentium qui ipsa beatae quidem. Quas.</p>
+					{displayErrors ?
+						<div>
+							<p className="text-red-500 font-normal">Please correct the errors below</p>
+							<ul className="mt-1">
+								{displayErrors.map(error => {
+									return <li className="text-red-500 text-sm list-item list-disc list-inside" key={uuid()}>{error}</li>
+								})}
+							</ul>
+						</div>
+						: null}
 				</div>
-				<div className="w-1/2 h-full bg-gradient-to-br from-darkBlue to-black rounded-2xl">
-					<form className="h-full" onSubmit={handleSubmit}>
+				<div className="w-1/2 h-max bg-gradient-to-br from-darkBlue to-black rounded-2xl">
+					<form noValidate className="my-5" onSubmit={handleErrors}>
 						<div className="font-thin tracking-wider text-sm text-gray-50 flex flex-col mr-10 items-center justify-evenly w-full h-full px-8 ">
-							<label className="w-full">
-								<input required onChange={handleChange} value={formData.firstName} className="p-0 m-0 mt-4 focus:ring-0 border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="firstName" type="text" autoComplete="first-name" />
+							<label className={`w-full ${displayErrors && !formData.firstName ? "border-l-2 pl-4 border-red-600" : null}`}>
+								<input onChange={handleChange} value={formData.firstName} className="p-0 m-0 mt-4 focus:ring-0 border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="firstName" type="text" autoComplete="first-name" />
 									First Name
 									</label>
-							<label className="w-full">
-								<input required onChange={handleChange} value={formData.lastName} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="lastName" type="text" autoComplete="family-name" />
+							<label className={`w-full ${displayErrors && !formData.lastName ? "border-l-2 pl-4 border-red-600" : null}`}>
+								<input onChange={handleChange} value={formData.lastName} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="lastName" type="text" autoComplete="family-name" />
 									Last Name
 									</label>
-							<label className="w-full">
-								<input required onChange={handleChange} value={formData.email} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="email" type="text" autoComplete="email" />
+							<label className={`w-full ${displayErrors && (!formData.email || emailError || displayErrors[0].includes('email')) ? "border-l-2 pl-4 border-red-600" : null}`}>
+								<input onChange={handleChange} value={formData.email} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="email" type="text" autoComplete="email" />
 									Email Address
 									</label>
-							<label className="w-full">
-								<input required onChange={handleChange} value={formData.username} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="username" type="text" autoComplete="off" />
+							<label className={`w-full ${displayErrors && (!formData.username || displayErrors[0].includes('username')) ? "border-l-2 pl-4 border-red-600" : null}`}>
+								<input onChange={handleChange} value={formData.username} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="username" type="text" autoComplete="off" />
 									Username
 									</label>
-							<label className="w-full">
-								<input required onChange={handleChange} value={formData.password} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="password" type="password" autoComplete="new-password" />
+							<div className={`w-full ${displayErrors && (passwordError || !formData.password || !formData.confirmPassword) ? "border-l-2 pl-4 border-red-600" : null}`}>
+								<label className="w-full">
+									<input onChange={handleChange} value={formData.password} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="password" type="password" autoComplete="new-password" />
 									Password
 									</label>
-							<label className={"w-full"}>
-								<input required onChange={handleChange} value={formData.confirmPassword} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="confirmPassword" type="password" autoComplete="password" />
+								<label className="w-full">
+									<input onChange={handleChange} value={formData.confirmPassword} className="p-0 m-0 mt-4 focus:ring-0 outline-none border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="confirmPassword" type="password" autoComplete="password" />
 									Confirm Password
 									</label>
-							<div className="w-full flex justify-start mt-5 mb-6">
+							</div>
+							<div className="w-full flex justify-start mt-8 mb-6">
 								<button className="mr-10 btn-primary" type="submit">Create Account</button>
-								<button className="btn-secondary" onClick={() => setShowRegistration(false)}>Cancel</button>
+								<button className="btn-secondary" onClick={handleCancel}>Cancel</button>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-		</div>
+		</div >
 	)
 }

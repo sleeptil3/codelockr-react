@@ -14,13 +14,13 @@ export default function UserDashboard() {
 	return (
 		<div className="flex justify-start items-start w-screen">
 			<div className="ml-5 w-max h-max ">
-				<div className="bg-gray-900 w-max space-y-4 flex-col rounded-xl px-8 py-4 shadow-lg flex-shrink-0">
+				<div className="bg-gray-900 w-max space-y-4 flex-col px-8 py-4 shadow-lg flex-shrink-0">
 					<Link to={`/user/${userData.username}/dashboard`} className="cursor-pointer text-lg font-normal" onClick={() => setFilter('')}>All Snippets</Link>
 					{userData.folders.length ? <div>
 						<h3 className="text-md font-normal">Folders</h3>
 						<ul className="ml-2 text-sm space-y-1">
 							{userData.folders.sort((a, b) => a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1).map(folder => {
-								return <li className={`my-1 cursor-pointer py-1 px-2 w-max ${filter === folder._id ? 'bg-gradient-to-tr from-darkBlue to-red-800 text-gray-50 rounded-md' : ''}`} id={folder._id} onClick={handleFilter} key={uuid()}>{folder.title}</li>
+								return <li className={`hover:text-red-600 my-1 cursor-pointer py-1 px-2 w-max ${filter === folder._id ? 'hover:text-gray-50 bg-gradient-to-tr from-darkBlue to-red-800 text-gray-50 rounded-md' : ''}`} id={folder._id} onClick={handleFilter} key={uuid()}>{folder.title}</li>
 							})}
 						</ul>
 					</div>

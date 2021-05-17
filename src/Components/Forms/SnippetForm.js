@@ -5,13 +5,14 @@ import { UserContext } from '../../Pages/User/User'
 import { createSnippet, editSnippet, deleteSnippet } from '../../API/apiData'
 import AddFolder from './AddFolder'
 import { v4 as uuid } from 'uuid'
-import { languages } from './data'
+import { languages } from './languageData'
 
 export default function SnippetForm() {
 	const { BASE_URL } = useContext(DataContext)
 	const { userData, refreshTrigger, setRefreshTrigger, setFilter, snippetForm, setSnippetForm, setSnippetSubmitMode, snippetSubmitMode } = useContext(UserContext)
 	const [showAddFolder, setShowAddFolder] = useState(false)
 	const [newFolder, setNewFolder] = useState()
+	const [error, setError] = useState(false)
 	const history = useHistory()
 
 	const handleChange = (e) => {
@@ -19,8 +20,25 @@ export default function SnippetForm() {
 		setSnippetForm({ ...snippetForm, [id]: value })
 	}
 
-	const handleSubmit = (e) => {
+	const handleErrors = (e) => {
 		e.preventDefault()
+		window.scrollTo(0, 0)
+		setError(false)
+		if (!snippetForm.title) {
+			setError(true)
+		}
+		else if (!snippetForm.code) {
+			setError(true)
+		}
+		else if (!snippetForm.parseFormat) {
+			setError(true)
+		}
+		else if (!snippetForm.parentFolder) {
+			setError(true)
+		} else handleSubmit(e)
+	}
+
+	const handleSubmit = (e) => {
 		const token = window.localStorage.getItem("token")
 		if (snippetSubmitMode === "POST") {
 			createSnippet(BASE_URL, userData.username, token, snippetForm, userData._id)
@@ -40,6 +58,7 @@ export default function SnippetForm() {
 		setFilter(snippetForm.parentFolder)
 		history.push(`/user/${userData.username}/dashboard`)
 	}
+
 	const handleDelete = (e) => {
 		e.preventDefault()
 		const token = window.localStorage.getItem("token")
@@ -62,9 +81,10 @@ export default function SnippetForm() {
 	}, [newFolder])
 
 	return (
-		<form noValidate className="ml-10 mt-5 mb-20 w-3/4 space-y-4" onSubmit={handleSubmit}>
+		<form noValidate className="ml-10 mt-5 mb-20 w-3/4 space-y-4" onSubmit={handleErrors}>
 			<h1 className="text-2xl font-bold">{snippetSubmitMode === "POST" ? "Create a New Snippet" : `Edit ${snippetForm.title}`}</h1>
-			<div className="">
+			{error ? <h1 className="text-lg font-normal text-red-600">Please Complete Required Fields</h1> : null}
+			<div className={error && !snippetForm.title ? "border-l-4 pl-4 border-red-600" : null}>
 				<label className="block">Title
 				<input
 						className="block w-full py-1 px-2 border border-gray-400 rounded-md shadow-md bg-transparent"
@@ -80,7 +100,7 @@ export default function SnippetForm() {
 				</label>
 			</div>
 			{ snippetSubmitMode === "POST" ?
-				<div className="">
+				<div className={error && !snippetForm.parentFolder ? "border-l-4 pl-4 border-red-600" : null}>
 					<label htmlFor="parentFolder" className="block">Folder</label>
 					<select
 						className="w-1/2 block mb-2 py-1 px-2 border border-gray-400 rounded-md shadow-md bg-transparent"
@@ -100,7 +120,7 @@ export default function SnippetForm() {
 				</div>
 				: null}
 			{ snippetSubmitMode === "POST" ?
-				<div className="">
+				<div className={error && !snippetForm.parseFormat ? "border-l-4 pl-4 border-red-600" : null}>
 					<label className="block">Language
 				<select
 							className="w-1/2 block py-1 px-2 border border-gray-400 rounded-md shadow-md bg-transparent"
@@ -116,7 +136,7 @@ export default function SnippetForm() {
 					</label>
 				</div>
 				: null}
-			<div className="">
+			<div className={error && !snippetForm.code ? "border-l-4 pl-4 border-red-600" : null}>
 				<label className="block">Code
 				<textarea
 						className="w-full block p-2 h-96 border border-gray-400 rounded-md bg-transparent"
@@ -129,9 +149,10 @@ export default function SnippetForm() {
 					</textarea>
 				</label>
 			</div>
-			<div className="">
+			<div>
 				<label className="block">Notes
-				<textarea
+				<p className="text-xs mb-1 text-gray-300">(Optional)</p>
+					<textarea
 						className="w-full block p-2 h-48 border border-gray-400 rounded-md bg-transparent"
 						id="notes"
 						type="textArea"

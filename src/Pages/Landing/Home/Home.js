@@ -20,7 +20,7 @@ export default function Home() {
 					<h1 className="text-4xl italic">{" } ever again"}</h1>
 				</div>
 			</div>
-			<div className={`absolute w-1/2 right-0 z-10 h-96 mr-10 flex justify-center items-center bg-gray-50 rounded-2xl pl-36 shadow-lg transform transition-transform duration-500 ${slide}`}>
+			<div className={` border-4 border-gray-900 absolute w-1/2 right-0 z-10 h-96 mr-10 flex justify-center items-center bg-gray-50 rounded-2xl pl-36 shadow-lg transform transition-transform duration-500 ${slide}`}>
 				<div>
 					<h1 className="text-gray-900 text-3xl pr-4">Because your notes app wasn't built for that.</h1>
 					<div>
@@ -33,7 +33,7 @@ export default function Home() {
 								<div className="transform transition-transform hover:scale-105 flex justify-center items-center cursor-pointer px-6 py-1 mr-5 bg-gradient-to-br from-darkBlue to-red-500 rounded-lg shadow-lg">
 									<p onClick={() => setShowRegistration(true)}>Sign Up</p>
 								</div>
-								<div className="transform transition-transform hover:scale-105 flex justify-center items-center cursor-pointer px-2 py-1 border border-darkBlue text-darkBlue rounded-lg shadow-lg">
+								<div className="transform transition hover:bg-darkBlue hover:text-gray-50 flex justify-center items-center cursor-pointer px-2 py-1 border border-darkBlue text-darkBlue rounded-lg shadow-lg">
 									<p onClick={revealLogin}>Login</p>
 								</div>
 							</div>

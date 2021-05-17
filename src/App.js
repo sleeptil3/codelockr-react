@@ -48,8 +48,16 @@ export default function App() {
 				firstName: "",
 				lastName: ""
 			})
+		} else {
+			setLoggedIn({
+				state: false,
+				isAdmin: false,
+				username: "",
+				firstName: "",
+				lastName: ""
+			})
 		}
-	}, [])
+	}, [localStorage])
 
 	return (
 		<div>

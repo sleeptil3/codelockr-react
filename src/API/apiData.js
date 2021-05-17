@@ -47,6 +47,22 @@ export const getAllSnippets = async (BASE_URL, username, token, user_id) => {
 	}
 }
 
+export const getFriendSnippets = async (BASE_URL, username, token) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/friendsnippets`, {
+			method: 'GET',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+	} catch (err) {
+		console.error(err)
+	}
+}
+
 export const getAdminCounts = async (BASE_URL, token) => {
 	try {
 		const response = await fetch(`${BASE_URL}/admin/count`, {
@@ -167,6 +183,38 @@ export const editFolder = async (BASE_URL, username, token, folder_id, formData)
 				Authorization: `Bearer ${token}`
 			},
 			body: JSON.stringify(body)
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+export const approveFriend = async (BASE_URL, username, token, friend_id) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/approvefriend/${friend_id}`, {
+			method: 'PUT',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+export const denyFriend = async (BASE_URL, username, token, friend_id) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/denyfriend/${friend_id}`, {
+			method: 'PUT',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
 		})
 		const data = await response.json()
 		return data

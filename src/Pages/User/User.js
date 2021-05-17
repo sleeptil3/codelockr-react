@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import { getUserData } from '../../API/apiData'
 import UserDashboard from "./Dashboard/UserDashboard"
 import UserProfile from "./Profile/UserProfile"
+import Dashboard from './LockrRoom/Dashboard'
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
 export const UserContext = React.createContext()
@@ -42,6 +43,7 @@ export default function User() {
 					<main className="relative mt-4 z-0 text-gray-50">
 						<UserContext.Provider value={{ userData, filter, setFilter, refreshTrigger, setRefreshTrigger, snippetSubmitMode, setSnippetSubmitMode, snippetForm, setSnippetForm }}>
 							<Switch>
+								<Route path="/user/:username/lockrroom" component={Dashboard} />
 								<Route path="/user/:username/profile" component={UserProfile} />
 								<Route path="/user/:username/" component={UserDashboard} />
 							</Switch>
