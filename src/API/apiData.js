@@ -223,6 +223,22 @@ export const denyFriend = async (BASE_URL, username, token, friend_id) => {
 	}
 }
 
+export const requestFriend = async (BASE_URL, username, token, friend_username) => {
+	try {
+		const response = await fetch(`${BASE_URL}/user/${username}/addfriend/${friend_username}`, {
+			method: 'PUT',
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
+			}
+		})
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
+}
+
 // DELETE
 
 export const deleteSnippet = async (BASE_URL, username, token, snippet_id) => {

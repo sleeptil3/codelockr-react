@@ -101,12 +101,12 @@ export default function RegistrationForm() {
 
 	if (!showRegistration) return null
 	return (
-		<div className="fixed z-30 top-0 right-0 left-0 bottom-0 flex justify-center items-center">
-			<div className="absolute top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md"></div>
-			<div className="bg-gray-100 z-40 absolute w-3/4 h-max flex rounded-2xl rounded-r-3xl">
-				<div className="w-1/2 ml-10 mt-10 pr-10 h-full space-y-4">
-					<h1 className="text-2xl text-black">Create an account</h1>
-					<p className="text-md text-gray-700">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores laborum tempora, omnis quod, natus vero eius impedit quibusdam soluta doloribus sequi odio incidunt rem! Praesentium qui ipsa beatae quidem. Quas.</p>
+		<div className="absolute z-30 top-0 right-0 left-0 bottom-0 flex justify-center items-center">
+			<div className="fixed top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md"></div>
+			<div className="absolute top-4 sm:static bg-gray-100 flex-grow z-40 w-11/12 max-w-4xl h-full sm:h-auto sm:flex rounded-2xl rounded-r-3xl">
+				<div className="w-full p-3 sm:p-0 sm:w-1/2 sm:ml-10 sm:mt-10 sm:pr-10 sm:h-full space-y-4">
+					<h1 className="text-xl sm:text-2xl text-black">Create an account</h1>
+					<p className="text-sm sm:text-md text-gray-700">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores laborum tempora, omnis quod, natus vero eius impedit quibusdam soluta doloribus sequi odio incidunt rem! Praesentium qui ipsa beatae quidem. Quas.</p>
 					{displayErrors ?
 						<div>
 							<p className="text-red-500 font-normal">Please correct the errors below</p>
@@ -118,9 +118,9 @@ export default function RegistrationForm() {
 						</div>
 						: null}
 				</div>
-				<div className="w-1/2 h-max bg-gradient-to-br from-darkBlue to-black rounded-2xl">
-					<form noValidate className="my-5" onSubmit={handleErrors}>
-						<div className="font-thin tracking-wider text-sm text-gray-50 flex flex-col mr-10 items-center justify-evenly w-full h-full px-8 ">
+				<div className="sm:w-1/2 bg-gradient-to-br from-darkBlue to-black rounded-2xl">
+					<form noValidate className="my-5 pt-4" onSubmit={handleErrors}>
+						<div className="font-thin tracking-wider text-xs sm:text-sm text-gray-50 flex flex-col items-center justify-evenly w-full px-4 sm:px-8">
 							<label className={`w-full ${displayErrors && !formData.firstName ? "border-l-2 pl-4 border-red-600" : null}`}>
 								<input onChange={handleChange} value={formData.firstName} className="p-0 m-0 mt-4 focus:ring-0 border-0 border-b border-gray-200 bg-transparent text-lg font-thin tracking-widest w-full" id="firstName" type="text" autoComplete="first-name" />
 									First Name
@@ -147,7 +147,7 @@ export default function RegistrationForm() {
 									Confirm Password
 									</label>
 							</div>
-							<div className="w-full flex justify-start mt-8 mb-6">
+							<div className="w-full flex justify-start mt-8 mb-8">
 								<button className="mr-10 btn-primary" type="submit">Create Account</button>
 								<button className="btn-secondary" onClick={handleCancel}>Cancel</button>
 							</div>
@@ -155,6 +155,6 @@ export default function RegistrationForm() {
 					</form>
 				</div>
 			</div>
-		</div >
+		</div>
 	)
 }

@@ -52,17 +52,17 @@ export default function LoginForm({ setSlide }) {
 	}
 
 	return (
-		<div className="absolute right-0">
+		<div className="">
 			<form noValidate onSubmit={handleSubmit}>
-				<div className="flex flex-col items-start space-y-3 h-96 mr-14 justify-center lg:mr-28">
+				<div className="flex flex-col items-start space-y-2 justify-center">
 					{error ? <h3 className="font-bold text-red-600">Error: Username or Password incorrect</h3> : null}
 					<label className="w-full text-gray-50">
 						Username:
-							<input className="focus:ring-0 w-full px-2 py-1 text-gray-900" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
+							<input autoCapitalize="off" className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-sm sm:text-base" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
 					</label>
 					<label className="w-full text-gray-50">
 						Password:
-							<input className="focus:ring-0 w-full px-2 py-1 mb-4 text-gray-900" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
+							<input className="focus:ring-0 w-full px-2 py-1 mb-2 text-gray-900 text-sm sm:text-base" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
 					</label>
 					<div className="flex space-x-6">
 						<button type="submit" className="btn-primary">Login</button>

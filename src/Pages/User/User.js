@@ -20,7 +20,8 @@ export default function User() {
 		parentFolder: '',
 		parseFormat: '',
 		code: '',
-		notes: ''
+		notes: '',
+		isPrivate: false
 	})
 
 	useEffect(() => {

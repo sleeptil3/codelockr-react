@@ -15,8 +15,8 @@ export default function App() {
 		firstName: "",
 		lastName: ""
 	})
-	// const BASE_URL = 'https://codelockr-api.herokuapp.com'
-	const BASE_URL = 'http://localhost:3030'
+	const BASE_URL = 'https://codelockr-api.herokuapp.com'
+	// const BASE_URL = 'http://localhost:3030'
 
 	const handleLogout = () => {
 		window.localStorage.clear()
