@@ -22,11 +22,15 @@ export default function ProfileDetails() {
 		setFormData({ ...formData, [id]: value })
 	}
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const token = window.localStorage.getItem('token')
 		const username = userData.username
-		editUser(BASE_URL, username, token, formData)
+		const data = await editUser(BASE_URL, username, token, formData)
+		if (formData.username !== username) {
+			window.localStorage.setItem('token', data.token)
+			window.localStorage.setItem("username", formData.username)
+		}
 		setRefreshTrigger(!refreshTrigger)
 		setEditMode(false)
 	}
