@@ -52,7 +52,6 @@ export default function RegistrationForm() {
 	}
 
 	const handleSubmit = async () => {
-		console.log('started user creation')
 		const newUser = await createUser(BASE_URL, formData)
 		if (newUser.error) {
 			setDisplayErrors([`That ${newUser.error} is already taken`])

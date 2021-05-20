@@ -1,6 +1,6 @@
 module.exports = {
 	purge: {
-		enabled: false,
+		enabled: true,
 		content: [
 			'./src/**.js',
 			'./src/**/*.js',
@@ -12,7 +12,7 @@ module.exports = {
 	theme: {
 		fontFamily: {
 			'redHat': ['"Red Hat Display"', 'sans-serif'],
-			'mono': ['Roboto', 'monospace']
+			'mono': ['Roboto Mono', 'monospace']
 		},
 		fontWeight: {
 			thin: 400,

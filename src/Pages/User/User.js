@@ -7,6 +7,7 @@ import UserProfile from "./Profile/UserProfile"
 import Dashboard from './LockrRoom/Dashboard'
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
+import loading from '../../images/loading.gif'
 export const UserContext = React.createContext()
 
 export default function User() {
@@ -34,8 +35,8 @@ export default function User() {
 		setData()
 	}, [refreshTrigger])
 
-	if (userData.username === undefined) {
-		return <h2>Loading</h2>
+	if (!userData.username) {
+		return <div className="h-screen flex justify-center items-center"><img className="h-20" src={loading} alt="animated loading graphic" /></div>
 	} else {
 		return (
 			<div className="w-screen flex flex-col justify-between tracking-widest min-h-screen">

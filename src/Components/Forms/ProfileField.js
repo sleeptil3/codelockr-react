@@ -1,6 +1,6 @@
 export default function ProfileField({ editMode, field, id, handleChange, value, data, type, autoComplete }) {
 	return (
-		<div className="w-full flex items-baseline space-x-4">
+		<div className="w-full flex sm:flex-row flex-col items-baseline sm:space-x-4">
 			<label htmlFor={id} className="flex-shrink-0 text-sm font-bold">{field}:</label>
 			{
 				editMode ? <input

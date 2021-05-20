@@ -51,26 +51,28 @@ export default function FolderDetails({ folder, username }) {
 			</div>
 			{
 				editMode ?
-					<form className={`ml-5 mt-5 flex items-baseline`} onSubmit={handleSubmit}>
-						<label className="flex-shrink-0 mr-4">New Title:</label>
+					<form className={`sm:ml-5 mt-5 flex pb-4 sm:pb-0 sm:flex-row space-y-4 sm:space-y-0 sm:mb-8 flex-col sm:items-end`} onSubmit={handleSubmit}>
+						<label className="flex-shrink-0 sm:mr-4">New Title:</label>
 						<input
-							className="focus:ring-0 mr-8 bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 py-0 px-1 tracking-widest"
+							className="focus:ring-0 mr-8 w-full sm:w-auto bg-transparent border-t-0 border-l-0 border-r-0 border-b-2 py-0 px-1 tracking-widest"
 							type="text"
 							autoComplete="off"
 							id="title"
 							value={formData.title}
 							onChange={handleChange}
 						/>
-						<button className="btn-primary px-2 py-1 item-grow-0" type="submit">Save</button>
-						<button className="ml-5 btn-secondary px-2 py-1 item-grow-0" onClick={() => setEditMode(false)}>Cancel</button>
+						<div className="sm:w-full space-x-6">
+							<button className="btn-primary w-1/3 px-2 py-1" type="submit">Save</button>
+							<button className="sm:ml-5 w-1/3 btn-secondary px-2 py-1" onClick={() => setEditMode(false)}>Cancel</button>
+						</div>
 					</form>
 					: null
 			}
 			{
 				deleteMode ?
-					<div className="ml-5 mt-5 w-max p-5 flex-col items-baseline border-2 rounded-lg shadow border-red-600" onSubmit={handleSubmit}>
-						<h1 className="text-lg font-black">Are you sure?</h1>
-						<p>All snippets inside <span className="font-bold">"{folder.title} </span>will be deleted!</p>
+					<div className="sm:ml-5 mt-5 space-y-4 sm:w-max p-5 flex-col items-baseline border-2 rounded-lg shadow border-red-600" onSubmit={handleSubmit}>
+						<h1 className="sm:text-lg font-bold sm:font-black">Are you sure?</h1>
+						<p className="text-sm sm:text-sm">All snippets inside <span className="font-bold">"{folder.title}" </span>will be deleted!</p>
 						<button className="focus:ring-0 btn-primary px-2 py-1 item-grow-0 mt-4 bg-red-600" id="edit" onClick={handleDelete}>Yes, I'm sure!</button>
 						<button className="focus:ring-0 ml-5 btn-secondary px-2 py-1 item-grow-0" id="delete" onClick={() => setDeleteMode(false)}>No, cancel!</button>
 					</div>

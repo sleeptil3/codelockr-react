@@ -18,8 +18,6 @@ export default function SnippetForm() {
 	const handleChange = (e) => {
 		if (e.target.type === 'checkbox') {
 			setSnippetForm({ ...snippetForm, isPrivate: e.target.checked })
-			console.log(e)
-			console.log(snippetForm)
 		} else {
 			const { id, value } = e.target
 			setSnippetForm({ ...snippetForm, [id]: value })
@@ -146,7 +144,7 @@ export default function SnippetForm() {
 			<div className={error && !snippetForm.code ? "border-l-4 pl-4 border-red-600" : null}>
 				<label className="block">Code
 				<textarea
-						className="w-full block p-2 h-96 border border-gray-400 rounded-md bg-transparent"
+						className="text-sm w-full block p-2 h-96 border border-gray-400 rounded-md bg-transparent"
 						id="code"
 						type="textArea"
 						spellCheck="false"
@@ -195,6 +193,6 @@ export default function SnippetForm() {
 					{snippetSubmitMode === "PUT" ? <button onClick={handleDelete} className="bg-red-800 tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin">Delete</button> : null}
 				</div>
 			</div>
-		</form >
+		</form>
 	)
 }

@@ -28,9 +28,9 @@ export default function UserDashboard() {
 					</div>
 						: null}
 				</div>
-				<div className="sm:hidden bg-gray-900 -mt-4 w-full py-2 shadow-lg flex justify-around items-center">
+				<div className="sm:hidden bg-gray-900 -mt-4 w-full py-2 shadow-lg flex justify-evenly items-center">
 					<label className="hidden" htmlFor="snippetFilter">Filter by folder</label>
-					<select value={filter} name="snippetFilter" onChange={handleFilter} className="bg-transparent w-3/4">
+					<select value={filter} name="snippetFilter" onChange={handleFilter} className="bg-transparent w-3/4 tracking-widest">
 						<option value="">All Snippets</option>
 						{userData.folders.sort((a, b) => a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1).map(folder => {
 							return <option value={folder._id} key={uuid()}>{folder.title}</option>

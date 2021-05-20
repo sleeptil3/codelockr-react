@@ -1,13 +1,16 @@
 import React, { useEffect, useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { DataContext } from '../../App'
 import AdminDashboard from "./Dashboard/AdminDashboard"
 import AdminHeader from '../../Components/AdminHeader'
 import Footer from '../../Components/Footer'
 import { getUserData } from '../../API/apiData'
+import loading from '../../images/loading.gif'
 
 export default function Admin() {
 	const { loggedIn, handleLogout, BASE_URL } = useContext(DataContext)
 	const [userData, setUserData] = useState({})
+	const [pageSelect, setPageSelect] = useState('dashboard')
 
 	useEffect(() => {
 		const username = window.localStorage.getItem("username")
@@ -19,41 +22,30 @@ export default function Admin() {
 		setData()
 	}, [])
 
-	if (loggedIn.state === false) return <h1 className="text-2xl font-bold uppercase">LOADING</h1>
-	if (!loggedIn.isAdmin) return <h1 className="text-2xl font-bold uppercase">NOT AUTHORIZED</h1>
+	if (loggedIn.state === false) return (
+		<div className="h-screen flex justify-center items-center">
+			<img className="h-20" src={loading} alt="animated loading graphic" />
+		</div>
+	)
+	if (!loggedIn.isAdmin) return (
+		<div className="h-screen flex flex-col justify-center items-center">
+			<h1 className="text-3xl font-bold text-gray-50 uppercase">CODELOCKR</h1>
+			<h1 className="text-xl font-bold text-gray-100 uppercase">NOT AUTHORIZED</h1>
+			<Link to="/" className="text-lg font-thin text-gray-200 hover:text-red-500">Back to login</Link>
+
+		</div>
+	)
 	else {
 		return (
-			<div className="w-screen flex-col justify-start items-center tracking-widest min-h-screen">
-				<AdminHeader userData={userData} handleLogout={handleLogout} />
-				<div className="flex flex-col justify-between min-h-screen">
-					<main className="relative z-0 pt-20 text-gray-50 ">
-						<AdminDashboard />
+			<div className="w-screen min-h-screen flex flex-col justify-between tracking-widest ">
+				<div>
+					<AdminHeader setPageSelect={setPageSelect} userData={userData} handleLogout={handleLogout} />
+					<main className="relative z-0 mt-6 text-gray-50 ">
+						<AdminDashboard pageSelect={pageSelect} setPageSelect={setPageSelect} />
 					</main>
-					<Footer />
 				</div>
+				<Footer />
 			</div>
 		)
 	}
 }
-
-// const [allUsers, setAllUsers] = useState([])
-
-// const getAllUsers = async () => {
-// 	try {
-// 		const response = await fetch(`${BASE_URL}/admin/users`, {
-// 			method: "GET",
-// 			headers: {
-// 				"Content-Type": "application/json",
-// 				Authorization: `Bearer ${loggedIn.token}`
-// 			}
-// 		})
-// 		const data = await response.json()
-// 		setAllUsers(data)
-// 	} catch (err) {
-// 		console.error(err)
-// 	}
-// }
-
-// useEffect(() => {
-// 	getAllUsers()
-// }, [])

@@ -47,19 +47,19 @@ export default function PasswordReset({ setEditPassword, username, BASE_URL }) {
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit} className="mt-8">
+			<form onSubmit={handleSubmit} className="mt-2">
 				<div>
 					<h1 className="mb-6 text-lg font-bold">Reset Password</h1>
 					{error ? <p className="text-red-700"><span className="font-bold">Error</span>: Password fields do not match</p> : null}
 				</div>
-				<div className="space-y-4">
+				<div className="space-y-8 sm:space-y-4">
 					<input className="hidden" type="text" value={passwordData.username} autoComplete="username" readOnly name="username" id="username" />
 					<ProfileField editMode={true} type="password" autoComplete="new-password" field="New Password" id="password" handleChange={handlePassword} value={passwordData.password} />
 					<ProfileField editMode={true} type="password" autoComplete="new-password" field="Confirm Password" id="confirmPassword" handleChange={handlePassword} value={passwordData.confirmPassword} />
 				</div>
 				<div className="mt-8 flex space-x-8 items-baseline">
-					<button className="btn-primary" type="submit">Update</button>
-					<p className="cursor-pointer transform transition-transform hover:scale-105" onClick={handleCancel}>Cancel</p>
+					<button className="btn-primary py-2 sm:text-base text-xs" type="submit">Update</button>
+					<p className="cursor-pointer btn-secondary py-2 sm:text-base text-xs" onClick={handleCancel}>Cancel</p>
 				</div>
 			</form>
 		</div >
