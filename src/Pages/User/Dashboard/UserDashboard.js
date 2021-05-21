@@ -6,13 +6,17 @@ import SnippetView from './SnippetView'
 import SnippetForm from '../../../Components/Forms/SnippetForm'
 
 export default function UserDashboard() {
-	const { userData, filter, setFilter } = useContext(UserContext)
+	const { userData, filter, setFilter, setSnippetSubmitMode } = useContext(UserContext)
 	const handleFilter = (e) => {
 		e.preventDefault()
 		if (e.target.type === "select-one") setFilter(e.target.value)
 		else setFilter(e.target.id)
 	}
 
+	const handleAddSnippet = () => {
+		setSnippetSubmitMode('POST')
+		setFilter("")
+	}
 	return (
 		<div className="flex flex-col sm:flex-row justify-start items-center sm:items-start w-screen">
 			<div className="sm:ml-5 w-full sm:w-max h-max ">
@@ -37,7 +41,7 @@ export default function UserDashboard() {
 						})}
 					</select>
 					<div className="sm:hidden">
-						<Link to={`/user/${userData.username}/dashboard/addsnippet`} onClick={() => setFilter("")} className="btn-primary flex justify-center items-center px-2 py-2">
+						<Link to={`/user/${userData.username}/dashboard/addsnippet`} onClick={handleAddSnippet} className="btn-primary flex justify-center items-center px-2 py-2">
 							<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M8.47266 2.52344H9.52734C9.62109 2.52344 9.66797 2.56771 9.66797 2.65625V14.3438C9.66797 14.4323 9.62109 14.4766 9.52734 14.4766H8.47266C8.37891 14.4766 8.33203 14.4323 8.33203 14.3438V2.65625C8.33203 2.56771 8.37891 2.52344 8.47266 2.52344Z" fill="#D5D5D5" />
 								<path d="M3.09375 7.86914H14.9062C15 7.86914 15.0469 7.91341 15.0469 8.00195V8.99805C15.0469 9.08659 15 9.13086 14.9062 9.13086H3.09375C3 9.13086 2.95312 9.08659 2.95312 8.99805V8.00195C2.95312 7.91341 3 7.86914 3.09375 7.86914Z" fill="#D5D5D5" />
@@ -46,7 +50,7 @@ export default function UserDashboard() {
 					</div>
 				</div>
 				<div className="hidden sm:flex mt-4 justify-center">
-					<Link to={`/user/${userData.username}/dashboard/addsnippet`} onClick={() => setFilter("")} className="btn-primary flex justify-center items-center">
+					<Link to={`/user/${userData.username}/dashboard/addsnippet`} onClick={handleAddSnippet} className="btn-primary flex justify-center items-center">
 						<svg className="mr-1" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M8.47266 2.52344H9.52734C9.62109 2.52344 9.66797 2.56771 9.66797 2.65625V14.3438C9.66797 14.4323 9.62109 14.4766 9.52734 14.4766H8.47266C8.37891 14.4766 8.33203 14.4323 8.33203 14.3438V2.65625C8.33203 2.56771 8.37891 2.52344 8.47266 2.52344Z" fill="#D5D5D5" />
 							<path d="M3.09375 7.86914H14.9062C15 7.86914 15.0469 7.91341 15.0469 8.00195V8.99805C15.0469 9.08659 15 9.13086 14.9062 9.13086H3.09375C3 9.13086 2.95312 9.08659 2.95312 8.99805V8.00195C2.95312 7.91341 3 7.86914 3.09375 7.86914Z" fill="#D5D5D5" />

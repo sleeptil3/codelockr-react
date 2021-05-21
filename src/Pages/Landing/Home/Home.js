@@ -6,8 +6,10 @@ import LoginForm from '../../../Components/Forms/LoginForm'
 export default function Home() {
 	const { setShowRegistration, loggedIn } = useContext(DataContext)
 	const [slide, setSlide] = useState('')
+	const [showLogin, setShowLogin] = useState(false)
 
 	const revealLogin = () => {
+		setShowLogin(true)
 		setSlide('-translate-x-96 sm:-translate-x-3/4')
 	}
 
@@ -44,7 +46,9 @@ export default function Home() {
 						</div>
 					</div>
 					<div className="w-56 -mb-36 text-xs font-widest relative bottom-36 sm:bottom-0 sm:top-28 sm:left-1/4 z-0">
-						<LoginForm setSlide={setSlide} />
+						<div className={showLogin ? null : "opacity-0"}>
+							<LoginForm setShowLogin={setShowLogin} setSlide={setSlide} />
+						</div>
 					</div>
 				</div>
 			</div>

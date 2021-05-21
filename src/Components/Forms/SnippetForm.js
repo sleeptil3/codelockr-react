@@ -187,7 +187,14 @@ export default function SnippetForm() {
 			<div className="flex justify-between">
 				<div className="mt-4">
 					<button className="btn-primary py-2 px-5">{snippetSubmitMode === "POST" ? "Create" : "Update"}</button>
-					<Link className="ml-6 btn-secondary py-2" to={`/user/${userData.username}/dashboard/`}>Cancel</Link>
+					<Link onClick={() => setSnippetForm({
+						title: '',
+						parentFolder: '',
+						parseFormat: '',
+						code: '',
+						notes: '',
+						isPrivate: false
+					})} className="ml-6 btn-secondary py-2" to={`/user/${userData.username}/dashboard/`}>Cancel</Link>
 				</div>
 				<div className="mt-4">
 					{snippetSubmitMode === "PUT" ? <button onClick={handleDelete} className="bg-red-800 tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin">Delete</button> : null}

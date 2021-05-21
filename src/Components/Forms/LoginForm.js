@@ -1,18 +1,28 @@
 import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { DataContext } from '../../App'
+import loading from '../../images/loading.gif'
 
 export default function LoginForm({ setSlide }) {
 	const { BASE_URL, setLoggedIn } = useContext(DataContext)
 	const history = useHistory()
 	const [formData, setFormData] = useState({ username: "", password: "" })
 	const [error, setError] = useState(false)
+	const [logginIn, setLoggingIn] = useState(false)
+	const [hideLogin, setHideLogin] = useState(false)
+
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.id]: e.target.value })
 	}
 
+	const handleLoading = () => {
+
+	}
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+		setLoggingIn(true)
+		setHideLogin(true)
 		try {
 			const body = JSON.stringify({ ...formData })
 			const response = await fetch(`${BASE_URL}/login`, {
@@ -33,6 +43,8 @@ export default function LoginForm({ setSlide }) {
 						firstName: "Admin",
 						lastName: "Account"
 					})
+					setLoggingIn(false)
+					setHideLogin(false)
 					history.push('/admin/dashboard')
 				} else {
 					setLoggedIn({
@@ -40,20 +52,31 @@ export default function LoginForm({ setSlide }) {
 						isAdmin: false,
 						username: data.username
 					})
+					setLoggingIn(false)
+					setHideLogin(false)
 					history.push(`/user/${data.username}/dashboard`)
 				}
 			} else {
 				console.error("login error")
 				setError(true)
+				setHideLogin(false)
+				setLoggingIn(false)
 			}
 		} catch (err) {
 			console.error(err)
+			setHideLogin(false)
+			setLoggingIn(false)
 		}
 	}
 
 	return (
-		<div className="">
-			<form noValidate onSubmit={handleSubmit}>
+		<div>
+			<div className={logginIn ? "ml-10 mt-4" : "hidden"}>
+				<h1 className="text-lg mb-7">Signing In</h1>
+				<img className="h-20" src={loading} alt="animated loading graphic" />
+				<h1 className="text-md mb-7">Sit tight...</h1>
+			</div>
+			<form noValidate className={hideLogin ? "hidden" : null} onSubmit={handleSubmit}>
 				<div className="flex flex-col items-start space-y-2 justify-center">
 					{error ? <h3 className="font-bold text-red-600">Error: Username or Password incorrect</h3> : null}
 					<label className="w-full text-gray-50">

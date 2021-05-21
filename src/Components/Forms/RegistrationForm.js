@@ -105,7 +105,8 @@ export default function RegistrationForm() {
 			<div className="absolute top-4 sm:static bg-gray-100 flex-grow z-40 w-11/12 max-w-4xl h-full sm:h-auto sm:flex rounded-2xl rounded-r-3xl">
 				<div className="w-full p-3 sm:p-0 sm:w-1/2 sm:ml-10 sm:mt-10 sm:pr-10 sm:h-full space-y-4">
 					<h1 className="text-xl sm:text-2xl text-black">Create an account</h1>
-					<p className="text-sm sm:text-md text-gray-700">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores laborum tempora, omnis quod, natus vero eius impedit quibusdam soluta doloribus sequi odio incidunt rem! Praesentium qui ipsa beatae quidem. Quas.</p>
+					<p className="text-sm sm:text-md text-gray-700">Welcome to the CodeLockr family! You're just minutes away from having a space to store all of your most used (and often forgot) coding stuff.</p>
+					<p className="text-sm sm:text-md text-gray-700">Don't forget to tell your friends so you can take advantage of Snippet Sharing in your <strong>LockrRoom</strong>. Sharing is caring!</p>
 					{displayErrors ?
 						<div>
 							<p className="text-red-500 font-normal">Please correct the errors below</p>
