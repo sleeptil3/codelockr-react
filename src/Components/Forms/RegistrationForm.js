@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { DataContext } from '../../App'
 import { createUser } from '../../API/apiData'
 import { v4 as uuid } from 'uuid'
+import loading from '../../images/loading.gif'
 
 export default function RegistrationForm() {
 	const history = useHistory()
@@ -20,6 +21,8 @@ export default function RegistrationForm() {
 		password: "",
 		confirmPassword: ""
 	})
+	const [registering, setRegistering] = useState(false)
+
 
 	const handleErrors = (e) => {
 		e.preventDefault()
@@ -52,6 +55,7 @@ export default function RegistrationForm() {
 	}
 
 	const handleSubmit = async () => {
+		setRegistering(true)
 		const newUser = await createUser(BASE_URL, formData)
 		if (newUser.error) {
 			setDisplayErrors([`That ${newUser.error} is already taken`])
@@ -104,9 +108,24 @@ export default function RegistrationForm() {
 			<div className="fixed top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md"></div>
 			<div className="absolute top-4 sm:static bg-gray-100 flex-grow z-40 w-11/12 max-w-4xl h-full sm:h-auto sm:flex rounded-2xl rounded-r-3xl">
 				<div className="w-full p-3 sm:p-0 sm:w-1/2 sm:ml-10 sm:mt-10 sm:pr-10 sm:h-full space-y-4">
-					<h1 className="text-xl sm:text-2xl text-black">Create an account</h1>
-					<p className="text-sm sm:text-md text-gray-700">Welcome to the CodeLockr family! You're just minutes away from having a space to store all of your most used (and often forgot) coding stuff.</p>
-					<p className="text-sm sm:text-md text-gray-700">Don't forget to tell your friends so you can take advantage of Snippet Sharing in your <strong>LockrRoom</strong>. Sharing is caring!</p>
+					{registering ?
+						<>
+							<h1 className="text-xl sm:text-2xl text-black">Creating your account</h1>
+							<p className="text-sm sm:text-md text-gray-700">Sit tight...</p>
+						</>
+						:
+						<>
+							<h1 className="text-xl sm:text-2xl text-black">Create an account</h1>
+							<p className="text-sm sm:text-md text-gray-700">Welcome to the CodeLockr family! You're just minutes away from having a space to store all of your most used (and often forgot) coding stuff.</p>
+							<p className="text-sm sm:text-md text-gray-700">Don't forget to tell your friends so you can take advantage of Snippet Sharing in your <strong>LockrRoom</strong>. Sharing is caring!</p>
+						</>
+					}
+					{registering ?
+						<div className="flex justify-center items-center">
+							<img src={loading} alt="" />
+						</div>
+						: null
+					}
 					{displayErrors ?
 						<div>
 							<p className="text-red-500 font-normal">Please correct the errors below</p>

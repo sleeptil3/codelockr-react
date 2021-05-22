@@ -15,10 +15,6 @@ export default function LoginForm({ setSlide }) {
 		setFormData({ ...formData, [e.target.id]: e.target.value })
 	}
 
-	const handleLoading = () => {
-
-	}
-
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		setLoggingIn(true)
