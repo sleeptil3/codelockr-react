@@ -52,10 +52,10 @@ export default function SnippetView() {
 					</div>
 				</>
 				: <div>
-					<h1 className="text-2xl font-bold mt-8 ml-8">Welcome to CodeLockr!</h1>
+					<h1 className="text-2xl font-bold mt-2 ml-8">Welcome to CodeLockr!</h1>
 					<h3 className="text-xl font-light mt-8 ml-8">A message from the creator of CodeLockr:</h3>
-					<p className="text-md font-light mt-8 ml-8">
-						Thank you for joining the CodeLockr community! I created CodeLockr because it's something that I found myself needing so I hope you find it useful as well. It was actually created as a capstone project for a software engineering immersive program I was a part of. With that in mind, it's quite possible you may run into bugs in this infancy period of CodeLockr. If you do, please <a className="hover:text-red-600" href="https://github.com/sleeptil3/codelockr-react/issues" target="_blank" rel="noopener noreferrer">create an issue on Github</a> or send me an email with any feedback at <a href="mailto:sleeptil3software@gmail.com">sleeptil3software@gmail.com</a>.
+					<p className="text-md font-light mt-8 mx-8">Thank you for joining the CodeLockr community!</p>
+					<p className="text-md font-light mt-8 mx-8">I created CodeLockr because it's something that I found myself needing so I hope you find it useful as well. It was actually created as a capstone project for a software engineering immersive program I was a part of. With that in mind, it's quite possible you may run into bugs in this infancy period of CodeLockr. If you do, please <a className="hover:text-red-600 underline" href="https://github.com/sleeptil3/codelockr-react/issues" target="_blank" rel="noopener noreferrer">create an issue on Github</a> or send me an email with any feedback at <a className="hover:text-red-600 underline" href="mailto:sleeptil3software@gmail.com">sleeptil3software@gmail.com</a>.
 					</p>
 					<p className="text-md font-light mt-8 ml-8">Now, get started by creating your first Snippet!</p>
 					<h3 className="text-xl font-light mt-8 ml-8">-Shawn</h3>
