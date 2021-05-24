@@ -23,7 +23,7 @@ export default function Home() {
 
 	return (
 		<div className="w-screen">
-			<div data-aos="zoom-in" className="mt-4 sm:mt-10 sm:flex-none mb-8">
+			<div data-aos="zoom-in" className="mt-4 sm:mt-10 sm:flex-none h-96 sm:h-auto mb-4 sm:mb-8">
 				<div className="relative sm:max-w-screen-lg mx-auto sm:h-96 flex flex-col items-center">
 					<div className="w-10/12 h-44 flex justify-center items-center py-4 px-2 z-20 bg-gradient-to-b from-darkBlue to-black shadow-lg sm:absolute sm:left-0 sm:w-1/2 sm:h-96 sm:ml-10 sm:pl-20">
 						<div className="mx-auto space-y-2">
@@ -69,10 +69,11 @@ export default function Home() {
 					<p className="font-bold text-xl sm:text-2xl pt-4">Well, CODELOCKR is a place to store all of that.</p>
 					<p>CODELOCKR enables web developers and software engineers to have easy access to their coding 'Snippets', neatly organized into folders, and looking fantastic. CODELOCKR supports <span className="text-pink-500">highlighting</span> and <code className="text-red-500">formatting</code> in over 160 languages.</p>
 					<p>You can also buddy-up with friends or co-worders and share Snippets in the <strong>LockrRoom</strong>!</p>
-					<p onClick={() => setShowRegistration(true)} className="cursor-pointer underline hover:text-red-600 font-bold">Create your free account now</p>
+					<br />
+					<p onClick={() => setShowRegistration(true)} className="inline cursor-pointer underline hover:text-red-600 font-bold">Create your free account now</p>
 				</div>
 			</div>
-			<div className="bg-gray-900 mt-8 w-full p-7 shadow-md">
+			<div data-aos="fade-up" className="bg-gray-900 mt-8 w-full p-7 shadow-md">
 				<div className="tracking-wide container text-sm sm:text-md space-y-4 sm:space-y-4 mx-auto sm:px-8 lg:px-24">
 					<h1 className="text-xl font-normal sm:text-2xl mb-4">What are people saying about <span className="tracking-wider font-black">CODELOCKR</span>?</h1>
 				</div>

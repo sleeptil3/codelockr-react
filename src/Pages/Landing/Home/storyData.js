@@ -2,7 +2,7 @@ export const stories = [
 	{
 		name: 'Brian S.',
 		review: '🧙🏽‍♀️ This is proFESH! So many good little features.',
-		link: ''
+		link: 'https://www.brianpstewart.com/'
 	},
 	{
 		name: 'Tyler C.',
@@ -14,16 +14,16 @@ export const stories = [
 	// 	review: 'Love this concept. I’ll be using it for all my run commands.',
 	// 	link: ''
 	// },
-	// {
-	// 	name: 'Mark R.',
-	// 	review: 'This is a great idea. So dope.',
-	// 	link: ''
-	// },
-	// {
-	// 	name: 'Arthur B.',
-	// 	review: '🐐',
-	// 	link: ''
-	// },
+	{
+		name: 'Mark R.',
+		review: 'This is a great idea. So dope.',
+		link: ''
+	},
+	{
+		name: 'Arthur B.',
+		review: '🐐',
+		link: 'https://www.arthurbernierjr.com/'
+	},
 	{
 		name: 'Bunmee V.',
 		review: 'Wow this is really nice and useful. A great idea!',

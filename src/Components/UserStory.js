@@ -6,7 +6,9 @@ export default function UserStory({ story }) {
 				<path d="M37.2626 8L33.3335 11.7376C34.909 13.2289 35.776 15.2164 35.776 17.3333C35.776 19.4502 34.909 21.4378 33.3335 22.9291L37.2626 26.6667C39.8858 24.175 41.3335 20.8624 41.3335 17.3333C41.3335 13.8043 39.8858 10.4917 37.2626 8Z" />
 			</svg>
 			<div>
-				<h1 className="text-lg font-normal sm:text-xl">{story.name}</h1>
+				{story.link ?
+					<a className="hover:text-red-600" href={story.link} target="_blank" rel="noopener noreferrer"><h1 className="text-lg font-normal sm:text-xl">{story.name}</h1></a>
+					: <h1 className="text-lg font-normal sm:text-xl">{story.name}</h1>}
 				<p className="font-thin font-widest text-md sm:text-lg">{story.review}</p>
 			</div>
 		</div>
