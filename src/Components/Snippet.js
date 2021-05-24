@@ -26,28 +26,28 @@ export default function Snippet({ parentFolder, readOnly, title, code, isPrivate
 	if (!userData.username) return <h1 className="text-2xl text-gray-50 font-normal">Loading</h1>
 	else {
 		return (
-			<div className="shadow-lg border-t-4 border-b-4 sm:border-4 border-gray-900 px-4 sm:px-8 space-y-2 pb-4 pt-2 sm:pt-4 sm:pb-8 sm:space-y-4 bg-gradient-to-br from-darkBlue to-black">
-				<div className="flex justify-between items-center">
+			<div className="shadow-lg px-4 sm:px-8 space-y-2 pb-4 pt-2 sm:pt-4 sm:pb-8 sm:space-y-4 bg-gray-900">
+				<div className="flex justify-between items-baseline">
 					<div className="">
-						<h2 className="text-md sm:text-xl text-gray-50 font-thin">{title}</h2>{isPrivate ? <span className="text-xs">Private</span> : null}
+						<h2 className="text-md sm:text-lg text-gray-50 font-thin">{title}</h2>{isPrivate ? <span className="text-xs">Private</span> : null}
 					</div>
 					{readOnly ? <p className="text-xs text-gray-200">({owner})</p>
 						: <Link to={`/user/${userData.username}/dashboard/addsnippet`} onClick={handleClick}>
-							<svg className="h-5 sm:h-7" width="30" height="30" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path fillRule="evenodd" clipRule="evenodd" d="M19.8424 0.932053C20.6704 0.932053 21.3424 1.60405 21.3424 2.43205C21.3424 3.26005 20.6704 3.93205 19.8424 3.93205H12.3644C7.1964 3.93205 3.8584 7.47205 3.8584 12.9501V29.5781C3.8584 35.0561 7.1964 38.5961 12.3644 38.5961H30.0124C35.1804 38.5961 38.5204 35.0561 38.5204 29.5781V21.5221C38.5204 20.6941 39.1924 20.0221 40.0204 20.0221C40.8484 20.0221 41.5204 20.6941 41.5204 21.5221V29.5781C41.5204 36.7661 36.8944 41.5961 30.0124 41.5961H12.3644C5.4824 41.5961 0.858398 36.7661 0.858398 29.5781V12.9501C0.858398 5.76205 5.4824 0.932053 12.3644 0.932053H19.8424ZM37.2616 2.68925L39.6956 5.12325C40.8816 6.30725 41.5336 7.88125 41.5316 9.55725C41.5316 11.2333 40.8796 12.8053 39.6956 13.9873L24.6776 29.0053C23.5756 30.1073 22.1076 30.7153 20.5476 30.7153H13.0556C12.6516 30.7153 12.2636 30.5513 11.9816 30.2613C11.6996 29.9733 11.5456 29.5833 11.5556 29.1773L11.7436 21.6193C11.7816 20.1153 12.3876 18.7013 13.4516 17.6353H13.4536L28.3996 2.68925C30.8436 0.249253 34.8176 0.249253 37.2616 2.68925ZM27.1684 8.16125L15.5736 19.7573C15.0556 20.2753 14.7616 20.9633 14.7436 21.6933L14.5936 27.7153H20.5476C21.3076 27.7153 22.0196 27.4213 22.5576 26.8833L34.2224 15.2153L27.1684 8.16125ZM30.5196 4.81125L29.2884 6.03925L36.3424 13.0953L37.5756 11.8653C38.1916 11.2493 38.5316 10.4293 38.5316 9.55725C38.5316 8.68325 38.1916 7.86125 37.5756 7.24525L35.1416 4.81125C33.8676 3.54125 31.7956 3.54125 30.5196 4.81125Z" fill="#F9FAFB" />
+							<svg className="text-gray-50 fill-current hover:text-red-600" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M4.00675 17.6C4.06175 17.6 4.11675 17.5945 4.17175 17.5862L8.79725 16.775C8.85225 16.764 8.9045 16.7393 8.943 16.698L20.6002 5.04075C20.6257 5.01531 20.646 4.98509 20.6598 4.95182C20.6736 4.91855 20.6807 4.88289 20.6807 4.84687C20.6807 4.81086 20.6736 4.7752 20.6598 4.74193C20.646 4.70866 20.6257 4.67844 20.6002 4.653L16.0298 0.07975C15.9775 0.0275 15.9087 0 15.8345 0C15.7602 0 15.6915 0.0275 15.6393 0.07975L3.982 11.737C3.94075 11.7782 3.916 11.8277 3.905 11.8827L3.09375 16.5082C3.067 16.6556 3.07656 16.8072 3.1216 16.95C3.16664 17.0928 3.24581 17.2224 3.35225 17.3277C3.53375 17.5037 3.762 17.6 4.00675 17.6V17.6ZM5.86025 12.804L15.8345 2.8325L17.8502 4.84825L7.876 14.8198L5.43125 15.2515L5.86025 12.804V12.804ZM21.12 19.91H0.88C0.39325 19.91 0 20.3032 0 20.79V21.78C0 21.901 0.099 22 0.22 22H21.78C21.901 22 22 21.901 22 21.78V20.79C22 20.3032 21.6067 19.91 21.12 19.91Z" />
 							</svg>
 						</Link>
 					}
 				</div>
-				<pre className="font-mono font-thin text-xs tracking-normal leading-5">
-					<code className={`language-${parseFormat} rounded-md border border-gray-500 px-4 py-3 xl:h-96`}>
+				<pre className="font-mono text-sm tracking-normal leading-5">
+					<code className={`language-${parseFormat} border border-gray-500 px-4 py-3 max-h-96 min-h-48`}>
 						{code}
 					</code>
 				</pre>
 				{ notes ?
-					<div>
-						<h3 className="text-xl text-gray-50 font-normal">Notes</h3>
-						<p className="text-gray-50">{notes}</p>
+					<div className="px-4">
+						<h3 className="text-md text-gray-200 font-normal">Notes</h3>
+						<p className="text-gray-50 text-sm font-thin">{notes}</p>
 					</div>
 					: null
 				}

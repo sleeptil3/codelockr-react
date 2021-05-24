@@ -8,7 +8,7 @@ export default function LoginForm({ setSlide }) {
 	const history = useHistory()
 	const [formData, setFormData] = useState({ username: "", password: "" })
 	const [error, setError] = useState(false)
-	const [logginIn, setLoggingIn] = useState(false)
+	const [loggingIn, setLoggingIn] = useState(false)
 	const [hideLogin, setHideLogin] = useState(false)
 
 	const handleChange = (e) => {
@@ -67,10 +67,10 @@ export default function LoginForm({ setSlide }) {
 
 	return (
 		<div>
-			<div className={logginIn ? "ml-10 mt-4" : "hidden"}>
-				<h1 className="text-lg mb-7">Signing In</h1>
-				<img className="h-20" src={loading} alt="animated loading graphic" />
-				<h1 className="text-md mb-7">Sit tight...</h1>
+			<div className={loggingIn ? "ml-10 mt-4 flex flex-col items-center" : "hidden"}>
+				<h1 className="text-lg">Signing In</h1>
+				<img className="h-20 flex-shrink-0 flex-grow-0" src={loading} alt="animated loading graphic" />
+				<h1 className="text-md">Sit tight...gathering your stuff.</h1>
 			</div>
 			<form noValidate className={hideLogin ? "hidden" : null} onSubmit={handleSubmit}>
 				<div className="flex flex-col items-start space-y-2 justify-center">
@@ -89,6 +89,6 @@ export default function LoginForm({ setSlide }) {
 					</div>
 				</div>
 			</form>
-		</div>
+		</div >
 	)
 }

@@ -17,11 +17,12 @@ export default function UserDashboard() {
 		setSnippetSubmitMode('POST')
 		setFilter("")
 	}
+
 	return (
 		<div className="flex flex-col sm:flex-row justify-start items-center sm:items-start w-screen">
 			<div className="sm:ml-5 w-full sm:w-max h-max ">
 				<div className="hidden sm:block bg-gray-900 mt-0 w-max space-y-4 px-8 py-4 shadow-lg flex-shrink-0">
-					<Link to={`/user/${userData.username}/dashboard`} className="cursor-pointer text-lg font-normal" onClick={() => setFilter('')}>All Snippets</Link>
+					<p to={`/user/${userData.username}/dashboard`} className="cursor-pointer text-lg font-normal" onClick={() => setFilter('')}>All Snippets</p>
 					{userData.folders.length ? <div>
 						<h3 className="text-md font-normal">Folders</h3>
 						<ul className="ml-2 text-sm space-y-1">

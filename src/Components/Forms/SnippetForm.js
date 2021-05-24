@@ -173,7 +173,7 @@ export default function SnippetForm() {
 				<p className="text-md font-thin my-3 text-gray-300">By default, Snippets are shared with your friends. If you wish to make this Snippet private, select the option below.</p>
 					<div className="flex items-center">
 						<input
-							className="p-2 bg-transparent rounded-xl"
+							className="form-checkbox p-2 bg-transparent rounded-xl focus:ring-0 focus:outline-none text-red-600"
 							id="isPrivate"
 							type="checkbox"
 							onChange={handleChange}

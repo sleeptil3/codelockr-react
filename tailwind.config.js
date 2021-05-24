@@ -1,6 +1,6 @@
 module.exports = {
 	purge: {
-		enabled: true,
+		enabled: false,
 		content: [
 			'./src/**.js',
 			'./src/**/*.js',
@@ -12,7 +12,7 @@ module.exports = {
 	theme: {
 		fontFamily: {
 			'redHat': ['"Red Hat Display"', 'sans-serif'],
-			'mono': ['Roboto Mono', 'monospace']
+			'mono': ['Source Code Pro', 'monospace']
 		},
 		fontWeight: {
 			thin: 400,
@@ -34,6 +34,8 @@ module.exports = {
 		extend: {},
 	},
 	plugins: [
-		require('@tailwindcss/forms'),
+		require('@tailwindcss/forms')({
+			strategy: 'class',
+		}),
 	],
 }

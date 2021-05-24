@@ -106,7 +106,7 @@ export default function RegistrationForm() {
 	return (
 		<div className="absolute z-30 top-0 right-0 left-0 bottom-0 flex justify-center items-center">
 			<div className="fixed top-0 right-0 left-0 bottom-0 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md"></div>
-			<div className="absolute top-4 sm:static bg-gray-100 flex-grow z-40 w-11/12 max-w-4xl h-full sm:h-auto sm:flex rounded-2xl rounded-r-3xl">
+			<div className="absolute top-4 sm:fixed sm:top-1/2 sm:transform sm:-translate-y-1/2 bg-gray-100 flex-grow z-40 w-11/12 max-w-4xl h-full sm:h-auto sm:flex rounded-2xl rounded-r-3xl">
 				<div className="w-full p-3 sm:p-0 sm:w-1/2 sm:ml-10 sm:mt-10 sm:pr-10 sm:h-full space-y-4">
 					{registering ?
 						<>
