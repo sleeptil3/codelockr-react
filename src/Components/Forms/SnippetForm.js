@@ -111,7 +111,7 @@ export default function SnippetForm() {
 			<div className={error && !snippetForm.parentFolder ? "border-l-4 pl-4 border-red-600" : null}>
 				<label htmlFor="parentFolder" className="block">Folder</label>
 				<select
-					className="w-full sm:w-1/2 block mb-2 py-1 px-2 border border-gray-400 rounded-md shadow-md bg-transparent"
+					className="form-select w-full sm:w-1/2 block mb-2 py-1 px-2 border border-gray-400 rounded-md shadow-md bg-gray-800"
 					id="parentFolder"
 					name="parentFolder"
 					onChange={handleChange}
@@ -129,7 +129,7 @@ export default function SnippetForm() {
 			<div className={error && !snippetForm.parseFormat ? "border-l-4 pl-4 border-red-600" : null}>
 				<label className="block">Language
 				<select
-						className="w-full sm:w-1/2 block py-1 px-2 border border-gray-400 rounded-md shadow-md bg-transparent"
+						className="form-select w-full sm:w-1/2 block py-1 px-2 border border-gray-400 rounded-md shadow-md bg-gray-800"
 						id="parseFormat"
 						onChange={handleChange}
 						value={snippetForm.parseFormat}

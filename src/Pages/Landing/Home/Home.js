@@ -63,12 +63,13 @@ export default function Home() {
 			<div data-aos="fade-up" className="bg-gray-900 relative w-full p-7 shadow-md">
 				<div className="tracking-wide container text-sm sm:text-md space-y-4 sm:space-y-4 mx-auto sm:px-8 lg:px-24">
 					<h1 className="text-2xl font-normal sm:text-4xl mb-4">What is <span className="tracking-wider font-black">CODELOCKR</span>?</h1>
+					<p className="font-bold text-xl sm:text-2xl pt-4">Simply put, CODELOCKR is a clean, simple notes app, but designed with the coder in mind.</p>
 					<p className="font-thin font-widest">👉🏾 Do you always finding yourself firing up <code className="text-green-500">create-react-app</code> and forgetting what important <code className="text-yellow-500">npm</code> installs you like in a base project?</p>
 					<p>👉🏽 Do you frantically search your old projects for that killer CSS form styling that you once nailed?</p>
 					<p>👉🏻 Are you constantly referring back to documentation for simple commands that you use all the time?</p>
 					<p className="font-bold text-xl sm:text-2xl pt-4">Well, CODELOCKR is a place to store all of that.</p>
 					<p>CODELOCKR enables web developers and software engineers to have easy access to their coding 'Snippets', neatly organized into folders, and looking fantastic. CODELOCKR supports <span className="text-pink-500">highlighting</span> and <code className="text-red-500">formatting</code> in over 160 languages.</p>
-					<p>You can also buddy-up with friends or co-worders and share Snippets in the <strong>LockrRoom</strong>!</p>
+					<p>You can also buddy-up with friends or co-workers and share Snippets in the <strong>LockrRoom</strong>!</p>
 					<br />
 					<p onClick={() => setShowRegistration(true)} className="inline cursor-pointer underline hover:text-red-600 font-bold">Create your free account now</p>
 				</div>
