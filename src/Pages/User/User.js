@@ -39,7 +39,7 @@ export default function User() {
 		return <div className="h-screen flex justify-center items-center"><img className="h-20" src={loading} alt="animated loading graphic" /></div>
 	} else {
 		return (
-			<div className="w-screen flex flex-col justify-between tracking-widest min-h-screen">
+			<div className="flex flex-col justify-between tracking-widest min-h-screen">
 				<div>
 					<Header userData={userData} handleLogout={handleLogout} />
 					<main className="relative mt-4 z-0 text-gray-50">

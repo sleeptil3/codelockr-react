@@ -22,7 +22,7 @@ export default function Home() {
 	}, [])
 
 	return (
-		<div className="w-screen">
+		<div>
 			<div data-aos="zoom-in" className="mt-4 sm:mt-10 sm:flex-none h-96 sm:h-auto mb-4 sm:mb-8">
 				<div className="relative sm:max-w-screen-lg mx-auto sm:h-96 flex flex-col items-center">
 					<div className="w-10/12 h-44 flex justify-center items-center py-4 px-2 z-20 bg-gradient-to-b from-darkBlue to-black shadow-lg sm:absolute sm:left-0 sm:w-1/2 sm:h-96 sm:ml-10 sm:pl-20">
