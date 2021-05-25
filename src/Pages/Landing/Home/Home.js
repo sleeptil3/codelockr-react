@@ -4,6 +4,8 @@ import { DataContext } from '../../../App'
 import LoginForm from '../../../Components/Forms/LoginForm'
 import UserStory from '../../../Components/UserStory'
 import { stories } from './storyData'
+import dashboard from '../../../images/dashboard.png'
+import snippetGif from '../../../images/snippet.gif'
 import Aos from 'aos'
 
 export default function Home() {
@@ -28,7 +30,7 @@ export default function Home() {
 					<div className="w-10/12 h-44 flex justify-center items-center py-4 px-2 z-20 bg-gradient-to-b from-darkBlue to-black shadow-lg sm:absolute sm:left-0 sm:w-1/2 sm:h-96 sm:ml-10 sm:pl-20">
 						<div className="mx-auto space-y-2">
 							<h1 className="ml-10 sm:ml-0 text-lg sm:text-4xl">{"Never forget { "}</h1>
-							<p className="text-sm pl-16 pr-4 sm:pl-8 sm:pr-10 font-mono sm:text-2xl">(<span className="text-yellow-500">code</span>, <span className="text-green-600">dependancies</span>, <span className="text-pink-500">project setup</span>, <span className="text-red-500">styling</span>)</p>
+							<p className="text-sm pl-16 pr-4 sm:pl-8 sm:pr-10 font-mono sm:text-2xl">(<span className="text-yellow-500">code</span>, <span className="text-green-600">dependencies</span>, <span className="text-pink-500">project setup</span>, <span className="text-red-500">styling</span>)</p>
 							<h1 className="ml-10 sm:ml-0 text-lg sm:text-4xl italic">{" } ever again"}</h1>
 						</div>
 					</div>
@@ -74,6 +76,25 @@ export default function Home() {
 					<p onClick={() => setShowRegistration(true)} className="inline cursor-pointer underline hover:text-red-600 font-bold">Create your free account now</p>
 				</div>
 			</div>
+			<div data-aos="fade-up" className="mt-8 relative w-full p-7">
+				<div className="tracking-wide container text-sm sm:text-md space-y-4 sm:space-y-6 mx-auto sm:px-8 lg:px-24 text-center md:text-left">
+					<h1 className="text-3xl font-normal md:text-4xl mb-4">What is the <span className="tracking-wider font-black">CODELOCKR</span> experience?</h1>
+					<div className="flex flex-col md:flex-row-reverse items-center justify-center space-y-6">
+						<div className="md:ml-6">
+							<p className="font-bold text-xl sm:text-2xl pt-4">The Snippet</p>
+							<p className="font-thin font-widest">Code, install steps, components...anything.</p>
+						</div>
+						<img className="md:mr-6" src={snippetGif} alt="rotating images of snippet examples" />
+					</div>
+					<div className="flex flex-col md:flex-row-reverse items-center justify-center space-y-6">
+						<div className="md:ml-6">
+							<p className="font-bold text-xl sm:text-2xl pt-4">The Dashboard</p>
+							<p className="font-thin font-widest">Organized by folder and searchable by name.</p>
+						</div>
+						<img className="md:mr-6" src={dashboard} alt="sample dashboard" />
+					</div>
+				</div>
+			</div>
 			<div data-aos="fade-up" className="bg-gray-900 mt-8 w-full p-7 shadow-md">
 				<div className="tracking-wide container text-sm sm:text-md space-y-4 sm:space-y-4 mx-auto sm:px-8 lg:px-24">
 					<h1 className="text-xl font-normal sm:text-2xl mb-4">What are people saying about <span className="tracking-wider font-black">CODELOCKR</span>?</h1>
@@ -88,4 +109,3 @@ export default function Home() {
 	)
 }
 
-//self-start ml-4 mt-4 
