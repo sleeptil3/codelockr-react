@@ -7,7 +7,7 @@ export default function UserStory({ story }) {
 			</svg>
 			<div>
 				{story.link ?
-					<a className="hover:text-red-600" href={story.link} target="_blank" rel="noopener noreferrer"><h1 className="text-lg font-normal sm:text-xl">{story.name}</h1></a>
+					<a className="hover:text-red-600 underline" href={story.link} target="_blank" rel="noopener noreferrer"><h1 className="text-lg font-normal sm:text-xl">{story.name}</h1></a>
 					: <h1 className="text-lg font-normal sm:text-xl">{story.name}</h1>}
 				<p className="font-thin font-widest text-md sm:text-lg">{story.review}</p>
 			</div>

@@ -33,7 +33,7 @@ export default function Dashboard() {
 				</div>
 				<div className="sm:hidden bg-gray-900 -mt-4 w-full py-2 pt-3 shadow-lg flex justify-around items-center">
 					<label className="hidden" htmlFor="friendFilter">Filter by friend</label>
-					<select value={filter} name="friendFilter" onChange={handleFilter} className="bg-transparent w-3/4 tracking-widest">
+					<select value={filter} name="friendFilter" onChange={handleFilter} className="form-select bg-transparent w-3/4 tracking-widest">
 						<option value="">Show All</option>
 						{userData.friends.sort((a, b) => a.lastName.toUpperCase() < b.lastName.toUpperCase() ? -1 : 1).map(friend => {
 							return <option value={friend._id} key={uuid()}>{friend.firstName} {friend.lastName}</option>
