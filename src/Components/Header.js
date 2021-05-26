@@ -53,7 +53,7 @@ export default function Header({ userData, handleLogout }) {
 						<Link to={`/user/${userData.username}/lockrroom`}>LockrRoom</Link>
 					</li>
 					<li className="hover:text-red-500">
-						<Link to={`/user/${userData.username}/profile`}>Profile</Link>
+						<Link to={`/user/${userData.username}/profile`}>Settings</Link>
 					</li>
 					<li className="cursor-pointer hover:text-red-500">
 						<p onClick={handleLogout}>Logout</p>

@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react'
 import { DataContext } from '../../App'
+import { UserContext } from '../../Pages/User/User'
 import { addFolder } from '../../API/apiData'
 
 export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 	const { BASE_URL } = useContext(DataContext)
+	const { setRefreshTrigger, refreshTrigger } = useContext(UserContext)
 	const [formData, setFormData] = useState({
 		title: '',
 		owner: owner
@@ -23,6 +25,7 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 			owner: owner
 		})
 		setNewFolder({ ...newFolder })
+		setRefreshTrigger(!refreshTrigger)
 		setShowAddFolder(false)
 	}
 

@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useLayoutEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Snippet from '../../../Components/Snippet'
 import { getAllSnippets } from '../../../API/apiData'

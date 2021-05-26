@@ -20,13 +20,15 @@ export default function UserProfile() {
 	return (
 		<div className="flex sm:flex-row flex-col justify-start items-start w-screen">
 			<div className="hidden sm:block ml-5 flex-shrink-0 bg-gray-900 h-max px-6 py-4 shadow-md">
-				<Link to={`/user/${userData.username}/profile`}><h1 className="mb-2 cursor-pointer text-lg font-normal">My Profile</h1></Link>
-				<Link to={`/user/${userData.username}/profile/folders`}><h1 className="cursor-pointer text-sm mb-2 font-light">Manage Folders</h1></Link>
-				<Link to={`/user/${userData.username}/profile/delete`}><h1 className="cursor-pointer text-sm font-light">Delete Account</h1></Link>
+				<h1 className="cursor-pointer mb-2 text-lg font-normal">Settings</h1>
+				<Link to={`/user/${userData.username}/profile`}><h1 className="my-2 ml-2 text-sm font-light hover:text-red-600">My Profile</h1></Link>
+				<Link to={`/user/${userData.username}/profile/folders`}><h1 className="cursor-pointer my-2 ml-2 text-sm font-light hover:text-red-600">Manage Folders</h1></Link>
+				<Link to={`/user/${userData.username}/profile/delete`}><h1 className="cursor-pointer my-2 ml-2 text-sm font-light hover:text-red-600">Delete Account</h1></Link>
 			</div>
-			<div className="sm:hidden bg-gray-900 -mt-4 w-full py-2 shadow-lg flex justify-around items-center">
+			<div className="sm:hidden bg-gray-900 -mt-4 w-full py-2 shadow-lg flex flex-col justify-around items-center">
+				<h1 className="mb-2 text-md font-normal">Settings</h1>
 				<label className="hidden" htmlFor="pageSelect">Page Select</label>
-				<select name="pageSelect" onChange={handleChange} className="bg-transparent w-3/4 tracking-widest">
+				<select name="pageSelect" onChange={handleChange} className="form-select bg-transparent w-3/4 py-2 mb-2 tracking-widest">
 					<option value="profile">Profile Details</option>
 					<option value="folders">Manage Folders</option>
 					<option value="delete-account">Delete Account</option>

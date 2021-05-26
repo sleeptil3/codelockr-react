@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../Pages/User/User'
 import hljs from 'highlight.js';
@@ -19,7 +19,7 @@ export default function Snippet({ parentFolder, readOnly, title, code, isPrivate
 		setSnippetSubmitMode('PUT')
 	}
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		hljs.highlightAll()
 	}, [])
 
