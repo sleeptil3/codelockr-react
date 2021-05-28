@@ -78,7 +78,7 @@ export default function Home() {
 			</div>
 			<div data-aos="fade-up" className="mt-8 relative w-full p-7">
 				<div className="tracking-wide container text-sm sm:text-md space-y-4 sm:space-y-6 mx-auto sm:px-8 lg:px-24 text-center md:text-left">
-					<h1 className="text-left text-3xl font-normal md:text-4xl mb-4">What is the <span className="tracking-wider font-black">CODELOCKR</span> experience?</h1>
+					<h1 className="text-left text-3xl font-normal md:text-4xl mb-4 text-center">What is the <span className="tracking-wider font-black">CODELOCKR</span> experience?</h1>
 					<div className="flex flex-col md:flex-row-reverse items-center justify-center space-y-6">
 						<div className="md:ml-6">
 							<p className="font-bold text-xl sm:text-2xl pt-4">The Snippet</p>
