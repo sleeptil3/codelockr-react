@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, createContext } from 'react'
 import { Route, Switch, useHistory } from 'react-router-dom'
 import Landing from './Pages/Landing/Landing'
 import Admin from './Pages/Admin/Admin'
 import User from './Pages/User/User'
-export const DataContext = React.createContext()
+export const DataContext = createContext()
 
 export default function App() {
 	const [showRegistration, setShowRegistration] = useState(false)

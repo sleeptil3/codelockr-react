@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, createContext } from 'react'
 import { DataContext } from '../../App'
 import { Switch, Route } from 'react-router-dom'
 import { getUserData } from '../../API/apiData'
@@ -8,7 +8,7 @@ import Dashboard from './LockrRoom/Dashboard'
 import Header from '../../Components/Header'
 import Footer from '../../Components/Footer'
 import loading from '../../images/loading.gif'
-export const UserContext = React.createContext()
+export const UserContext = createContext()
 
 export default function User() {
 	const { handleLogout, BASE_URL } = useContext(DataContext)
