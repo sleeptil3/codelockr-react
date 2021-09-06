@@ -1,5 +1,6 @@
 module.exports = {
 	purge: {
+		enable: false,
 		content: [
 			'./src/**.js',
 			'./src/**/*.js',
@@ -10,8 +11,8 @@ module.exports = {
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		fontFamily: {
-			'redHat': ['"Red Hat Display"', 'sans-serif'],
-			'mono': ['Source Code Pro', 'monospace']
+			'redHat': [ '"Red Hat Display"', 'sans-serif' ],
+			'mono': [ 'Source Code Pro', 'monospace' ]
 		},
 		fontWeight: {
 			thin: 400,

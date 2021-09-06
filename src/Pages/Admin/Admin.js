@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { DataContext } from '../../App'
 import AdminDashboard from "./Dashboard/AdminDashboard"
@@ -9,22 +9,24 @@ import loading from '../../images/loading.gif'
 
 export default function Admin() {
 	const { loggedIn, handleLogout, BASE_URL } = useContext(DataContext)
-	const [userData, setUserData] = useState({})
-	const [pageSelect, setPageSelect] = useState('dashboard')
+	const [ userData, setUserData ] = useState({})
+	const [ pageSelect, setPageSelect ] = useState('dashboard')
+
+	const setupUserCallback = useCallback(
+		async () => {
+			const data = await getUserData(BASE_URL, window.localStorage.getItem("username"), window.localStorage.getItem("token"))
+			setUserData({ ...data })
+		},
+		[ BASE_URL ],
+	)
 
 	useEffect(() => {
-		const username = window.localStorage.getItem("username")
-		const token = window.localStorage.getItem("token")
-		const setData = async () => {
-			const data = await getUserData(BASE_URL, username, token)
-			setUserData({ ...data })
-		}
-		setData()
-	}, [])
+		setupUserCallback()
+	}, [ setupUserCallback ])
 
 	if (loggedIn.state === false) return (
 		<div className="h-screen flex justify-center items-center">
-			<img className="h-20" src={loading} alt="animated loading graphic" />
+			<img className="h-20" src={ loading } alt="animated loading graphic" />
 		</div>
 	)
 	if (!loggedIn.isAdmin) return (
@@ -39,9 +41,9 @@ export default function Admin() {
 		return (
 			<div className="w-screen min-h-screen flex flex-col justify-between tracking-widest ">
 				<div>
-					<AdminHeader setPageSelect={setPageSelect} userData={userData} handleLogout={handleLogout} />
+					<AdminHeader setPageSelect={ setPageSelect } userData={ userData } handleLogout={ handleLogout } />
 					<main className="relative z-0 mt-6 text-gray-50 ">
-						<AdminDashboard pageSelect={pageSelect} setPageSelect={setPageSelect} />
+						<AdminDashboard pageSelect={ pageSelect } setPageSelect={ setPageSelect } />
 					</main>
 				</div>
 				<Footer />

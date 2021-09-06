@@ -4,16 +4,15 @@ import { getAdminCounts } from '../../../API/apiData'
 
 export default function AdminStats() {
 	const { BASE_URL } = useContext(DataContext)
-	const [countData, setCountData] = useState({})
+	const [ countData, setCountData ] = useState({})
 
 	useEffect(() => {
-		const token = window.localStorage.getItem('token')
 		const fetchData = async () => {
-			const data = await getAdminCounts(BASE_URL, token)
-			setCountData({ ...countData, ...data })
+			const data = await getAdminCounts(BASE_URL, window.localStorage.getItem('token'))
+			setCountData({ ...data })
 		}
 		fetchData()
-	}, [])
+	}, [ BASE_URL ])
 
 	return (
 		<div className="text-gray-50 mt-8 sm:mt-0">
@@ -23,15 +22,15 @@ export default function AdminStats() {
 						<h2 className="px-12 sm:px-6 text-2xl sm:text-3xl font-bold uppercase sm:mt-0">Stats</h2>
 						<div className="px-12 flex space-x-5 justify-between items-baseline">
 							<h3 className="text-xl sm:text-2xl">User Count:</h3>
-							<h4 className="text-xl sm:text-2xl font-black">{countData.userCount}</h4>
+							<h4 className="text-xl sm:text-2xl font-black">{ countData.userCount }</h4>
 						</div>
 						<div className="px-12 flex space-x-5 justify-between items-baseline">
 							<h3 className="text-xl sm:text-2xl">Snippet Count:</h3>
-							<h4 className="text-xl sm:text-2xl font-black">{countData.snippetCount}</h4>
+							<h4 className="text-xl sm:text-2xl font-black">{ countData.snippetCount }</h4>
 						</div>
 						<div className="px-12 flex space-x-5 justify-between items-baseline">
 							<h3 className="text-xl sm:text-2xl">Folder Count:</h3>
-							<h4 className="text-xl sm:text-2xl font-black">{countData.folderCount}</h4>
+							<h4 className="text-xl sm:text-2xl font-black">{ countData.folderCount }</h4>
 						</div>
 					</div>
 				</div>

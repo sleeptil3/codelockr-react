@@ -4,16 +4,16 @@ import { UserContext } from '../../Pages/User/User'
 import { requestFriend } from '../../API/apiData'
 
 export default function AddFriend({ username, setShowAddFriend }) {
-	const [formData, setFormData] = useState({ username: '' })
+	const [ formData, setFormData ] = useState({ username: '' })
 	const { BASE_URL } = useContext(DataContext)
-	const { refreshTrigger, setRefreshTrigger } = useContext(UserContext)
-	const [showConfirmation, setShowConfirmation] = useState(false)
-	const [error, setError] = useState(false)
+	const [ showConfirmation, setShowConfirmation ] = useState(false)
+	const [ error, setError ] = useState(false)
 
 	const handleChange = (e) => {
-		setFormData({ ...formData, [e.target.id]: e.target.value })
+		setFormData({ ...formData, [ e.target.id ]: e.target.value })
 	}
 
+	// add friend to requests list
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const token = window.localStorage.getItem('token')
@@ -22,7 +22,6 @@ export default function AddFriend({ username, setShowAddFriend }) {
 			setError(true)
 			setTimeout(() => setError(false), 3000)
 		} else {
-			setRefreshTrigger(!refreshTrigger)
 			setShowConfirmation(true)
 			setTimeout(() => setShowConfirmation(false), 3000)
 		}
@@ -35,14 +34,14 @@ export default function AddFriend({ username, setShowAddFriend }) {
 		return <h2 className="text-sm text-red-500 w-48">User not found</h2>
 	} else {
 		return (
-			<form noValidate onSubmit={handleSubmit}>
+			<form noValidate onSubmit={ handleSubmit }>
 				<div className="font-thin tracking-wider text-xs text-gray-50 flex items-baseline justify-evenly h-full sm:w-48">
 					<label className="">
-						<input onChange={handleChange} value={formData.username} className="p-0 m-0 mt-2 focus:ring-0 border-0 border-b border-gray-200 bg-transparent text-sm font-thin tracking-widest w-full" id="username" type="text" spellCheck={false} autoComplete="off" />
-				Username
-				</label>
+						<input onChange={ handleChange } value={ formData.username } className="p-0 m-0 mt-2 focus:ring-0 border-0 border-b border-gray-200 bg-transparent text-sm font-thin tracking-widest w-full" id="username" type="text" spellCheck={ false } autoComplete="off" />
+						Username
+					</label>
 					<button className="btn-primary p-1 ml-4 text-xs" type="submit">Add</button>
-					<button onClick={() => setShowAddFriend(false)} className="sm:hidden btn-secondary p-1 ml-4 text-xs">Cancel</button>
+					<button onClick={ () => setShowAddFriend(false) } className="sm:hidden btn-secondary p-1 ml-4 text-xs">Cancel</button>
 				</div>
 			</form>
 		)

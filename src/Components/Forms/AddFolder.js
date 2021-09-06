@@ -3,18 +3,19 @@ import { DataContext } from '../../App'
 import { UserContext } from '../../Pages/User/User'
 import { addFolder } from '../../API/apiData'
 
-export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
+export default function AddFolder({ owner, setShowAddFolder, setNewFolder, newFolder }) {
 	const { BASE_URL } = useContext(DataContext)
-	const { setRefreshTrigger, refreshTrigger } = useContext(UserContext)
-	const [formData, setFormData] = useState({
+	const { setSnippetForm, snippetForm } = useContext(UserContext)
+	const [ formData, setFormData ] = useState({
 		title: '',
 		owner: owner
 	})
 
 	const handleChange = (e) => {
-		setFormData({ ...formData, [e.target.id]: e.target.value })
+		setFormData({ ...formData, [ e.target.id ]: e.target.value })
 	}
 
+	// handle adding folder to userData
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const token = window.localStorage.getItem('token')
@@ -25,7 +26,7 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 			owner: owner
 		})
 		setNewFolder({ ...newFolder })
-		setRefreshTrigger(!refreshTrigger)
+		setSnippetForm({ ...snippetForm, parentFolder: newFolder._id })
 		setShowAddFolder(false)
 	}
 
@@ -41,12 +42,12 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 						type="text"
 						spellCheck="false"
 						autoComplete="off"
-						onChange={handleChange}
-						value={formData.title}
+						onChange={ handleChange }
+						value={ formData.title }
 					>
 					</input>
-					<button onClick={handleSubmit} className="btn-primary">Add</button>
-					<button onClick={() => setShowAddFolder(false)} className="btn-secondary">Cancel</button>
+					<button onClick={ handleSubmit } className="btn-primary">Add</button>
+					<button onClick={ () => setShowAddFolder(false) } className="btn-secondary">Cancel</button>
 				</div>
 			</div>
 		</div>
