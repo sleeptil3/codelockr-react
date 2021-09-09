@@ -33,7 +33,7 @@ export default function User() {
 			setUserData({ ...data })
 		}
 		setData()
-	}, [refreshTrigger])
+	}, [refreshTrigger, BASE_URL])
 
 	if (!userData.username) {
 		return <div className="h-screen flex justify-center items-center"><img className="h-20" src={loading} alt="animated loading graphic" /></div>

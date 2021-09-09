@@ -13,7 +13,7 @@ export default function AdminStats() {
 			setCountData({ ...countData, ...data })
 		}
 		fetchData()
-	}, [])
+	}, [BASE_URL, countData])
 
 	return (
 		<div className="text-gray-50 mt-8 sm:mt-0">

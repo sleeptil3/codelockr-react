@@ -87,7 +87,7 @@ export default function SnippetForm() {
 
 	useEffect(() => {
 		if (newFolder) setSnippetForm({ ...snippetForm, parentFolder: newFolder._id })
-	}, [newFolder])
+	}, [newFolder, setSnippetForm, snippetForm])
 
 	return (
 		<form noValidate className="mx-4 sm:ml-10 mt-5 sm:mb-14 sm:w-3/4 space-y-4 text-sm sm:text-base" onSubmit={handleErrors}>

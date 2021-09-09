@@ -20,7 +20,7 @@ export default function UserList() {
 			setAllUsers([...data])
 		}
 		fetchData()
-	}, [])
+	}, [BASE_URL])
 
 	return (
 		<div className="mb-10">

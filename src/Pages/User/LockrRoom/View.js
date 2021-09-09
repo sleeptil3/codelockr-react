@@ -29,12 +29,12 @@ export default function View({ filter, setFilter }) {
 			getSnippets()
 		}
 		window.scrollTo(0, 0)
-	}, [userData])
+	}, [userData, BASE_URL])
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
 		setFilter('')
-	}, [])
+	}, [setFilter])
 
 	return (
 		<div className="mt-4 sm:mt-0 sm:ml-2">
