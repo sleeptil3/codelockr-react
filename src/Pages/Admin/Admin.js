@@ -20,7 +20,7 @@ export default function Admin() {
 			setUserData({ ...data })
 		}
 		setData()
-	}, [])
+	}, [BASE_URL])
 
 	if (loggedIn.state === false) return (
 		<div className="h-screen flex justify-center items-center">

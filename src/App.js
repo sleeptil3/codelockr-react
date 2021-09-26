@@ -57,7 +57,7 @@ export default function App() {
 				lastName: ""
 			})
 		}
-	}, [localStorage])
+	}, [])
 
 	return (
 		<div>

@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { useContext, useState, useEffect, useLayoutEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Snippet from '../../../Components/Snippet'
 import { getAllSnippets } from '../../../API/apiData'
@@ -7,7 +7,7 @@ import { UserContext } from '../User'
 import { DataContext } from '../../../App'
 
 export default function SnippetView() {
-	const { userData, filter, refreshTrigger } = useContext(UserContext)
+	const { userData, filter } = useContext(UserContext)
 	const { BASE_URL } = useContext(DataContext)
 	const [snippetData, setSnippetData] = useState([])
 	const [search, setSearch] = useState("")
@@ -30,7 +30,7 @@ export default function SnippetView() {
 		}
 		getSnippets()
 		window.scrollTo(0, 0)
-	}, [filter, userData, history])
+	}, [filter, userData, history, BASE_URL])
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
