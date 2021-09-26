@@ -14,11 +14,6 @@ You can also buddy-up with friends or co-worders and share Snippets in the CODEL
 
 Codelockr was built on the backend using MongoDB and Express and the front end was built using React. The styling was done using TailwindCSS.
 
-### Languages
-- JavaScript 67.3%
-- CSS 32.4%
-- HTML 0.3%
-
 ### Feature Dependancies & Libraries Used
 - [Animate on Scroll - aos](https://github.com/michalsnik/aos)
 - [highlight.js](https://highlightjs.org/)
