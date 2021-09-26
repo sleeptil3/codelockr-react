@@ -31,8 +31,8 @@
 			"react-app/jest"
 		],
 		"rules": {
-  "no-control-regex": 0
-}
+			"no-control-regex": 0
+		}
 	},
 	"browserslist": {
 		"production": [
