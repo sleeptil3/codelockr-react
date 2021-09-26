@@ -19,10 +19,10 @@ Codelockr was built on the backend using MongoDB and Express and the front end w
 - [highlight.js](https://highlightjs.org/)
 - [TailwindCSS](https://tailwindcss.com/)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ce35992a-2def-4b6f-838d-46c2c292c9c9/deploy-status)](https://app.netlify.com/sites/codelockr/deploys)
-
-##f Version History
+## Version History
 
 - **v1.0.1** (9/26/21)
   - Added button to copy code to clipboard
   - Feature developed by [metzgegu](https://github.com/metzgegu) | Portfolio: [Guillaume Metzger](https://guillaumemetzger.fr)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ce35992a-2def-4b6f-838d-46c2c292c9c9/deploy-status)](https://app.netlify.com/sites/codelockr/deploys)
