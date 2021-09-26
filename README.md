@@ -21,8 +21,14 @@ Codelockr was built on the backend using MongoDB and Express and the front end w
 
 ## Version History
 
+- **v1.0.2** (9/26/21)
+  - Fixed issue with highlightJS performance
+
 - **v1.0.1** (9/26/21)
   - Added button to copy code to clipboard
   - Feature developed by [metzgegu](https://github.com/metzgegu) | Portfolio: [Guillaume Metzger](https://guillaumemetzger.fr)
+
+- **v1.0** (5/25/21)
+  - Launched Codelockr to the world as a capstone project completing my General Assembly Software Engineering Immersive Bootcamp program!
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ce35992a-2def-4b6f-838d-46c2c292c9c9/deploy-status)](https://app.netlify.com/sites/codelockr/deploys)
