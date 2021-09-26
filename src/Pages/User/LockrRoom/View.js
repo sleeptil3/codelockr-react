@@ -1,9 +1,10 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useLayoutEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Snippet from '../../../Components/Snippet'
 import { getFriendSnippets } from '../../../API/apiData'
 import { UserContext } from '../User'
 import { DataContext } from '../../../App'
+import hljs from 'highlight.js';
 
 export default function View({ friendFilter, setFriendFilter }) {
 	const { userData, friendsList } = useContext(UserContext)
@@ -36,6 +37,10 @@ export default function View({ friendFilter, setFriendFilter }) {
 		window.scrollTo(0, 0)
 		setFriendFilter('')
 	}, [ setFriendFilter, history ])
+
+	useLayoutEffect(() => {
+		hljs.highlightAll()
+	}, [ friendSnippetData, friendFilter, search ])
 
 	return (
 		<div className="mt-4 sm:mt-0 sm:ml-2">
