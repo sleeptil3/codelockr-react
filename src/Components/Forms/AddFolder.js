@@ -5,7 +5,7 @@ import { addFolder } from '../../API/apiData'
 
 export default function AddFolder({ owner, setShowAddFolder, setNewFolder, newFolder }) {
 	const { BASE_URL } = useContext(DataContext)
-	const { setSnippetForm, snippetForm } = useContext(UserContext)
+	const { setSnippetForm, snippetForm, setRefreshTrigger, refreshTrigger } = useContext(UserContext)
 	const [ formData, setFormData ] = useState({
 		title: '',
 		owner: owner
@@ -27,6 +27,7 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder, newFo
 		})
 		setNewFolder({ ...newFolder })
 		setSnippetForm({ ...snippetForm, parentFolder: newFolder._id })
+		setRefreshTrigger(!refreshTrigger)
 		setShowAddFolder(false)
 	}
 

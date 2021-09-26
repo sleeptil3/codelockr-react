@@ -16,6 +16,7 @@ export default function User() {
 	const [ snippetData, setSnippetData ] = useState([])
 	const [ friendsList, setFriendsList ] = useState([])
 	const [ filter, setFilter ] = useState('')
+	const [ refreshTrigger, setRefreshTrigger ] = useState(false)
 	const [ snippetSubmitMode, setSnippetSubmitMode ] = useState('POST')
 	const [ snippetForm, setSnippetForm ] = useState({
 		title: '',
@@ -25,8 +26,6 @@ export default function User() {
 		notes: '',
 		isPrivate: false
 	})
-
-	console.log(userData)
 
 	useEffect(() => {
 		const setData = async () => {
@@ -38,7 +37,7 @@ export default function User() {
 		}
 		setData()
 		window.scrollTo(0, 0)
-	}, [ BASE_URL ])
+	}, [ BASE_URL, refreshTrigger ])
 
 	if (userData.username === undefined) {
 		return <div className="h-screen flex justify-center items-center"><img className="h-20" src={ loading } alt="animated loading graphic" /></div>
@@ -48,7 +47,7 @@ export default function User() {
 				<div>
 					<Header userData={ userData } handleLogout={ handleLogout } />
 					<main className="relative mt-4 z-0 text-gray-50">
-						<UserContext.Provider value={ { snippetData, setSnippetData, userData, filter, setFilter, snippetSubmitMode, setSnippetSubmitMode, snippetForm, setSnippetForm, friendsList, setFriendsList } }>
+						<UserContext.Provider value={ { refreshTrigger, setRefreshTrigger, snippetData, setSnippetData, userData, filter, setFilter, snippetSubmitMode, setSnippetSubmitMode, snippetForm, setSnippetForm, friendsList, setFriendsList } }>
 							<Switch>
 								<Route path="/user/:username/lockrroom" component={ Dashboard } />
 								<Route path="/user/:username/profile" component={ UserProfile } />

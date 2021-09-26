@@ -1,6 +1,5 @@
 import { useState, useContext } from 'react'
 import { DataContext } from '../../App'
-import { UserContext } from '../../Pages/User/User'
 import { requestFriend } from '../../API/apiData'
 
 export default function AddFriend({ username, setShowAddFriend }) {

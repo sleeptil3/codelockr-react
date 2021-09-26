@@ -3,18 +3,20 @@ import { DataContext } from '../App'
 import { approveFriend, denyFriend } from '../API/apiData'
 
 export default function FriendRequest({ username, request }) {
-	const { BASE_URL } = useContext(DataContext)
+	const { BASE_URL, refreshTrigger, setRefreshTrigger } = useContext(DataContext)
 
 	// handle moving the friend from requests to friends
 	const handleApprove = () => {
 		const token = window.localStorage.getItem('token')
 		approveFriend(BASE_URL, username, token, request._id)
+		setRefreshTrigger(!refreshTrigger)
 	}
 
 	// handle removing the request
 	const handleDeny = () => {
 		const token = window.localStorage.getItem('token')
 		denyFriend(BASE_URL, username, token, request._id)
+		setRefreshTrigger(!refreshTrigger)
 	}
 
 	return (

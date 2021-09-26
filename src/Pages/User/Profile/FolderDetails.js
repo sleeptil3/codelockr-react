@@ -7,7 +7,7 @@ export default function FolderDetails({ folder, username }) {
 	const [ editMode, setEditMode ] = useState(false)
 	const [ deleteMode, setDeleteMode ] = useState(false)
 	const { BASE_URL } = useContext(DataContext)
-	const { userData, setUserData } = useContext(DataContext)
+	const { setFilter, refreshTrigger, setRefreshTrigger } = useContext(UserContext)
 	const [ formData, setFormData ] = useState({ title: "" })
 
 	const handleChange = (e) => {
@@ -20,7 +20,7 @@ export default function FolderDetails({ folder, username }) {
 		e.preventDefault()
 		const token = window.localStorage.getItem('token')
 		await editFolder(BASE_URL, username, token, folder._id, formData)
-		// setUserData({...userData, })
+		setRefreshTrigger(!refreshTrigger)
 		setFormData({ title: "" })
 		setEditMode(false)
 	}
@@ -29,6 +29,8 @@ export default function FolderDetails({ folder, username }) {
 	const handleDelete = async (e) => {
 		const token = window.localStorage.getItem('token')
 		await deleteFolder(BASE_URL, username, token, folder._id)
+		setFilter("")
+		setRefreshTrigger(!refreshTrigger)
 		setDeleteMode(false)
 	}
 

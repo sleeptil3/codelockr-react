@@ -1,7 +1,6 @@
-import { useLayoutEffect, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { UserContext } from '../Pages/User/User'
-import hljs from 'highlight.js';
 
 export default function Snippet({ parentFolder, readOnly, title, code, isPrivate, parseFormat, notes, snippet_id, owner }) {
 	const { setSnippetSubmitMode, userData, setSnippetForm } = useContext(UserContext)
@@ -19,10 +18,6 @@ export default function Snippet({ parentFolder, readOnly, title, code, isPrivate
 		})
 		setSnippetSubmitMode('PUT')
 	}
-
-	useLayoutEffect(() => {
-		hljs.highlightAll()
-	}, [])
 
 	const copySnippet = () => {
 		navigator.clipboard.writeText(code).then(() => {

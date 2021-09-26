@@ -1,7 +1,8 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useLayoutEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Snippet from '../../../Components/Snippet'
 import { UserContext } from '../User'
+import hljs from 'highlight.js';
 
 export default function SnippetView() {
 	const { userData, filter, setFilter, snippetData } = useContext(UserContext)
@@ -13,10 +14,11 @@ export default function SnippetView() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
-		setFilter("")
 	}, [ setFilter, history ])
 
-	console.log(filter)
+	useLayoutEffect(() => {
+		hljs.highlightAll()
+	})
 
 	return (
 		<div className="sm:ml-2">

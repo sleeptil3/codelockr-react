@@ -8,7 +8,7 @@ import { languages } from './languageData'
 
 export default function SnippetForm() {
 	const { BASE_URL } = useContext(DataContext)
-	const { userData, setFilter, snippetForm, setSnippetForm, setSnippetSubmitMode, snippetSubmitMode } = useContext(UserContext)
+	const { userData, setFilter, snippetForm, setSnippetForm, setSnippetSubmitMode, snippetSubmitMode, refreshTrigger, setRefreshTrigger } = useContext(UserContext)
 	const [ showAddFolder, setShowAddFolder ] = useState(false)
 	const [ newFolder, setNewFolder ] = useState()
 	const [ error, setError ] = useState(false)
@@ -61,6 +61,7 @@ export default function SnippetForm() {
 			notes: '',
 			isPrivate: false
 		})
+		setRefreshTrigger(!refreshTrigger)
 		setSnippetSubmitMode('POST')
 		setFilter(snippetForm.parentFolder)
 		history.push(`/user/${ userData.username }/dashboard`)
@@ -79,8 +80,9 @@ export default function SnippetForm() {
 			notes: '',
 			isPrivate: false
 		})
+		setRefreshTrigger(!refreshTrigger)
 		setSnippetSubmitMode('POST')
-		setFilter("")
+		setFilter(snippetForm.parentFolder)
 		history.push(`/user/${ userData.username }/dashboard`)
 	}
 
@@ -145,6 +147,20 @@ export default function SnippetForm() {
 						spellCheck="false"
 						onChange={ handleChange }
 						value={ snippetForm.code }
+						onKeyDown={ e => {
+							if (e.key === 'Tab') {
+								console.log(e)
+								e.preventDefault()
+								const start = e.target.selectionStart
+								if (e.shiftKey === false) {
+									e.target.value = e.target.value.substring(0, start) + "\t" + e.target.value.substring(start)
+									e.target.selectionStart = e.target.selectionEnd = start + 1
+								} else {
+									e.target.value = e.target.value.substring(0, start - 1) + e.target.value.substring(start)
+									e.target.selectionStart = e.target.selectionEnd = start - 1
+								}
+							}
+						} }
 					>
 					</textarea>
 				</label>
