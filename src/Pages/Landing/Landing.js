@@ -27,6 +27,6 @@ export default function Landing() {
 				</main>
 			</div>
 			<Footer />
-		</div >
+		</div>
 	)
 }

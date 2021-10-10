@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Source+Code+Pro:wght@400&display=swap');
-@import url('./highlightjs/styles/ir-black.css');
-@import 'aos/dist/aos.css';
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Source+Code+Pro:wght@400&display=swap");
+@import url("./highlightjs/styles/ir-black.css");
+@import "aos/dist/aos.css";
 
 @tailwind base;
 @tailwind components;
@@ -8,15 +8,15 @@
 
 @layer components {
 	.btn-primary {
-		@apply focus:outline-none text-xs px-3 py-1 cursor-pointer transform transition-transform hover:scale-105 bg-gradient-to-br from-darkBlue to-red-800 tracking-widest rounded-md shadow-md sm:px-8 sm:py-2 sm:text-sm text-gray-50 font-thin
+		@apply focus:outline-none text-xs cursor-pointer transform transition-transform hover:scale-105 bg-gradient-to-br from-darkBlue to-red-800 tracking-widest rounded-md shadow-md sm:text-sm text-gray-50 font-thin px-3 py-1;
 	}
 	.btn-secondary {
-		@apply focus:outline-none text-gray-50 border border-gray-50 hover:bg-darkBlue cursor-pointer text-xs px-3 py-1 transition bg-transparent tracking-widest rounded-md shadow-md font-thin sm:px-4 sm:py-2 sm:text-sm 
+		@apply focus:outline-none text-gray-50 border border-gray-50 hover:bg-darkBlue cursor-pointer text-xs transition bg-transparent tracking-widest rounded-md shadow-md font-thin sm:text-sm px-3 py-1;
 	}
 	input {
-		@apply focus:ring-0 focus:outline-none
+		@apply focus:ring-0 focus:outline-none;
 	}
 	textarea {
-		@apply focus:ring-0 focus:outline-none
+		@apply focus:ring-0 focus:outline-none;
 	}
 }

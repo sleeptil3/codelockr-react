@@ -1,11 +1,11 @@
 // SHOW
 export const getAllUsers = async (BASE_URL, token) => {
 	try {
-		const response = await fetch(`${BASE_URL}/admin/users`, {
+		const response = await fetch(`${ BASE_URL }/admin/users`, {
 			method: 'GET',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -17,11 +17,11 @@ export const getAllUsers = async (BASE_URL, token) => {
 
 export const getUserData = async (BASE_URL, username, token) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }`, {
 			method: 'GET',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -33,11 +33,11 @@ export const getUserData = async (BASE_URL, username, token) => {
 
 export const getAllSnippets = async (BASE_URL, username, token, user_id) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/${user_id}/allsnippets`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/${ user_id }/allsnippets`, {
 			method: 'GET',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -49,11 +49,11 @@ export const getAllSnippets = async (BASE_URL, username, token, user_id) => {
 
 export const getFriendSnippets = async (BASE_URL, username, token) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/friendsnippets`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/friendsnippets`, {
 			method: 'GET',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -65,11 +65,11 @@ export const getFriendSnippets = async (BASE_URL, username, token) => {
 
 export const getAdminCounts = async (BASE_URL, token) => {
 	try {
-		const response = await fetch(`${BASE_URL}/admin/count`, {
+		const response = await fetch(`${ BASE_URL }/admin/count`, {
 			method: 'GET',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -83,7 +83,7 @@ export const getAdminCounts = async (BASE_URL, token) => {
 export const createUser = async (BASE_URL, formData) => {
 	const body = { ...formData }
 	try {
-		const response = await fetch(`${BASE_URL}/register`, {
+		const response = await fetch(`${ BASE_URL }/register`, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json"
@@ -100,11 +100,11 @@ export const createUser = async (BASE_URL, formData) => {
 export const createSnippet = async (BASE_URL, username, token, formData, user_id) => {
 	const body = { ...formData, owner: user_id }
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/${formData.parentFolder}/addsnippet`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/${ formData.parentFolder }/addsnippet`, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			},
 			body: JSON.stringify(body)
 		})
@@ -120,11 +120,11 @@ export const createSnippet = async (BASE_URL, username, token, formData, user_id
 export const addFolder = async (BASE_URL, username, token, formData) => {
 	const body = { ...formData }
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/addfolder`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/addfolder`, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			},
 			body: JSON.stringify(body)
 		})
@@ -140,11 +140,11 @@ export const addFolder = async (BASE_URL, username, token, formData) => {
 export const editSnippet = async (BASE_URL, username, token, formData) => {
 	const body = { ...formData }
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/snippets/${formData.snippet_id}/edit`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/snippets/${ formData.snippet_id }/edit`, {
 			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			},
 			body: JSON.stringify(body)
 		})
@@ -158,11 +158,11 @@ export const editSnippet = async (BASE_URL, username, token, formData) => {
 export const editUser = async (BASE_URL, username, token, formData) => {
 	const body = { ...formData }
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/edit`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/edit`, {
 			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			},
 			body: JSON.stringify(body)
 		})
@@ -176,11 +176,11 @@ export const editUser = async (BASE_URL, username, token, formData) => {
 export const editFolder = async (BASE_URL, username, token, folder_id, formData) => {
 	const body = { ...formData }
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/folders/${folder_id}/edit`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/folders/${ folder_id }/edit`, {
 			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			},
 			body: JSON.stringify(body)
 		})
@@ -193,11 +193,11 @@ export const editFolder = async (BASE_URL, username, token, folder_id, formData)
 
 export const approveFriend = async (BASE_URL, username, token, friend_id) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/approvefriend/${friend_id}`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/approvefriend/${ friend_id }`, {
 			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -209,11 +209,11 @@ export const approveFriend = async (BASE_URL, username, token, friend_id) => {
 
 export const denyFriend = async (BASE_URL, username, token, friend_id) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/denyfriend/${friend_id}`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/denyfriend/${ friend_id }`, {
 			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -225,11 +225,11 @@ export const denyFriend = async (BASE_URL, username, token, friend_id) => {
 
 export const requestFriend = async (BASE_URL, username, token, friend_username) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/addfriend/${friend_username}`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/addfriend/${ friend_username }`, {
 			method: 'PUT',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -239,15 +239,39 @@ export const requestFriend = async (BASE_URL, username, token, friend_username) 
 	}
 }
 
+export const forgotPassword = async (BASE_URL, PWR_USER, PWR_PASS, userEmail) => {
+	try {
+		const res = await fetch(`${ BASE_URL }/pwr/auth`, {
+			method: 'POST',
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: {
+				"PWR_USER": PWR_USER,
+				"PWR_PASS": PWR_PASS,
+				"userEmail": userEmail
+			}
+		})
+		const data = res.json()
+		if (data.error) {
+			console.error("Error: forgotPassword error message from codelockr-api", data)
+			return data
+		}
+		else return data
+	} catch (error) {
+		console.error("Error: forgotPassword failed (codelockr-react)", error)
+	}
+}
+
 // DELETE
 
 export const deleteSnippet = async (BASE_URL, username, token, snippet_id) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/snippets/${snippet_id}/delete`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/snippets/${ snippet_id }/delete`, {
 			method: 'DELETE',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -259,11 +283,11 @@ export const deleteSnippet = async (BASE_URL, username, token, snippet_id) => {
 
 export const deleteFolder = async (BASE_URL, username, token, folder_id) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/folders/${folder_id}/delete`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/folders/${ folder_id }/delete`, {
 			method: 'DELETE',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
@@ -275,11 +299,11 @@ export const deleteFolder = async (BASE_URL, username, token, folder_id) => {
 
 export const deleteUser = async (BASE_URL, username, token) => {
 	try {
-		const response = await fetch(`${BASE_URL}/user/${username}/delete/`, {
+		const response = await fetch(`${ BASE_URL }/user/${ username }/delete/`, {
 			method: 'DELETE',
 			headers: {
 				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${ token }`
 			}
 		})
 		const data = await response.json()
