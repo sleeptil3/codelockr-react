@@ -20,3 +20,13 @@
 		@apply focus:ring-0 focus:outline-none;
 	}
 }
+
+@layer utilities {
+	@variants responsive {
+		.cs-border-outset {
+			border-style: outset;
+			border-color: rgba(220, 38, 38, 0.4);
+			border-width: 7px;
+		}
+	}
+}

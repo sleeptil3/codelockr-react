@@ -85,7 +85,7 @@ export default function LoginForm({ setSlide }) {
 	}
 
 	return (
-		<div>
+		<div className="">
 			{ loggingIn && (
 				<div className="ml-10 mt-4 flex flex-col items-center">
 					<h1 className="text-lg">Signing In</h1>
@@ -95,7 +95,7 @@ export default function LoginForm({ setSlide }) {
 			) }
 			{ !hideLogin && (
 				<form noValidate onSubmit={ handleSubmit }>
-					<div className="flex flex-col items-start space-y-2 justify-center">
+					<div className="flex flex-col items-start space-y-2 justify-center -mt-7 md:-mt-2">
 						{ error ? <h3 className="font-bold text-red-600">Error: Username or Password incorrect</h3> : null }
 						<label className="w-full text-gray-50 tracking-wider">
 							Username:
@@ -155,8 +155,8 @@ export default function LoginForm({ setSlide }) {
 			) }
 			{ showForgotPw && (
 				<form noValidate onSubmit={ handlePwReset }>
-					<div className="">
-						<p className="font-bold text-base sm:text-base pb-2 -mt-3">Forgot Password?</p>
+					<div className="-mt-6">
+						<p className="font-bold text-base sm:text-base pb-2">Forgot Password?</p>
 						<p className="pb-4">Kindly provide the email you used when you created your account, and provided no tomfoolery is afoot, you will receive a temporary password in your inbox!</p>
 					</div>
 					<div className="flex flex-col items-start space-y-2 justify-center">
