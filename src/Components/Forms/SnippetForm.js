@@ -9,9 +9,9 @@ import { languages } from './languageData'
 export default function SnippetForm() {
 	const { BASE_URL } = useContext(DataContext)
 	const { userData, setFilter, snippetForm, setSnippetForm, setSnippetSubmitMode, snippetSubmitMode, refreshTrigger, setRefreshTrigger } = useContext(UserContext)
-	const [ showAddFolder, setShowAddFolder ] = useState(false)
-	const [ newFolder, setNewFolder ] = useState()
-	const [ error, setError ] = useState(false)
+	const [showAddFolder, setShowAddFolder] = useState(false)
+	const [newFolder, setNewFolder] = useState()
+	const [error, setError] = useState(false)
 	const history = useHistory()
 
 	const handleChange = (e) => {
@@ -19,7 +19,7 @@ export default function SnippetForm() {
 			setSnippetForm({ ...snippetForm, isPrivate: e.target.checked })
 		} else {
 			const { id, value } = e.target
-			setSnippetForm({ ...snippetForm, [ id ]: value })
+			setSnippetForm({ ...snippetForm, [id]: value })
 		}
 	}
 
@@ -149,7 +149,6 @@ export default function SnippetForm() {
 						value={ snippetForm.code }
 						onKeyDown={ e => {
 							if (e.key === 'Tab') {
-								console.log(e)
 								e.preventDefault()
 								const start = e.target.selectionStart
 								if (e.shiftKey === false) {
