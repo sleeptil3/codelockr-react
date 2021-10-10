@@ -241,16 +241,17 @@ export const requestFriend = async (BASE_URL, username, token, friend_username) 
 
 export const forgotPassword = async (BASE_URL, PWR_USER, PWR_PASS, userEmail) => {
 	try {
+		const body = {
+			"PWR_USER": PWR_USER,
+			"PWR_PASS": PWR_PASS,
+			"userEmail": userEmail
+		}
 		const res = await fetch(`${ BASE_URL }/pwr/auth`, {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: {
-				"PWR_USER": PWR_USER,
-				"PWR_PASS": PWR_PASS,
-				"userEmail": userEmail
-			}
+			body: JSON.stringify(body)
 		})
 		const data = res.json()
 		if (data.error) {
