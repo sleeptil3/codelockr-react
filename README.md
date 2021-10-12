@@ -21,6 +21,10 @@ Codelockr was built on the backend using MongoDB and Express and the front end w
 
 ## Version History
 
+- **v1.1.0** (10/10/2021)
+  - Added password reset feature
+  - Some small UI tweaks
+
 - **v1.0.2** (9/26/21)
   - Fixed issue with highlightJS performance
 
