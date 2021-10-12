@@ -1,18 +1,16 @@
 module.exports = {
-	purge: {
-		enable: false,
-		content: [
-			'./src/**.js',
-			'./src/**/*.js',
-			'./src/**/**/*.js',
-			'./public/index.html'
-		],
-	},
+	purge: [
+		'./src/**.js',
+		'./src/**/*.js',
+		'./src/**/**/*.js',
+		'./public/index.html'
+	],
+	mode: 'jit',
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		fontFamily: {
-			'redHat': [ '"Red Hat Display"', 'sans-serif' ],
-			'mono': [ 'Source Code Pro', 'monospace' ]
+			'redHat': ['"Red Hat Display"', 'sans-serif'],
+			'mono': ['Oxygen Mono', 'monospace']
 		},
 		fontWeight: {
 			thin: 400,
