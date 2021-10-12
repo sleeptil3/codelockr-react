@@ -88,7 +88,7 @@ export default function LoginForm({ setSlide }) {
 		<div className="">
 			{ loggingIn && (
 				<div className="ml-10 mt-4 flex flex-col items-center">
-					<h1 className="text-lg">Signing In</h1>
+					<h1 className="text-base">Signing In</h1>
 					<img className="h-20 flex-shrink-0 flex-grow-0" src={ loading } alt="animated loading graphic" />
 					<h1 className="text-md">Sit tight...gathering your stuff.</h1>
 				</div>
@@ -101,7 +101,7 @@ export default function LoginForm({ setSlide }) {
 							Username:
 							<input
 								autoCapitalize="off"
-								className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-sm sm:text-base"
+								className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-xs sm:text-sm"
 								onChange={ handleChange }
 								value={ formData.username }
 								id="username"
@@ -112,7 +112,7 @@ export default function LoginForm({ setSlide }) {
 						<label className="w-full text-gray-50 tracking-wider">
 							Password:
 							<input
-								className="focus:ring-0 w-full px-2 py-1 mb-2 text-gray-900 text-sm sm:text-base"
+								className="focus:ring-0 w-full px-2 py-1 mb-2 text-gray-900 text-xs sm:text-sm"
 								onChange={ handleChange }
 								value={ formData.password }
 								id="password"
@@ -156,7 +156,7 @@ export default function LoginForm({ setSlide }) {
 			{ showForgotPw && (
 				<form noValidate onSubmit={ handlePwReset }>
 					<div className="-mt-6">
-						<p className="font-bold text-base sm:text-base pb-2">Forgot Password?</p>
+						<p className="font-bold text-sm sm:text-sm pb-2">Forgot Password?</p>
 						<p className="pb-4">Kindly provide the email you used when you created your account, and provided no tomfoolery is afoot, you will receive a temporary password in your inbox!</p>
 					</div>
 					<div className="flex flex-col items-start space-y-2 justify-center">
@@ -164,7 +164,7 @@ export default function LoginForm({ setSlide }) {
 							Email Address:
 							<input
 								autoCapitalize="off"
-								className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-sm sm:text-base"
+								className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-xs sm:text-sm"
 								onChange={ handlePwForm }
 								value={ emailFormData }
 								id="userEmail"

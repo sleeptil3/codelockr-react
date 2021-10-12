@@ -6,8 +6,8 @@ import AddFriend from '../../../Components/Forms/AddFriend'
 
 export default function Dashboard() {
 	const { userData, friendsList } = useContext(UserContext)
-	const [ friendFilter, setFriendFilter ] = useState('')
-	const [ showAddFriend, setShowAddFriend ] = useState(false)
+	const [friendFilter, setFriendFilter] = useState('')
+	const [showAddFriend, setShowAddFriend] = useState(false)
 
 	const handleFilter = (e) => {
 		if (e.target.type === 'select-one') setFriendFilter(e.target.value)
@@ -18,11 +18,11 @@ export default function Dashboard() {
 		<div className="flex sm:flex-row flex-col justify-start items-start w-screen">
 			<div className="sm:ml-5 w-screen sm:w-auto">
 				<div className="hidden sm:block bg-gray-900 w-full space-y-4 flex-col px-8 py-4 shadow-lg flex-shrink-0">
-					<h2 className="cursor-pointer text-lg font-normal" onClick={ () => setFriendFilter('') }>View All</h2>
+					<h2 className="cursor-pointer text-base font-normal" onClick={ () => setFriendFilter('') }>View All</h2>
 					{ friendsList.length ?
 						<div>
 							<h3 className="text-md font-normal">Friends</h3>
-							<ul className="ml-2 text-sm space-y-1">
+							<ul className="ml-2 text-xs space-y-1">
 								{ friendsList.sort((a, b) => a.lastName.toUpperCase() < b.lastName.toUpperCase() ? -1 : 1).map(friend => {
 									return <li className={ `my-1 cursor-pointer py-1 px-2 w-max ${ friendFilter === friend._id ? 'bg-gradient-to-tr from-darkBlue to-red-800 text-gray-50 rounded-md' : 'hover:text-red-600 ' }` } id={ friend._id } onClick={ handleFilter } key={ friend._id }>{ friend.firstName } { friend.lastName }</li>
 								}) }
@@ -42,7 +42,7 @@ export default function Dashboard() {
 				{ userData.friendRequestsReceived.length ?
 					<div className="bg-gray-900 sm:mt-4 w-full space-y-4 flex flex-col px-8 pt-2 pb-2 sm:py-4 shadow-lg flex-shrink-0">
 						<h2 className="cursor-pointer text-md font-normal">Friend Requests</h2>
-						<ul className="ml-2 text-sm space-y-1">
+						<ul className="ml-2 text-xs space-y-1">
 							{ userData.friendRequestsReceived.map(request => {
 								return <FriendRequest key={ userData._id } username={ userData.username } request={ request } />
 							}) }
@@ -50,7 +50,7 @@ export default function Dashboard() {
 					</div>
 					: null }
 				<div className="bg-gray-900 sm:mt-4 w-full space-y-1 flex flex-col px-8 py-4 shadow-lg flex-shrink-0">
-					<h2 onClick={ () => setShowAddFriend(true) } className="cursor-pointer text-sm sm:text-md font-normal"><span className="sm:hidden">+ </span>Add a friend</h2>
+					<h2 onClick={ () => setShowAddFriend(true) } className="cursor-pointer text-xs sm:text-md font-normal"><span className="sm:hidden">+ </span>Add a friend</h2>
 					{ showAddFriend ?
 						<AddFriend username={ userData.username } setShowAddFriend={ setShowAddFriend } />
 						: null }

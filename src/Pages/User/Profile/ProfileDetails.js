@@ -8,9 +8,9 @@ import PasswordReset from './PasswordReset'
 export default function ProfileDetails() {
 	const { userData } = useContext(UserContext)
 	const { BASE_URL } = useContext(DataContext)
-	const [ editMode, setEditMode ] = useState(false)
-	const [ editPassword, setEditPassword ] = useState(false)
-	const [ formData, setFormData ] = useState({
+	const [editMode, setEditMode] = useState(false)
+	const [editPassword, setEditPassword] = useState(false)
+	const [formData, setFormData] = useState({
 		firstName: userData.firstName,
 		lastName: userData.lastName,
 		username: userData.username,
@@ -19,7 +19,7 @@ export default function ProfileDetails() {
 
 	const handleChange = (e) => {
 		const { id, value } = e.target
-		setFormData({ ...formData, [ id ]: value })
+		setFormData({ ...formData, [id]: value })
 	}
 
 	// check if anything needs handled after changing user data - MAY have to refetch because of username change in the URL
@@ -41,7 +41,7 @@ export default function ProfileDetails() {
 				<div>
 					<form onSubmit={ handleSubmit } className="rounded-lg">
 						<div>
-							<h1 className="mb-6 text-xl font-bold">Profile Details</h1>
+							<h1 className="mb-6 text-lg font-bold">Profile Details</h1>
 						</div>
 						<div className="space-y-4">
 							<ProfileField editMode={ editMode } field="Username" type="text" autoComplete="off" id="username" handleChange={ handleChange } value={ formData.username } data={ userData.username } />
@@ -53,9 +53,9 @@ export default function ProfileDetails() {
 					</form>
 					<div className="flex space-x-7 mt-8 justify-between items-baseline">
 						{ !editMode ? <button onClick={ () => setEditMode(true) } className="btn-primary py-2">Edit Profile</button>
-							: <button onClick={ () => setEditMode(false) } className="btn-secondary py-2 sm:text-base text-xs">Cancel</button>
+							: <button onClick={ () => setEditMode(false) } className="btn-secondary py-2 sm:text-sm text-xs">Cancel</button>
 						}
-						<p className="transition hover:text-red-500 cursor-pointer py-2 sm:text-base text-xs" onClick={ () => setEditPassword(true) }>Reset Password</p>
+						<p className="transition hover:text-red-500 cursor-pointer py-2 sm:text-sm text-xs" onClick={ () => setEditPassword(true) }>Reset Password</p>
 					</div>
 				</div>
 				: <PasswordReset username={ userData.username } setEditPassword={ setEditPassword } BASE_URL={ BASE_URL } />

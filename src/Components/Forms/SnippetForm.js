@@ -87,9 +87,9 @@ export default function SnippetForm() {
 	}
 
 	return (
-		<form noValidate className="mx-4 sm:ml-10 mt-5 sm:mb-14 sm:w-3/4 space-y-4 text-sm sm:text-base" onSubmit={ handleErrors }>
-			<h1 className="text-lg sm:text-2xl font-bold">{ snippetSubmitMode === "POST" ? "Create a New Snippet" : `Edit ${ snippetForm.title }` }</h1>
-			{ error ? <h1 className="text-md sm:text-lg font-normal text-red-600">Please Complete Required Fields</h1> : null }
+		<form noValidate className="mx-4 sm:ml-10 mt-5 sm:mb-14 sm:w-3/4 space-y-4 text-xs sm:text-sm" onSubmit={ handleErrors }>
+			<h1 className="text-base sm:text-xl font-bold">{ snippetSubmitMode === "POST" ? "Create a New Snippet" : `Edit ${ snippetForm.title }` }</h1>
+			{ error ? <h1 className="text-md sm:text-base font-normal text-red-600">Please Complete Required Fields</h1> : null }
 			<div className={ error && !snippetForm.title ? "border-l-4 pl-4 border-red-600" : null }>
 				<label className="block">Title
 					<input
@@ -119,7 +119,7 @@ export default function SnippetForm() {
 						return <option className="" key={ folder._id } value={ folder._id }>{ folder.title }</option>
 					}) }
 				</select>
-				<h3 className="inline cursor-pointer hover:text-red-500 text-xs sm:text-sm" onClick={ () => setShowAddFolder(!showAddFolder) }>{ showAddFolder ? "" : "+ Add Folder" }</h3>
+				<h3 className="inline cursor-pointer hover:text-red-500 text-xs sm:text-xs" onClick={ () => setShowAddFolder(!showAddFolder) }>{ showAddFolder ? "" : "+ Add Folder" }</h3>
 				{ showAddFolder ?
 					<AddFolder owner={ userData._id } setShowAddFolder={ setShowAddFolder } setNewFolder={ setNewFolder } newFolder={ newFolder } /> : "" }
 			</div>
@@ -141,7 +141,7 @@ export default function SnippetForm() {
 			<div className={ error && !snippetForm.code ? "border-l-4 pl-4 border-red-600" : null }>
 				<label className="block">Code
 					<textarea
-						className="text-sm w-full block p-2 h-96 border border-gray-400 rounded-md bg-transparent"
+						className="text-xs w-full block p-2 h-96 border border-gray-400 rounded-md bg-transparent"
 						id="code"
 						type="textArea"
 						spellCheck="false"
@@ -207,7 +207,7 @@ export default function SnippetForm() {
 					}) } className="ml-6 btn-secondary py-2" to={ `/user/${ userData.username }/dashboard/` }>Cancel</Link>
 				</div>
 				<div className="mt-4">
-					{ snippetSubmitMode === "PUT" ? <button onClick={ handleDelete } className="bg-red-800 tracking-widest rounded-md shadow-md px-8 py-2 text-sm text-gray-50 font-thin">Delete</button> : null }
+					{ snippetSubmitMode === "PUT" ? <button onClick={ handleDelete } className="bg-red-800 tracking-widest rounded-md shadow-md px-8 py-2 text-xs text-gray-50 font-thin">Delete</button> : null }
 				</div>
 			</div>
 		</form>

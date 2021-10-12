@@ -1,11 +1,15 @@
 module.exports = {
-	purge: [
-		'./src/**.js',
-		'./src/**/*.js',
-		'./src/**/**/*.js',
-		'./public/index.html'
-	],
-	mode: 'jit',
+	purge: {
+		enable: false,
+		content: [
+			'./src/*.js',
+			'./src/**/*.js',
+			'./src/**/**/*.js',
+			'./src/**/**/**/*.js',
+			'./public/index.html',
+			'./src/index.css'
+		]
+	},
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		fontFamily: {

@@ -20,11 +20,11 @@ export default function UserProfile() {
 	return (
 		<div className="flex sm:flex-row flex-col justify-start items-start w-screen">
 			<div className="hidden sm:block ml-5 flex-shrink-0 bg-gray-900 h-max px-6 py-4 shadow-md">
-				<h1 className="cursor-pointer mb-2 text-lg font-normal">Settings</h1>
-				<Link to={ `/user/${ userData.username }/profile` }><h1 className="my-2 ml-2 text-sm font-light hover:text-red-600">My Profile</h1></Link>
-				<Link to={ `/user/${ userData.username }/profile/folders` }><h1 className="cursor-pointer my-2 ml-2 text-sm font-light hover:text-red-600">Manage Folders</h1></Link>
-				<Link to={ `/user/${ userData.username }/profile/delete` }><h1 className="cursor-pointer my-2 ml-2 text-sm font-light hover:text-red-600">Delete Account</h1></Link>
-				<Link to={ `/user/${ userData.username }/dashboard` }><h1 className="cursor-pointer my-4 text-sm font-normal hover:text-red-600">Back to Dashboard</h1></Link>
+				<h1 className="cursor-pointer mb-2 text-base font-normal">Settings</h1>
+				<Link to={ `/user/${ userData.username }/profile` }><h1 className="my-2 ml-2 text-xs font-light hover:text-red-600">My Profile</h1></Link>
+				<Link to={ `/user/${ userData.username }/profile/folders` }><h1 className="cursor-pointer my-2 ml-2 text-xs font-light hover:text-red-600">Manage Folders</h1></Link>
+				<Link to={ `/user/${ userData.username }/profile/delete` }><h1 className="cursor-pointer my-2 ml-2 text-xs font-light hover:text-red-600">Delete Account</h1></Link>
+				<Link to={ `/user/${ userData.username }/dashboard` }><h1 className="cursor-pointer my-4 text-xs font-normal hover:text-red-600">Back to Dashboard</h1></Link>
 			</div>
 			<div className="sm:hidden bg-gray-900 -mt-4 w-full py-2 shadow-lg flex flex-col justify-around items-center">
 				<h1 className="mb-2 text-md font-normal">Settings</h1>

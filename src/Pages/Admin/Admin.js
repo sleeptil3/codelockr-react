@@ -9,20 +9,20 @@ import loading from '../../images/loading.gif'
 
 export default function Admin() {
 	const { loggedIn, handleLogout, BASE_URL } = useContext(DataContext)
-	const [ userData, setUserData ] = useState({})
-	const [ pageSelect, setPageSelect ] = useState('dashboard')
+	const [userData, setUserData] = useState({})
+	const [pageSelect, setPageSelect] = useState('dashboard')
 
 	const setupUserCallback = useCallback(
 		async () => {
 			const data = await getUserData(BASE_URL, window.localStorage.getItem("username"), window.localStorage.getItem("token"))
 			setUserData({ ...data })
 		},
-		[ BASE_URL ],
+		[BASE_URL],
 	)
 
 	useEffect(() => {
 		setupUserCallback()
-	}, [ setupUserCallback ])
+	}, [setupUserCallback])
 
 	if (loggedIn.state === false) return (
 		<div className="h-screen flex justify-center items-center">
@@ -31,9 +31,9 @@ export default function Admin() {
 	)
 	if (!loggedIn.isAdmin) return (
 		<div className="h-screen flex flex-col justify-center items-center">
-			<h1 className="text-3xl font-bold text-gray-50 uppercase">CODELOCKR</h1>
-			<h1 className="text-xl font-bold text-gray-100 uppercase">NOT AUTHORIZED</h1>
-			<Link to="/" className="text-lg font-thin text-gray-200 hover:text-red-500">Back to login</Link>
+			<h1 className="text-2xl font-bold text-gray-50 uppercase">CODELOCKR</h1>
+			<h1 className="text-lg font-bold text-gray-100 uppercase">NOT AUTHORIZED</h1>
+			<Link to="/" className="text-base font-thin text-gray-200 hover:text-red-500">Back to login</Link>
 
 		</div>
 	)

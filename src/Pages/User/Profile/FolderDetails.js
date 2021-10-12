@@ -4,15 +4,15 @@ import { UserContext } from '../User'
 import { editFolder, deleteFolder } from '../../../API/apiData'
 
 export default function FolderDetails({ folder, username }) {
-	const [ editMode, setEditMode ] = useState(false)
-	const [ deleteMode, setDeleteMode ] = useState(false)
+	const [editMode, setEditMode] = useState(false)
+	const [deleteMode, setDeleteMode] = useState(false)
 	const { BASE_URL } = useContext(DataContext)
 	const { setFilter, refreshTrigger, setRefreshTrigger } = useContext(UserContext)
-	const [ formData, setFormData ] = useState({ title: "" })
+	const [formData, setFormData] = useState({ title: "" })
 
 	const handleChange = (e) => {
 		const { id, value } = e.target
-		setFormData({ ...formData, [ id ]: value })
+		setFormData({ ...formData, [id]: value })
 	}
 
 	// Handle adding the edited folder to the users data
@@ -41,9 +41,9 @@ export default function FolderDetails({ folder, username }) {
 					<svg className="self-center cursor-pointer" id="edit" onClick={ () => setEditMode(true) } width="24" height="26" viewBox="0 0 24 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M4.371 20.0847C4.431 20.0847 4.491 20.0784 4.551 20.069L9.597 19.1432C9.657 19.1306 9.714 19.1024 9.756 19.0553L22.473 5.75237C22.5008 5.72334 22.5229 5.68885 22.5379 5.65089C22.553 5.61293 22.5607 5.57223 22.5607 5.53113C22.5607 5.49003 22.553 5.44933 22.5379 5.41136C22.5229 5.3734 22.5008 5.33891 22.473 5.30988L17.487 0.0910087C17.43 0.0313823 17.355 0 17.274 0C17.193 0 17.118 0.0313823 17.061 0.0910087L4.344 13.394C4.299 13.441 4.272 13.4975 4.26 13.5603L3.375 18.8388C3.34582 19.0069 3.35624 19.1799 3.40538 19.3429C3.45452 19.5058 3.54088 19.6538 3.657 19.774C3.855 19.9748 4.104 20.0847 4.371 20.0847ZM6.393 14.6116L17.274 3.23237L19.473 5.5327L8.592 16.9119L5.925 17.4046L6.393 14.6116ZM23.04 22.7208H0.96C0.429 22.7208 0 23.1695 0 23.725V24.8548C0 24.9928 0.108 25.1058 0.24 25.1058H23.76C23.892 25.1058 24 24.9928 24 24.8548V23.725C24 23.1695 23.571 22.7208 23.04 22.7208Z" fill="white" />
 					</svg>
-					<h2 className="text-lg text-white shadow-sm tracking-widest font-light">{ folder.title }</h2>
+					<h2 className="text-base text-white shadow-sm tracking-widest font-light">{ folder.title }</h2>
 					<h2 className="font-thin text-white">•</h2>
-					<p className="font-thin text-white text-sm">{ !folder.snippets.length ? "Empty" : `${ folder.snippets.length } Snippet` }</p>
+					<p className="font-thin text-white text-xs">{ !folder.snippets.length ? "Empty" : `${ folder.snippets.length } Snippet` }</p>
 				</div>
 				<div className="flex justify-start items-center space-x-4">
 					<svg className="self-center cursor-pointer shadow-lg" id="delete" onClick={ () => setDeleteMode(true) } width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,8 +74,8 @@ export default function FolderDetails({ folder, username }) {
 			{
 				deleteMode ?
 					<div className="sm:ml-5 mt-5 space-y-4 sm:w-max p-5 flex-col items-baseline border-2 rounded-lg shadow border-red-600" onSubmit={ handleSubmit }>
-						<h1 className="sm:text-lg font-bold sm:font-black">Are you sure?</h1>
-						<p className="text-sm sm:text-sm">All snippets inside <span className="font-bold">"{ folder.title }" </span>will be deleted!</p>
+						<h1 className="sm:text-base font-bold sm:font-black">Are you sure?</h1>
+						<p className="text-xs sm:text-xs">All snippets inside <span className="font-bold">"{ folder.title }" </span>will be deleted!</p>
 						<button className="focus:ring-0 btn-primary px-2 py-1 item-grow-0 mt-4 bg-red-600" id="edit" onClick={ handleDelete }>Yes, I'm sure!</button>
 						<button className="focus:ring-0 ml-5 btn-secondary px-2 py-1 item-grow-0" id="delete" onClick={ () => setDeleteMode(false) }>No, cancel!</button>
 					</div>
