@@ -1,4 +1,4 @@
-import {useState, useContext, useRef} from "react"
+import {useState, useContext, useEffect, useRef} from "react"
 import {useHistory, Link} from "react-router-dom"
 import {DataContext} from "../../App"
 import {UserContext} from "../../Pages/User/User"
@@ -180,7 +180,7 @@ export default function SnippetForm() {
 												{language.name}
 											</option>
 										)
-									} else return null
+									}
 								})}
 						</select>
 					)}
