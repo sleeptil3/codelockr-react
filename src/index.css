@@ -9,12 +9,15 @@
 
 @layer components {
 	.btn-primary {
-		@apply focus:outline-none text-xs cursor-pointer transform transition-transform hover:scale-105 bg-gradient-to-br from-darkBlue to-red-800 tracking-widest rounded-md shadow-md sm:text-xs text-gray-50 font-thin px-3 py-1;
+		@apply focus:outline-none px-3 py-1 text-xs sm:text-sm cursor-pointer transform transition-transform hover:scale-105 bg-gradient-to-br from-darkBlue to-red-800 tracking-widest rounded-md shadow-md text-gray-50 font-thin;
 	}
 	.btn-secondary {
-		@apply focus:outline-none text-gray-50 border border-gray-50 hover:bg-darkBlue cursor-pointer text-xs transition bg-transparent tracking-widest rounded-md shadow-md font-thin sm:text-xs px-3 py-1;
+		@apply focus:outline-none px-3 py-1 text-xs sm:text-sm text-gray-50 hover:text-red-500 cursor-pointer transition bg-transparent tracking-widest rounded-md font-thin;
 	}
-	input {
+	.btn-tertiary {
+		@apply focus:outline-none px-3 py-1 border sm:text-sm hover:bg-darkBlue cursor-pointer text-xs transition bg-transparent tracking-widest rounded-md shadow-md font-thin border-darkBlue text-darkBlue hover:text-gray-50;
+	}
+	.input-no-line {
 		@apply focus:ring-0 focus:outline-none;
 	}
 	textarea {
@@ -30,7 +33,6 @@
 		}
 	}
 }
-
 ::-webkit-scrollbar {
 	width: 10px;
 }
