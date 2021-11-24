@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Oxygen+Mono&display=swap");
 
-@import url("./highlightjs/styles/ir-black.css");
+@import url("./highlightjs/styles/night-owl.css");
 @import "aos/dist/aos.css";
 
 @tailwind base;
@@ -28,7 +28,7 @@
 	@variants responsive {
 		.cs-border-outset {
 			border-style: outsetf;
-			border-color: rgba(220, 38, 38, 0.4);
+			border-color: #011627;
 			border-width: 5px;
 		}
 	}
