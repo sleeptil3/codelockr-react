@@ -32,7 +32,10 @@ export default function App() {
 
 	// IF on page load, there is a token in LS, set loggedIn data
 	useEffect(() => {
-		if (window.localStorage.getItem("token") && window.localStorage.getItem("username") === "admin") {
+		if (
+			window.localStorage.getItem("token") &&
+			window.localStorage.getItem("username") === "admin"
+		) {
 			setLoggedIn({
 				state: true,
 				isAdmin: true,
@@ -61,11 +64,20 @@ export default function App() {
 
 	return (
 		<div>
-			<DataContext.Provider value={ { setShowRegistration, showRegistration, loggedIn, setLoggedIn, BASE_URL, handleLogout } }>
+			<DataContext.Provider
+				value={{
+					setShowRegistration,
+					showRegistration,
+					loggedIn,
+					setLoggedIn,
+					BASE_URL,
+					handleLogout,
+				}}
+			>
 				<Switch>
-					<Route path="/admin" component={ Admin } />
-					<Route path="/user" component={ User } />
-					<Route path="/" component={ Landing } />
+					<Route path="/admin" component={Admin} />
+					<Route path="/user" component={User} />
+					<Route path="/" component={Landing} />
 				</Switch>
 			</DataContext.Provider>
 		</div>
