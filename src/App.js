@@ -1,13 +1,17 @@
 import { useState, useEffect, createContext } from "react"
-import { Route, Switch, useHistory } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom"
+
+import { BASE_URL } from "./common/constants"
+
 import Landing from "./Pages/Landing/Landing"
 import Admin from "./Pages/Admin/Admin"
 import User from "./Pages/User/User"
+
 export const DataContext = createContext()
 
 export default function App() {
 	const [showRegistration, setShowRegistration] = useState(false)
-	const history = useHistory()
+	const navigate = useNavigate()
 	const [loggedIn, setLoggedIn] = useState({
 		state: false,
 		isAdmin: false,
@@ -15,8 +19,6 @@ export default function App() {
 		firstName: "",
 		lastName: "",
 	})
-	const BASE_URL = "https://codelockr-api.herokuapp.com"
-	// const BASE_URL = 'http://localhost:3030'
 
 	const handleLogout = () => {
 		window.localStorage.clear()
@@ -27,7 +29,7 @@ export default function App() {
 			firstName: "",
 			lastName: "",
 		})
-		history.push("/")
+		navigate("/")
 	}
 
 	// IF on page load, there is a token in LS, set loggedIn data
@@ -62,23 +64,23 @@ export default function App() {
 		}
 	}, [])
 
+	const AppContextValue = {
+		setShowRegistration,
+		showRegistration,
+		loggedIn,
+		setLoggedIn,
+		BASE_URL,
+		handleLogout,
+	}
+
 	return (
 		<div>
-			<DataContext.Provider
-				value={{
-					setShowRegistration,
-					showRegistration,
-					loggedIn,
-					setLoggedIn,
-					BASE_URL,
-					handleLogout,
-				}}
-			>
-				<Switch>
-					<Route path="/admin" component={Admin} />
-					<Route path="/user" component={User} />
-					<Route path="/" component={Landing} />
-				</Switch>
+			<DataContext.Provider value={AppContextValue}>
+				<Routes>
+					<Route path="/admin/*" element={<Admin />} />
+					<Route path="/user/*" element={<User />} />
+					<Route index path="/" element={<Landing />} />
+				</Routes>
 			</DataContext.Provider>
 		</div>
 	)

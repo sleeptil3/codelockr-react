@@ -1,20 +1,16 @@
 module.exports = {
-	purge: {
-		enable: true,
-		content: [
-			'./src/*.js',
-			'./src/**/*.js',
-			'./src/**/**/*.js',
-			'./src/**/**/**/*.js',
-			'./public/index.html',
-			'./src/index.css'
-		]
-	},
-	darkMode: false, // or 'media' or 'class'
+	content: [
+		"./src/*.js",
+		"./src/**/*.js",
+		"./src/**/**/*.js",
+		"./src/**/**/**/*.js",
+		"./public/index.html",
+		"./src/index.css",
+	],
 	theme: {
 		fontFamily: {
-			'redHat': ['"Red Hat Display"', 'sans-serif'],
-			'mono': ['Oxygen Mono', 'monospace']
+			redHat: ['"Red Hat Display"', "sans-serif"],
+			mono: ["Oxygen Mono", "monospace"],
 		},
 		fontWeight: {
 			thin: 400,
@@ -28,16 +24,13 @@ module.exports = {
 		},
 		extend: {
 			colors: {
-				'darkBlue': '#0B114A',
-			}
+				darkBlue: "#0B114A",
+			},
 		},
 	},
-	variants: {
-		extend: {},
-	},
 	plugins: [
-		require('@tailwindcss/forms')({
-			strategy: 'class',
+		require("@tailwindcss/forms")({
+			strategy: "class",
 		}),
 	],
 }

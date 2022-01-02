@@ -1,20 +1,20 @@
-import {useState, useContext, useEffect, createContext} from "react"
-import {DataContext} from "../../App"
-import {Switch, Route} from "react-router-dom"
-import {getUserData, getAllSnippets} from "../../API/apiData"
+import { useState, useContext, useEffect, createContext } from "react"
+import { DataContext } from "../../App"
+import { Routes, Route } from "react-router-dom"
+import { getUserData, getAllSnippets } from "../../common/api"
 import UserDashboard from "./Dashboard/UserDashboard"
 import UserProfile from "./Profile/UserProfile"
 import Dashboard from "./LockrRoom/Dashboard"
 import Header from "../../Components/Header"
 import Footer from "../../Components/Footer"
-import ellipse2 from "../../images/ellipse-load@2x.png"
-import ellipse3 from "../../images/ellipse-load@3x.png"
-import ellipse from "../../images/ellipse-load.png"
+import ellipse2 from "../../assets/ellipse-load@2x.png"
+import ellipse3 from "../../assets/ellipse-load@3x.png"
+import ellipse from "../../assets/ellipse-load.png"
 
 export const UserContext = createContext()
 
 export default function User() {
-	const {handleLogout, BASE_URL} = useContext(DataContext)
+	const { handleLogout } = useContext(DataContext)
 	const [userData, setUserData] = useState({})
 	const [snippetData, setSnippetData] = useState([])
 	const [friendsList, setFriendsList] = useState([])
@@ -32,20 +32,32 @@ export default function User() {
 
 	useEffect(() => {
 		const setData = async () => {
-			const userInfo = await getUserData(BASE_URL, window.localStorage.getItem("username"), window.localStorage.getItem("token"))
-			setUserData({...userInfo})
-			const snippetInfo = await getAllSnippets(BASE_URL, window.localStorage.getItem("username"), window.localStorage.getItem("token"), userInfo._id)
+			const userInfo = await getUserData(
+				window.localStorage.getItem("username"),
+				window.localStorage.getItem("token")
+			)
+			setUserData({ ...userInfo })
+			const snippetInfo = await getAllSnippets(
+				window.localStorage.getItem("username"),
+				window.localStorage.getItem("token"),
+				userInfo._id
+			)
 			setSnippetData([...snippetInfo])
 			setFriendsList([...userInfo.friends])
 		}
 		setData()
 		window.scrollTo(0, 0)
-	}, [BASE_URL, refreshTrigger])
+	}, [refreshTrigger])
 
 	if (userData.username === undefined) {
 		return (
 			<div className="h-screen w-screen flex justify-center items-center">
-				<img className="animate-spin" src={ellipse} srcSet={`${ellipse2} 2x, ${ellipse3} 3x`} alt="" />
+				<img
+					className="animate-spin"
+					src={ellipse}
+					srcSet={`${ellipse2} 2x, ${ellipse3} 3x`}
+					alt=""
+				/>
 			</div>
 		)
 	} else {
@@ -71,11 +83,11 @@ export default function User() {
 								setFriendsList,
 							}}
 						>
-							<Switch>
-								<Route path="/user/:username/lockrroom" component={Dashboard} />
-								<Route path="/user/:username/profile" component={UserProfile} />
-								<Route path="/user/:username/" component={UserDashboard} />
-							</Switch>
+							<Routes>
+								<Route path=":username/lockrroom/*" element={<Dashboard />} />
+								<Route path=":username/profile/*" element={<UserProfile />} />
+								<Route path=":username/*" element={<UserDashboard />} />
+							</Routes>
 						</UserContext.Provider>
 					</main>
 				</div>

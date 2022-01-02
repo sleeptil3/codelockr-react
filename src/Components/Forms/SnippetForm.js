@@ -1,31 +1,38 @@
-import {useState, useContext, useRef} from "react"
-import {useHistory, Link} from "react-router-dom"
-import {DataContext} from "../../App"
-import {UserContext} from "../../Pages/User/User"
-import {createSnippet, editSnippet, deleteSnippet} from "../../API/apiData"
+import { useState, useContext, useRef } from "react"
+import { useNavigate, Link } from "react-router-dom"
+import { UserContext } from "../../Pages/User/User"
+import { createSnippet, editSnippet, deleteSnippet } from "../../common/api"
 import AddFolder from "./AddFolder"
-import {languages} from "./languageData"
+import { languages } from "./languageData"
 
 export default function SnippetForm() {
-	const {BASE_URL} = useContext(DataContext)
-	const {userData, setFilter, snippetForm, setSnippetForm, setSnippetSubmitMode, snippetSubmitMode, refreshTrigger, setRefreshTrigger} = useContext(UserContext)
+	const {
+		userData,
+		setFilter,
+		snippetForm,
+		setSnippetForm,
+		setSnippetSubmitMode,
+		snippetSubmitMode,
+		refreshTrigger,
+		setRefreshTrigger,
+	} = useContext(UserContext)
 	const [showAddFolder, setShowAddFolder] = useState(false)
 	const [newFolder, setNewFolder] = useState()
 	const [showLangList, setShowLangList] = useState(false)
 	const [error, setError] = useState(false)
-	const history = useHistory()
+	const navigate = useNavigate()
 	const codeText = useRef()
 
-	const handleChange = (e) => {
+	const handleChange = e => {
 		if (e.target.type === "checkbox") {
-			setSnippetForm({...snippetForm, isPrivate: e.target.checked})
+			setSnippetForm({ ...snippetForm, isPrivate: e.target.checked })
 		} else {
-			const {id, value} = e.target
-			setSnippetForm({...snippetForm, [id]: value})
+			const { id, value } = e.target
+			setSnippetForm({ ...snippetForm, [id]: value })
 		}
 	}
 
-	const handleErrors = (e) => {
+	const handleErrors = e => {
 		e.preventDefault()
 		window.scrollTo(0, 0)
 		if (snippetSubmitMode === "PUT") handleSubmit()
@@ -44,15 +51,15 @@ export default function SnippetForm() {
 	}
 
 	//  handle adding the new snippet to the user's snippet data
-	const handleSubmit = (e) => {
-		const snippetData = {...snippetForm}
+	const handleSubmit = e => {
+		const snippetData = { ...snippetForm }
 		snippetData.parseFormat = snippetData.parseFormat.toLowerCase()
 		const token = window.localStorage.getItem("token")
 		if (snippetSubmitMode === "POST") {
-			createSnippet(BASE_URL, userData.username, token, snippetData, userData._id)
+			createSnippet(userData.username, token, snippetData, userData._id)
 		}
 		if (snippetSubmitMode === "PUT") {
-			editSnippet(BASE_URL, userData.username, token, snippetData)
+			editSnippet(userData.username, token, snippetData)
 		}
 		setSnippetForm({
 			title: "",
@@ -65,14 +72,14 @@ export default function SnippetForm() {
 		setRefreshTrigger(!refreshTrigger)
 		setSnippetSubmitMode("POST")
 		setFilter(snippetData.parentFolder)
-		history.push(`/user/${userData.username}/dashboard`)
+		navigate(`/user/${userData.username}/dashboard`)
 	}
 
 	//  handle removing the snippet from the user's snippet data
-	const handleDelete = (e) => {
+	const handleDelete = e => {
 		e.preventDefault()
 		const token = window.localStorage.getItem("token")
-		deleteSnippet(BASE_URL, userData.username, token, snippetForm.snippet_id)
+		deleteSnippet(userData.username, token, snippetForm.snippet_id)
 		setSnippetForm({
 			title: "",
 			parentFolder: "",
@@ -84,13 +91,23 @@ export default function SnippetForm() {
 		setRefreshTrigger(!refreshTrigger)
 		setSnippetSubmitMode("POST")
 		setFilter(snippetForm.parentFolder)
-		history.push(`/user/${userData.username}/dashboard`)
+		navigate(`/user/${userData.username}/dashboard`)
 	}
 
 	return (
-		<form noValidate className="max-w-4xl mx-4 sm:ml-10 mt-5 sm:mb-14 sm:w-3/4 space-y-4 text-xs sm:text-sm" onSubmit={handleErrors}>
-			<h1 className="text-base sm:text-xl font-bold">{snippetSubmitMode === "POST" ? "Create a New Snippet" : `Edit ${snippetForm.title}`}</h1>
-			{error ? <h1 className="text-md sm:text-base font-normal text-red-600">Please Complete Required Fields</h1> : null}
+		<form
+			noValidate
+			className="max-w-4xl mx-4 sm:ml-10 mt-5 sm:mb-14 sm:w-3/4 space-y-4 text-xs sm:text-sm"
+			onSubmit={handleErrors}
+		>
+			<h1 className="text-base sm:text-xl font-bold">
+				{snippetSubmitMode === "POST" ? "Create a New Snippet" : `Edit ${snippetForm.title}`}
+			</h1>
+			{error ? (
+				<h1 className="text-md sm:text-base font-normal text-red-600">
+					Please Complete Required Fields
+				</h1>
+			) : null}
 			<div className={error && !snippetForm.title ? "border-l-4 pl-4 border-red-600" : null}>
 				<label className="block mt-6">
 					<p className="text-lg">Title</p>
@@ -127,7 +144,7 @@ export default function SnippetForm() {
 					)}
 					{userData.folders
 						.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))
-						.map((folder) => {
+						.map(folder => {
 							return (
 								<option className="" key={folder._id} value={folder._id}>
 									{folder.title}
@@ -135,10 +152,22 @@ export default function SnippetForm() {
 							)
 						})}
 				</select>
-				<h3 className="inline cursor-pointer hover:text-red-500 text-xs sm:text-xs" onClick={() => setShowAddFolder(!showAddFolder)}>
+				<h3
+					className="inline cursor-pointer hover:text-red-500 text-xs sm:text-xs"
+					onClick={() => setShowAddFolder(!showAddFolder)}
+				>
 					{showAddFolder ? "" : "+ Add Folder"}
 				</h3>
-				{showAddFolder ? <AddFolder owner={userData._id} setShowAddFolder={setShowAddFolder} setNewFolder={setNewFolder} newFolder={newFolder} /> : ""}
+				{showAddFolder ? (
+					<AddFolder
+						owner={userData._id}
+						setShowAddFolder={setShowAddFolder}
+						setNewFolder={setNewFolder}
+						newFolder={newFolder}
+					/>
+				) : (
+					""
+				)}
 			</div>
 			<div className={error && !snippetForm.parseFormat ? "border-l-4 pl-4 border-red-600" : null}>
 				<label className="block relative">
@@ -164,13 +193,13 @@ export default function SnippetForm() {
 						>
 							{languages
 								.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1))
-								.map((language) => {
+								.map(language => {
 									if (language.name.toUpperCase().includes(snippetForm.parseFormat.toUpperCase())) {
 										return (
 											<option
 												className=""
-												onClick={(e) => {
-													setSnippetForm({...snippetForm, parseFormat: language.name})
+												onClick={e => {
+													setSnippetForm({ ...snippetForm, parseFormat: language.name })
 													codeText.current.focus()
 													setTimeout(() => setShowLangList(false), 0)
 												}}
@@ -199,15 +228,17 @@ export default function SnippetForm() {
 						spellCheck="false"
 						onChange={handleChange}
 						value={snippetForm.code}
-						onKeyDown={(e) => {
+						onKeyDown={e => {
 							if (e.key === "Tab") {
 								e.preventDefault()
 								const start = e.target.selectionStart
 								if (e.shiftKey === false) {
-									e.target.value = e.target.value.substring(0, start) + "\t" + e.target.value.substring(start)
+									e.target.value =
+										e.target.value.substring(0, start) + "\t" + e.target.value.substring(start)
 									e.target.selectionStart = e.target.selectionEnd = start + 1
 								} else {
-									e.target.value = e.target.value.substring(0, start - 1) + e.target.value.substring(start)
+									e.target.value =
+										e.target.value.substring(0, start - 1) + e.target.value.substring(start)
 									e.target.selectionStart = e.target.selectionEnd = start - 1
 								}
 							}
@@ -232,7 +263,10 @@ export default function SnippetForm() {
 			<div className="pt-4">
 				<label className="font-normal block">
 					Sharing Setting
-					<p className="text-md font-thin my-3 text-gray-300">By default, Snippets are shared with your friends. If you wish to make this Snippet private, select the option below.</p>
+					<p className="text-md font-thin my-3 text-gray-300">
+						By default, Snippets are shared with your friends. If you wish to make this Snippet
+						private, select the option below.
+					</p>
 					<div className="flex items-center pt-2">
 						<input
 							className="form-checkbox p-2 bg-transparent rounded-xl focus:ring-0 focus:outline-none text-red-600"
@@ -249,7 +283,10 @@ export default function SnippetForm() {
 				<div className="w-full flex flex-row justify-between items-center">
 					<div className="justify-self-start">
 						{snippetSubmitMode === "PUT" ? (
-							<button onClick={handleDelete} className="bg-red-800 tracking-widest rounded-md shadow-md py-2 px-5 text-xs text-gray-50 font-thin">
+							<button
+								onClick={handleDelete}
+								className="bg-red-800 tracking-widest rounded-md shadow-md py-2 px-5 text-xs text-gray-50 font-thin"
+							>
 								Delete
 							</button>
 						) : null}
@@ -271,7 +308,9 @@ export default function SnippetForm() {
 						>
 							Cancel
 						</Link>
-						<button className="btn-primary py-2 px-5">{snippetSubmitMode === "POST" ? "Create" : "Update"}</button>
+						<button className="btn-primary py-2 px-5">
+							{snippetSubmitMode === "POST" ? "Create" : "Update"}
+						</button>
 					</div>
 				</div>
 			</div>
