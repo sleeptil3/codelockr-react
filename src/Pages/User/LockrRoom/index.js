@@ -1,10 +1,10 @@
 import { useContext, useState } from "react"
 import { UserContext } from ".."
-import View from "./View"
+import FriendSnippetView from "./FriendSnippetView"
 import FriendRequest from "../../../Components/FriendRequest"
 import AddFriend from "../../../Components/Forms/AddFriend"
 
-export default function Dashboard() {
+export default function LockrRoomDashboard() {
 	const { userData, friendsList } = useContext(UserContext)
 	const [friendFilter, setFriendFilter] = useState("")
 	const [showAddFriend, setShowAddFriend] = useState(false)
@@ -101,10 +101,8 @@ export default function Dashboard() {
 				</div>
 			</div>
 			<div className="sm:ml-6 sm:w-full w-full">
-				<View friendFilter={friendFilter} setFriendFilter={setFriendFilter} />
+				<FriendSnippetView friendFilter={friendFilter} setFriendFilter={setFriendFilter} />
 			</div>
 		</div>
 	)
 }
-
-// setFriendFilter = { ({ string }) => setFriendFilter(string) }

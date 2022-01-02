@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { DataContext } from "../../../App"
-import { UserContext } from ".."
-import { deleteUser } from "../../../common/api"
+import { DataContext } from "../../../../App"
+import { UserContext } from "../.."
+import { deleteUser } from "../../../../common/api"
 
 export default function DeleteProfile() {
 	const navigate = useNavigate()

@@ -1,8 +1,7 @@
 import { useContext, useState } from "react"
-import { UserContext } from ".."
-import { DataContext } from "../../../App"
-import { editUser } from "../../../common/api"
-import ProfileField from "../../../Components/Forms/ProfileField"
+import { UserContext } from "../.."
+import { editUser } from "../../../../common/api"
+import ProfileField from "../../../../Components/Forms/ProfileField"
 import PasswordReset from "./PasswordReset"
 
 export default function ProfileDetails() {

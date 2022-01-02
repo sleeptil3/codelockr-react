@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import { Link, Routes, Route, useNavigate } from "react-router-dom"
-import ManageFolders from "./ManageFolders"
-import ProfileDetails from "./ProfileDetails"
-import DeleteProfile from "./DeleteProfile"
+import ManageFolders from "./components/ManageFolders"
+import ProfileDetails from "./components/ProfileDetails"
+import DeleteProfile from "./components/DeleteProfile"
 import { UserContext } from ".."
 
 export default function UserProfile() {

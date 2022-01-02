@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState, useCallback } from "react"
 import { Link } from "react-router-dom"
 import { DataContext } from "../../App"
-import AdminDashboard from "./Dashboard/AdminDashboard"
+import AdminDashboard from "./Dashboard"
 import AdminHeader from "../../Components/AdminHeader"
 import Footer from "../../Components/Footer"
 import { getUserData } from "../../common/api"

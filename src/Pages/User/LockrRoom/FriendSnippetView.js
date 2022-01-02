@@ -1,12 +1,14 @@
 import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
+
 import Snippet from "../../../Components/Snippet"
 import { getFriendSnippets } from "../../../common/api"
+
 import { UserContext } from ".."
-import { DataContext } from "../../../App"
+
 import hljs from "highlight.js"
 
-export default function View({ friendFilter, setFriendFilter }) {
+export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
 	const { userData, friendsList } = useContext(UserContext)
 	const [friendSnippetData, setFriendSnippetData] = useState([])
 	const [search, setSearch] = useState("")

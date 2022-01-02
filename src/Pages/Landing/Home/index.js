@@ -1,12 +1,14 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { DataContext } from "../../../App"
+
+import { CUSTOMER_STORIES } from "../../../common/constants"
+
 import LoginForm from "../../../Components/Forms/LoginForm"
 import UserStory from "../../../Components/UserStory"
-import { CUSTOMER_STORIES } from "./constants"
+
 import dashboard from "../../../assets/dashboard.png"
 import snippetGif from "../../../assets/snippet.gif"
-import Aos from "aos"
 
 export default function Home() {
 	const { setShowRegistration, loggedIn } = useContext(DataContext)
@@ -20,7 +22,6 @@ export default function Home() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
-		Aos.init({ duration: 1000 })
 	}, [])
 
 	return (

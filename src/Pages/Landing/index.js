@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import Home from "./Home/Home"
+import Home from "./Home"
 import RegistrationForm from "../../Components/Forms/RegistrationForm"
 import Footer from "../../Components/Footer"
 import Aos from "aos"

@@ -1,7 +1,6 @@
 import { useState, useContext } from "react"
-import { DataContext } from "../../../App"
-import { UserContext } from ".."
-import { editFolder, deleteFolder } from "../../../common/api"
+import { UserContext } from "../.."
+import { editFolder, deleteFolder } from "../../../../common/api"
 
 export default function FolderDetails({ folder, username }) {
 	const [editMode, setEditMode] = useState(false)

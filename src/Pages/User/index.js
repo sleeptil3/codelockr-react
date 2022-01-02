@@ -1,10 +1,12 @@
 import { useState, useContext, useEffect, createContext } from "react"
 import { DataContext } from "../../App"
 import { Routes, Route } from "react-router-dom"
+
+import UserDashboard from "./Dashboard"
+import UserProfile from "./Profile"
+import LockrRoomDashboard from "./LockrRoom"
 import { getUserData, getAllSnippets } from "../../common/api"
-import UserDashboard from "./Dashboard/UserDashboard"
-import UserProfile from "./Profile/UserProfile"
-import Dashboard from "./LockrRoom/Dashboard"
+
 import Header from "../../Components/Header"
 import Footer from "../../Components/Footer"
 import ellipse2 from "../../assets/ellipse-load@2x.png"
@@ -49,6 +51,22 @@ export default function User() {
 		window.scrollTo(0, 0)
 	}, [refreshTrigger])
 
+	const userContextValues = {
+		refreshTrigger,
+		setRefreshTrigger,
+		snippetData,
+		setSnippetData,
+		userData,
+		filter,
+		setFilter,
+		snippetSubmitMode,
+		setSnippetSubmitMode,
+		snippetForm,
+		setSnippetForm,
+		friendsList,
+		setFriendsList,
+	}
+
 	if (userData.username === undefined) {
 		return (
 			<div className="h-screen w-screen flex justify-center items-center">
@@ -66,25 +84,9 @@ export default function User() {
 				<div>
 					<Header userData={userData} handleLogout={handleLogout} />
 					<main className="relative mt-4 z-0 text-gray-50">
-						<UserContext.Provider
-							value={{
-								refreshTrigger,
-								setRefreshTrigger,
-								snippetData,
-								setSnippetData,
-								userData,
-								filter,
-								setFilter,
-								snippetSubmitMode,
-								setSnippetSubmitMode,
-								snippetForm,
-								setSnippetForm,
-								friendsList,
-								setFriendsList,
-							}}
-						>
+						<UserContext.Provider value={userContextValues}>
 							<Routes>
-								<Route path=":username/lockrroom/*" element={<Dashboard />} />
+								<Route path=":username/lockrroom/*" element={<LockrRoomDashboard />} />
 								<Route path=":username/profile/*" element={<UserProfile />} />
 								<Route path=":username/*" element={<UserDashboard />} />
 							</Routes>

@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { editUser } from "../../../common/api"
-import ProfileField from "../../../Components/Forms/ProfileField"
+import { editUser } from "../../../../common/api"
+import ProfileField from "../../../../Components/Forms/ProfileField"
 
 export default function PasswordReset({ setEditPassword, username }) {
 	const [passwordData, setPasswordData] = useState({
