@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { UserContext } from "../User"
+import { UserContext } from ".."
 import View from "./View"
 import FriendRequest from "../../../Components/FriendRequest"
 import AddFriend from "../../../Components/Forms/AddFriend"

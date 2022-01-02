@@ -2,7 +2,7 @@ import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Snippet from "../../../Components/Snippet"
 import { getFriendSnippets } from "../../../common/api"
-import { UserContext } from "../User"
+import { UserContext } from ".."
 import { DataContext } from "../../../App"
 import hljs from "highlight.js"
 

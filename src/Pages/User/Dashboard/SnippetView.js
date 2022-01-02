@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Snippet from "../../../Components/Snippet"
-import { UserContext } from "../User"
+import { UserContext } from ".."
 import hljs from "highlight.js"
 
 export default function SnippetView() {

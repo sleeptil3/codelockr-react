@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
-import { UserContext } from "../Pages/User/User"
+import { UserContext } from "../Pages/User"
 
 export default function Snippet({
 	parentFolder,

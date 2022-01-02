@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { UserContext } from "../User"
+import { UserContext } from ".."
 import { DataContext } from "../../../App"
 import { editUser } from "../../../common/api"
 import ProfileField from "../../../Components/Forms/ProfileField"

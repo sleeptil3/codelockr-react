@@ -3,7 +3,7 @@ import { Link, Routes, Route, useNavigate } from "react-router-dom"
 import ManageFolders from "./ManageFolders"
 import ProfileDetails from "./ProfileDetails"
 import DeleteProfile from "./DeleteProfile"
-import { UserContext } from "../User"
+import { UserContext } from ".."
 
 export default function UserProfile() {
 	const { userData } = useContext(UserContext)
