@@ -34,7 +34,6 @@ export default function User() {
 
 	const { appState } = useContext(AppContext)
 	const { username, token } = appState
-	console.log(username, token)
 
 	useEffect(() => {
 		const setData = async () => {
@@ -46,7 +45,7 @@ export default function User() {
 		}
 		setData()
 		window.scrollTo(0, 0)
-	}, [refreshTrigger])
+	}, [username, token])
 
 	const userContextValues = {
 		refreshTrigger,

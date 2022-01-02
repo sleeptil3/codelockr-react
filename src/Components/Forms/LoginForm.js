@@ -8,6 +8,7 @@ import ellipse from "../../assets/ellipse-load.png"
 import ellipse2 from "../../assets/ellipse-load@2x.png"
 import ellipse3 from "../../assets/ellipse-load@3x.png"
 import { LOGIN } from "../../state/App/actions"
+import { setLocalStorage } from "../../utils/utils"
 
 export default function LoginForm({ setSlide }) {
 	const { dispatchAppState } = useContext(AppContext)
@@ -44,7 +45,6 @@ export default function LoginForm({ setSlide }) {
 		setLoggingIn(true)
 		setHideLogin(true)
 		const res = await handleLogin({ ...formData })
-		console.log(res)
 		setFormData({ username: "", password: "" })
 		if (res.error) {
 			console.error("cannot find server")
@@ -54,6 +54,7 @@ export default function LoginForm({ setSlide }) {
 			if (res.token && res.username) {
 				const { username, token } = res
 				dispatchAppState(LOGIN({ username, token }))
+				setLocalStorage({ username, token })
 				setLoggingIn(false)
 				setHideLogin(false)
 				if (username === "admin") navigate("/admin/dashboard")
