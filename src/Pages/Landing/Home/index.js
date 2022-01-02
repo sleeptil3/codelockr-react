@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { DataContext } from "../../../App"
+import { AppContext } from "../../../App"
 
 import { CUSTOMER_STORIES } from "../../../common/constants"
 
@@ -9,9 +9,11 @@ import UserStory from "../../../Components/UserStory"
 
 import dashboard from "../../../assets/dashboard.png"
 import snippetGif from "../../../assets/snippet.gif"
+import { TOGGLE_REGISTRATION } from "../../../state/App/actions"
 
 export default function Home() {
-	const { setShowRegistration, loggedIn } = useContext(DataContext)
+	const { appState, dispatchAppState } = useContext(AppContext)
+	const { loggedIn, username } = appState
 	const [slide, setSlide] = useState("")
 	const [showLogin, setShowLogin] = useState(false)
 
@@ -48,16 +50,16 @@ export default function Home() {
 								Because your notes app wasn't built for that.
 							</h1>
 							<div className="mx-auto text-center">
-								{loggedIn.state ? (
+								{loggedIn ? (
 									<div className="float-left ml-8 relative bottom-3 sm:bottom-0 sm:top-4">
-										<Link to={`/user/${loggedIn.username}/dashboard`} className="btn-primary">
+										<Link to={`/user/${username}/dashboard`} className="btn-primary">
 											Go to My Dashboard
 										</Link>
 									</div>
 								) : (
 									<div className="flex flex-wrap ml-8 pb-4 space-x-4 sm:space-x-5 sm:mt-8">
 										<div className="btn-primary">
-											<p onClick={() => setShowRegistration(true)}>Sign Up</p>
+											<p onClick={() => dispatchAppState(TOGGLE_REGISTRATION(true))}>Sign Up</p>
 										</div>
 										<div className="btn-tertiary">
 											<p onClick={revealLogin}>Login</p>
@@ -112,7 +114,7 @@ export default function Home() {
 					</p>
 					<br />
 					<p
-						onClick={() => setShowRegistration(true)}
+						onClick={() => dispatchAppState(TOGGLE_REGISTRATION(true))}
 						className="inline cursor-pointer underline hover:text-red-600 font-bold"
 					>
 						Create your free account now

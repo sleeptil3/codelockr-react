@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { Link, Routes, Route, useNavigate } from "react-router-dom"
-import ManageFolders from "./components/ManageFolders"
-import ProfileDetails from "./components/ProfileDetails"
-import DeleteProfile from "./components/DeleteProfile"
 import { UserContext } from ".."
+import DeleteProfile from "../../../Components/DeleteProfile"
+import ProfileDetails from "../../../Components/ProfileDetails"
+import ManageFolders from "../../../Components/ManageFolders"
 
 export default function UserProfile() {
 	const { userData } = useContext(UserContext)

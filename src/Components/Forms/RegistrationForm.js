@@ -1,18 +1,22 @@
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { DataContext } from "../../App"
-import { createUser } from "../../common/api"
 import { v4 as uuid } from "uuid"
+
+import { AppContext } from "../../App"
+import { createUser } from "../../common/api"
+import { EMAIL_REGEX, PASSWORD_REGEX } from "../../common/constants"
+
 import ellipse from "../../assets/ellipse-load.png"
 import ellipse2 from "../../assets/ellipse-load@2x.png"
 import ellipse3 from "../../assets/ellipse-load@3x.png"
+import { LOGIN, TOGGLE_REGISTRATION } from "../../state/App/actions"
 
 export default function RegistrationForm() {
 	const navigate = useNavigate()
-	const { setShowRegistration, showRegistration, setLoggedIn } = useContext(DataContext)
-	const emailRegex =
-		/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-	const passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+	const { appState, dispatchAppState } = useContext(AppContext)
+	const { showRegistration } = appState
+
+	// Local State
 	const [emailError, setEmailError] = useState(false)
 	const [passwordError, setPasswordError] = useState(false)
 	const [displayErrors, setDisplayErrors] = useState(null)
@@ -36,13 +40,13 @@ export default function RegistrationForm() {
 			errors.push("Passwords do not match")
 			setPasswordError(true)
 		}
-		if (!passwordRegex.test(formData.password)) {
+		if (!PASSWORD_REGEX.test(formData.password)) {
 			errors.push(
 				"Password must be at least 8 characters long and contain at least one lowercase letter, capital letter, number, and a special character (!@#$%^&*)"
 			)
 			setPasswordError(true)
 		}
-		if (!emailRegex.test(formData.email)) {
+		if (!EMAIL_REGEX.test(formData.email)) {
 			errors.push('Email must be formatted "example@example.com"')
 			setEmailError(true)
 		}
@@ -65,15 +69,8 @@ export default function RegistrationForm() {
 			setDisplayErrors([`That ${newUser.error} is already taken`])
 		} else {
 			const { token, createdUser } = newUser
-			window.localStorage.setItem("token", token)
-			window.localStorage.setItem("username", createdUser.username)
-			setLoggedIn({
-				state: true,
-				isAdmin: false,
-				username: createdUser.username,
-				firstName: createdUser.firstName,
-				lastName: createdUser.lastName,
-			})
+			const { username, firstName, lastName } = createdUser
+			dispatchAppState(LOGIN({ username, firstName, lastName, token }))
 			setFormData({
 				firstName: "",
 				lastName: "",
@@ -82,8 +79,8 @@ export default function RegistrationForm() {
 				password: "",
 				confirmPassword: "",
 			})
-			setShowRegistration(false)
-			navigate(`/user/${createdUser.username}/dashboard`)
+			dispatchAppState(TOGGLE_REGISTRATION(false))
+			navigate(`/user/${username}/dashboard`)
 		}
 	}
 
@@ -102,7 +99,7 @@ export default function RegistrationForm() {
 			confirmPassword: "",
 		})
 		setDisplayErrors(null)
-		setShowRegistration(false)
+		dispatchAppState(TOGGLE_REGISTRATION(false))
 	}
 
 	if (!showRegistration) return null

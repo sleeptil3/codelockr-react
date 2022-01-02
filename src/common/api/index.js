@@ -136,7 +136,7 @@ export const createSnippet = async (username, token, formData, user_id) => {
 	} catch (err) {
 		return err
 	} finally {
-		getUserData(BASE_URL, username, token)
+		getUserData(username, token)
 	}
 }
 

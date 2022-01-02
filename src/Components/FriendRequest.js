@@ -1,9 +1,11 @@
 import { useContext } from "react"
-import { DataContext } from "../App"
+
+import { UserContext } from "../Pages/User"
+
 import { approveFriend, denyFriend } from "../common/api"
 
 export default function FriendRequest({ username, request }) {
-	const { refreshTrigger, setRefreshTrigger } = useContext(DataContext)
+	const { refreshTrigger, setRefreshTrigger } = useContext(UserContext)
 
 	// handle moving the friend from requests to friends
 	const handleApprove = () => {

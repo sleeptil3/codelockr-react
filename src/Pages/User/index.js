@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect, createContext } from "react"
-import { DataContext } from "../../App"
 import { Routes, Route } from "react-router-dom"
+
+import { AppContext } from "../../App"
 
 import UserDashboard from "./Dashboard"
 import UserProfile from "./Profile"
@@ -16,7 +17,6 @@ import ellipse from "../../assets/ellipse-load.png"
 export const UserContext = createContext()
 
 export default function User() {
-	const { handleLogout } = useContext(DataContext)
 	const [userData, setUserData] = useState({})
 	const [snippetData, setSnippetData] = useState([])
 	const [friendsList, setFriendsList] = useState([])
@@ -32,18 +32,15 @@ export default function User() {
 		isPrivate: false,
 	})
 
+	const { appState } = useContext(AppContext)
+	const { username, token } = appState
+	console.log(username, token)
+
 	useEffect(() => {
 		const setData = async () => {
-			const userInfo = await getUserData(
-				window.localStorage.getItem("username"),
-				window.localStorage.getItem("token")
-			)
+			const userInfo = await getUserData(username, token)
 			setUserData({ ...userInfo })
-			const snippetInfo = await getAllSnippets(
-				window.localStorage.getItem("username"),
-				window.localStorage.getItem("token"),
-				userInfo._id
-			)
+			const snippetInfo = await getAllSnippets(username, token, userInfo._id)
 			setSnippetData([...snippetInfo])
 			setFriendsList([...userInfo.friends])
 		}
@@ -82,7 +79,7 @@ export default function User() {
 		return (
 			<div className="flex flex-col justify-between tracking-widest min-h-screen">
 				<div>
-					<Header userData={userData} handleLogout={handleLogout} />
+					<Header userData={userData} />
 					<main className="relative mt-4 z-0 text-gray-50">
 						<UserContext.Provider value={userContextValues}>
 							<Routes>

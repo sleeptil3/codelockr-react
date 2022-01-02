@@ -1,14 +1,19 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { DataContext } from "../../App"
+
+import { AppContext } from "../../App"
 import { forgotPassword, handleLogin } from "../../common/api"
+
 import ellipse from "../../assets/ellipse-load.png"
 import ellipse2 from "../../assets/ellipse-load@2x.png"
 import ellipse3 from "../../assets/ellipse-load@3x.png"
+import { LOGIN } from "../../state/App/actions"
 
 export default function LoginForm({ setSlide }) {
-	const { setLoggedIn } = useContext(DataContext)
+	const { dispatchAppState } = useContext(AppContext)
 	const navigate = useNavigate()
+
+	// Local State
 	const [formData, setFormData] = useState({ username: "", password: "" })
 	const [error, setError] = useState(false)
 	const [loggingIn, setLoggingIn] = useState(false)
@@ -48,29 +53,11 @@ export default function LoginForm({ setSlide }) {
 		} else {
 			if (res.token && res.username) {
 				const { username, token } = res
-				window.localStorage.setItem("token", token)
-				window.localStorage.setItem("username", username)
-				if (username === "admin") {
-					setLoggedIn({
-						state: true,
-						isAdmin: true,
-						username: "admin",
-						firstName: "Admin",
-						lastName: "Account",
-					})
-					setLoggingIn(false)
-					setHideLogin(false)
-					navigate("/admin/dashboard")
-				} else {
-					setLoggedIn({
-						state: true,
-						isAdmin: false,
-						username: username,
-					})
-					setLoggingIn(false)
-					setHideLogin(false)
-					navigate(`/user/${username}/dashboard`)
-				}
+				dispatchAppState(LOGIN({ username, token }))
+				setLoggingIn(false)
+				setHideLogin(false)
+				if (username === "admin") navigate("/admin/dashboard")
+				else navigate(`/user/${username}/dashboard`)
 			} else if (res.problem || res.msg) {
 				console.error("login error")
 				setError(true)

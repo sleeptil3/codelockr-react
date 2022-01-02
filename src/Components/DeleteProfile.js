@@ -1,25 +1,20 @@
 import { useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { DataContext } from "../../../../App"
-import { UserContext } from "../.."
-import { deleteUser } from "../../../../common/api"
+import { AppContext } from "../App"
+import { UserContext } from "../Pages/User"
+import { deleteUser } from "../common/api"
+import { LOGOUT } from "../state/App/actions"
 
 export default function DeleteProfile() {
 	const navigate = useNavigate()
 	const { userData } = useContext(UserContext)
-	const { setLoggedIn } = useContext(DataContext)
+	const { dispatchAppState } = useContext(AppContext)
 
 	const handleDelete = async () => {
 		const token = window.localStorage.getItem("token")
 		await deleteUser(userData.username, token)
 		window.localStorage.clear()
-		setLoggedIn({
-			state: false,
-			isAdmin: false,
-			username: "",
-			firstName: "",
-			lastName: "",
-		})
+		dispatchAppState(LOGOUT())
 		navigate("/")
 	}
 

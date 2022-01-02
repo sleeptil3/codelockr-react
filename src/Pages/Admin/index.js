@@ -1,16 +1,21 @@
 import React, { useEffect, useContext, useState, useCallback } from "react"
 import { Link } from "react-router-dom"
-import { DataContext } from "../../App"
+
+import { getUserData } from "../../common/api"
+import { AppContext } from "../../App"
+
 import AdminDashboard from "./Dashboard"
 import AdminHeader from "../../Components/AdminHeader"
 import Footer from "../../Components/Footer"
-import { getUserData } from "../../common/api"
+
 import ellipse from "../../assets/ellipse-load.png"
 import ellipse2 from "../../assets/ellipse-load@2x.png"
 import ellipse3 from "../../assets/ellipse-load@3x.png"
 
 export default function Admin() {
-	const { loggedIn, handleLogout } = useContext(DataContext)
+	const { appState } = useContext(AppContext)
+	const { loggedIn, isAdmin } = appState
+
 	const [userData, setUserData] = useState({})
 	const [pageSelect, setPageSelect] = useState("dashboard")
 
@@ -26,7 +31,7 @@ export default function Admin() {
 		setupUserCallback()
 	}, [setupUserCallback])
 
-	if (loggedIn.state === false)
+	if (!loggedIn)
 		return (
 			<div className="h-screen flex justify-center items-center">
 				<img
@@ -37,7 +42,7 @@ export default function Admin() {
 				/>
 			</div>
 		)
-	if (!loggedIn.isAdmin)
+	if (!isAdmin)
 		return (
 			<div className="h-screen flex flex-col justify-center items-center">
 				<h1 className="text-2xl font-bold text-gray-50 uppercase">CODELOCKR</h1>
@@ -51,11 +56,7 @@ export default function Admin() {
 		return (
 			<div className="w-screen min-h-screen flex flex-col justify-between tracking-widest ">
 				<div>
-					<AdminHeader
-						setPageSelect={setPageSelect}
-						userData={userData}
-						handleLogout={handleLogout}
-					/>
+					<AdminHeader setPageSelect={setPageSelect} userData={userData} />
 					<main className="relative z-0 mt-6 text-gray-50 ">
 						<AdminDashboard pageSelect={pageSelect} setPageSelect={setPageSelect} />
 					</main>
