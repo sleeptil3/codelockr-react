@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import UserDetail from "./UserDetail"
-import { DataContext } from "../../../App"
 import { getAllUsers } from "../../../common/api"
 
 export default function UserList() {

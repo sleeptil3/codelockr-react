@@ -1,5 +1,4 @@
-import { useState, useContext } from "react"
-import { DataContext } from "../../App"
+import { useState } from "react"
 import { requestFriend } from "../../common/api"
 
 export default function AddFriend({ username, setShowAddFriend }) {

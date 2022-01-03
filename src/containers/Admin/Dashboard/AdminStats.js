@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react"
-import { DataContext } from "../../../App"
+import { useState, useEffect } from "react"
 import { getAdminCounts } from "../../../common/api"
 
 export default function AdminStats() {

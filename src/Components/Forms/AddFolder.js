@@ -1,5 +1,4 @@
 import { useContext, useState } from "react"
-import { DataContext } from "../../App"
 import { UserContext } from "../../containers/User"
 import { addFolder } from "../../common/api"
 
