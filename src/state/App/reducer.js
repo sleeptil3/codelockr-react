@@ -1,27 +1,24 @@
-export const appStateReducer = (state, action) => {
+export const appStateImmerReducer = (draft, action) => {
 	switch (action.type) {
 		case "TOGGLE_REGISTRATION": {
-			return { ...state, showRegistration: action.payload }
+			draft.showRegistration = action.payload
+			break
 		}
 		case "LOGOUT": {
-			return {
-				...state,
-				loggedIn: false,
-				isAdmin: false,
-				username: null,
-				token: null,
-			}
+			draft.loggedIn = false
+			draft.isAdmin = false
+			draft.username = null
+			draft.token = null
+			break
 		}
 		case "LOGIN": {
-			return {
-				...state,
-				loggedIn: true,
-				isAdmin: action.payload.username === "admin" ? true : false,
-				username: action.payload.username,
-				token: action.payload.token,
-			}
+			draft.loggedIn = true
+			draft.isAdmin = action.payload.username === "admin" ? true : false
+			draft.username = action.payload.username
+			draft.token = action.payload.token
+			break
 		}
 		default:
-			return { ...state }
+			break
 	}
 }
