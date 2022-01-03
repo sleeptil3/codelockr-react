@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
-import { UserContext } from "../Pages/User"
+import { UserContext } from "../containers/User"
 import { editUser } from "../common/api"
-import PasswordReset from "./Forms/PasswordReset"
-import ProfileField from "./Forms/ProfileField"
+import PasswordReset from "./forms/PasswordReset"
+import ProfileField from "./forms/ProfileField"
 
 export default function ProfileDetails() {
 	const { userData } = useContext(UserContext)

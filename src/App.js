@@ -1,14 +1,14 @@
-import { useReducer, createContext } from "react"
+import { useReducer, createContext, useEffect } from "react"
 import { Route, Routes } from "react-router-dom"
 
 import { INITIAL_APP_STATE } from "./common/constants"
 import { LOGIN } from "./state/App/actions"
 import { appStateReducer } from "./state/App/reducer"
-import { getLocalStorage } from "./utils/utils"
+import { getLocalStorage } from "./utils"
 
-import Landing from "./Pages/Landing"
-import Admin from "./Pages/Admin"
-import User from "./Pages/User"
+import Landing from "./containers/Landing"
+import Admin from "./containers/Admin"
+import User from "./containers/User"
 
 export const AppContext = createContext()
 
@@ -17,9 +17,12 @@ export default function App() {
 	const appContextValue = { appState, dispatchAppState }
 
 	/** Get Previously Logged-In User, if applicable */
-	const currentLocalStorage = getLocalStorage(["username", "token"])
-	if (currentLocalStorage) dispatchAppState(LOGIN(currentLocalStorage))
+	useEffect(() => {
+		const currentLocalStorage = getLocalStorage(["username", "token"])
+		if (currentLocalStorage) dispatchAppState(LOGIN(currentLocalStorage))
+	}, [])
 
+	console.log(JSON.stringify(appState, null, "\b"))
 	return (
 		<div>
 			<AppContext.Provider value={appContextValue}>

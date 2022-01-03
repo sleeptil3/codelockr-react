@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { AppContext } from "../App"
-import { UserContext } from "../Pages/User"
+import { UserContext } from "../containers/User"
 import { deleteUser } from "../common/api"
 import { LOGOUT } from "../state/App/actions"
 

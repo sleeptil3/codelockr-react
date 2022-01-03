@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { DataContext } from "../../App"
-import { UserContext } from "../../Pages/User"
+import { UserContext } from "../../containers/User"
 import { addFolder } from "../../common/api"
 
 export default function AddFolder({ owner, setShowAddFolder, setNewFolder, newFolder }) {

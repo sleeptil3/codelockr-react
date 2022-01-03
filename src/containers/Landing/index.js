@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import Home from "./Home"
-import RegistrationForm from "../../Components/Forms/RegistrationForm"
-import Footer from "../../Components/Footer"
+import RegistrationForm from "../../components/forms/RegistrationForm"
+import Footer from "../../components/Footer"
 import Aos from "aos"
 
 export default function Landing() {

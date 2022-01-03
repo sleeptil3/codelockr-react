@@ -5,8 +5,6 @@ export const INITIAL_APP_STATE = {
 	showRegistration: false,
 	loggedIn: false,
 	isAdmin: false,
-	firstName: "",
-	lastName: "",
 	username: null,
 	token: null,
 }

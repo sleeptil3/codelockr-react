@@ -1,6 +1,6 @@
 import { useState, useContext, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { UserContext } from "../../Pages/User"
+import { UserContext } from "../../containers/User"
 import { createSnippet, editSnippet, deleteSnippet } from "../../common/api"
 import AddFolder from "./AddFolder"
 import { languages } from "./languageData"

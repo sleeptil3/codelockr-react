@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
 import { UserContext } from ".."
 import FriendSnippetView from "./FriendSnippetView"
-import FriendRequest from "../../../Components/FriendRequest"
-import AddFriend from "../../../Components/Forms/AddFriend"
+import FriendRequest from "../../../components/FriendRequest"
+import AddFriend from "../../../components/forms/AddFriend"
 
 export default function LockrRoomDashboard() {
 	const { userData, friendsList } = useContext(UserContext)

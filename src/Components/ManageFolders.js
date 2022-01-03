@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { UserContext } from "../Pages/User"
+import { UserContext } from "../containers/User"
 import FolderDetails from "./FolderDetails"
 
 export default function ManageFolders() {

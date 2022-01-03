@@ -9,8 +9,6 @@ export const appStateReducer = (state, action) => {
 				loggedIn: false,
 				isAdmin: false,
 				username: null,
-				firstName: "",
-				lastName: "",
 				token: null,
 			}
 		}
@@ -21,8 +19,6 @@ export const appStateReducer = (state, action) => {
 				isAdmin: action.payload.username === "admin" ? true : false,
 				username: action.payload.username,
 				token: action.payload.token,
-				firstName: action.payload.firstName || state.firstName,
-				lastName: action.payload.lastName || state.firstName,
 			}
 		}
 		default:

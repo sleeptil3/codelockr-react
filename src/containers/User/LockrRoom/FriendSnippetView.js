@@ -1,35 +1,63 @@
 import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import Snippet from "../../../Components/Snippet"
+
+import Snippet from "../../../components/Snippet"
+import { getFriendSnippets } from "../../../common/api"
+
 import { UserContext } from ".."
+
 import hljs from "highlight.js"
 
-export default function SnippetView() {
-	const { userData, filter, setFilter, snippetData } = useContext(UserContext)
+export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
+	const { userData, friendsList } = useContext(UserContext)
+	const [friendSnippetData, setFriendSnippetData] = useState([])
 	const [search, setSearch] = useState("")
+
 	const history = useNavigate()
 
-	const handleChange = e => setSearch(e.target.value)
-	const handleClear = () => setSearch("")
+	const handleChange = e => {
+		setSearch(e.target.value)
+	}
+
+	const handleClear = () => {
+		setSearch("")
+	}
+
+	useEffect(() => {
+		if (friendsList.length > 0) {
+			const fetchFriendSnippets = async () => {
+				const data = await getFriendSnippets(
+					userData.username,
+					window.localStorage.getItem("token")
+				)
+				setFriendSnippetData([...data])
+			}
+			fetchFriendSnippets()
+		}
+		window.scrollTo(0, 0)
+	}, [friendsList, userData.username])
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
-	}, [setFilter, history])
+		setFriendFilter("")
+	}, [setFriendFilter, history])
 
 	useLayoutEffect(() => {
 		hljs.highlightAll()
-	})
+	}, [friendSnippetData, friendFilter, search])
 
 	return (
-		<div className="sm:ml-2">
-			{userData.folders.length ? (
+		<div className="mt-4 sm:mt-0 sm:ml-2">
+			{userData.friends.length ? (
 				<>
-					<h1 className="hidden sm:inline text-xl font-bold">
-						{filter === ""
-							? "All Snippets"
-							: userData.folders.find(folder => folder._id === filter).title}
+					<h1 className="ml-6 sm:ml-0 text-base sm:text-xl font-bold">
+						{friendFilter
+							? `${
+									userData.friends.find(friend => friend._id === friendFilter).firstName
+							  } 's Shared Snippets`
+							: "All Shared Snippets"}
 					</h1>
-					<div className="ml-5 sm:ml-1 my-4 flex justify-start items-center relative">
+					<div className="relative ml-6 sm:ml-0 my-4 flex items-center">
 						<svg
 							className="absolute left-2 h-6 sm:h-auto cursor-pointer inline mr-2 sm:mr-4"
 							width="29"
@@ -54,7 +82,7 @@ export default function SnippetView() {
 							/>
 						</div>
 						{search ? (
-							<span className="cursor-pointer ml-3 text-xs" onClick={handleClear}>
+							<span className="cursor-pointer ml-3" onClick={handleClear}>
 								Clear
 							</span>
 						) : null}
@@ -62,56 +90,28 @@ export default function SnippetView() {
 				</>
 			) : (
 				<div>
-					<h1 className="text-xl font-bold mt-2 ml-8">Welcome to CodeLockr!</h1>
-					<h3 className="text-lg font-light mt-8 ml-8">A message from the creator of CodeLockr:</h3>
-					<p className="text-md font-light mt-8 mx-8">
-						Thank you for joining the CodeLockr community!
-					</p>
-					<p className="text-md font-light mt-8 mx-8">
-						I created CodeLockr because it's something that I found myself needing so I hope you
-						find it useful as well. It was actually created as a capstone project for a software
-						engineering immersive program I was a part of. With that in mind, it's quite possible
-						you may run into bugs in this infancy period of CodeLockr. If you do, please{" "}
-						<a
-							className="hover:text-red-600 underline"
-							href="https://github.com/sleeptil3/codelockr-react/issues"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							create an issue on Github
-						</a>{" "}
-						or send me an email with any feedback at{" "}
-						<a className="hover:text-red-600 underline" href="mailto:sleeptil3software@gmail.com">
-							sleeptil3software@gmail.com
-						</a>
-						.
-					</p>
-					<p className="text-md font-light mt-8 ml-8">
-						Now, get started by creating your first Snippet!
-					</p>
-					<h3 className="text-lg font-light mt-8 ml-8">-Shawn</h3>
+					<h1 className="text-xl font-bold ml-8">Find Friends</h1>{" "}
+					<h3 className="text-lg font-light mt-8 ml-8">Get started by adding a friend now!</h3>
 				</div>
 			)}
-			<div className="grid gap-5 sm:gap-10 mt-2 sm:pr-8 w-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 items-start">
-				{snippetData
+			<div className="grid gap-5 sm:gap-10 mt-6 sm:mt-8 sm:pr-8 grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3">
+				{friendSnippetData
 					.filter(snippet => {
-						if (filter === "") return snippet.title.toUpperCase().includes(search.toUpperCase())
-						else
-							return (
-								snippet.title.toUpperCase().includes(search.toUpperCase()) &&
-								snippet.parentFolder === filter
-							)
+						return (
+							snippet.title.toUpperCase().includes(search.toUpperCase()) &&
+							snippet.owner._id.includes(friendFilter)
+						)
 					})
-					.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))
 					.map(snippet => {
 						return (
 							<Snippet
 								key={snippet._id}
-								parentFolder={snippet.parentFolder}
-								isPrivate={snippet.isPrivate}
+								readOnly={true}
+								owner={`${snippet.owner.firstName} ${snippet.owner.lastName}`}
 								title={snippet.title}
 								code={snippet.code}
 								snippet_id={snippet._id}
+								parentFolder={snippet.parentFolder}
 								parseFormat={snippet.parseFormat}
 								notes={snippet.notes}
 							/>

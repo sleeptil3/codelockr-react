@@ -5,8 +5,8 @@ import { getUserData } from "../../common/api"
 import { AppContext } from "../../App"
 
 import AdminDashboard from "./Dashboard"
-import AdminHeader from "../../Components/AdminHeader"
-import Footer from "../../Components/Footer"
+import AdminHeader from "../../components/AdminHeader"
+import Footer from "../../components/Footer"
 
 import ellipse from "../../assets/ellipse-load.png"
 import ellipse2 from "../../assets/ellipse-load@2x.png"

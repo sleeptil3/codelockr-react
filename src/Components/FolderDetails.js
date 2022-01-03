@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import { UserContext } from "../Pages/User"
+import { UserContext } from "../containers/User"
 import { editFolder, deleteFolder } from "../common/api"
 
 export default function FolderDetails({ folder, username }) {

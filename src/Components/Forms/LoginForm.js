@@ -2,13 +2,14 @@ import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { AppContext } from "../../App"
+import { LOGIN } from "../../state/App/actions"
+
 import { forgotPassword, handleLogin } from "../../common/api"
+import { setLocalStorage } from "../../utils"
 
 import ellipse from "../../assets/ellipse-load.png"
 import ellipse2 from "../../assets/ellipse-load@2x.png"
 import ellipse3 from "../../assets/ellipse-load@3x.png"
-import { LOGIN } from "../../state/App/actions"
-import { setLocalStorage } from "../../utils/utils"
 
 export default function LoginForm({ setSlide }) {
 	const { dispatchAppState } = useContext(AppContext)

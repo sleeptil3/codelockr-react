@@ -2,7 +2,7 @@ import { useContext } from "react"
 import { Route, Routes, Link } from "react-router-dom"
 import { UserContext } from ".."
 import SnippetView from "./SnippetView"
-import SnippetForm from "../../../Components/Forms/SnippetForm"
+import SnippetForm from "../../../components/forms/SnippetForm"
 
 export default function UserDashboard() {
 	const { userData, filter, setFilter, setSnippetSubmitMode } = useContext(UserContext)

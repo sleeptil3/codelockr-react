@@ -5,8 +5,8 @@ import { AppContext } from "../../../App"
 import { CUSTOMER_STORIES } from "../../../common/constants"
 import { TOGGLE_REGISTRATION } from "../../../state/App/actions"
 
-import LoginForm from "../../../Components/Forms/LoginForm"
-import UserStory from "../../../Components/UserStory"
+import LoginForm from "../../../components/forms/LoginForm"
+import UserStory from "../../../components/UserStory"
 
 import dashboard from "../../../assets/dashboard.png"
 import snippetGif from "../../../assets/snippet.gif"
