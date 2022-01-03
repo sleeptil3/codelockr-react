@@ -1,9 +1,11 @@
 import { useState, useContext, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { UserContext } from "../../containers/User"
+
+import { LANGUAGES } from "../../common/constants"
 import { createSnippet, editSnippet, deleteSnippet } from "../../common/api"
+
 import AddFolder from "./AddFolder"
-import { languages } from "./languageData"
 
 export default function SnippetForm() {
 	const {
@@ -191,9 +193,8 @@ export default function SnippetForm() {
 							size="12"
 							// onChange={}
 						>
-							{languages
-								.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1))
-								.map(language => {
+							{LANGUAGES.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1)).map(
+								language => {
 									if (language.name.toUpperCase().includes(snippetForm.parseFormat.toUpperCase())) {
 										return (
 											<option
@@ -211,7 +212,8 @@ export default function SnippetForm() {
 										)
 									}
 									return null
-								})}
+								}
+							)}
 						</select>
 					)}
 				</label>
