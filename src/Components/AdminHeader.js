@@ -1,12 +1,22 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { useContext, useState } from "react"
+import { LOGOUT } from "../state/App/actions"
+import { AppContext } from "../App"
 
-export default function AdminHeader({ handleLogout, setPageSelect }) {
+export default function AdminHeader({ setPageSelect }) {
 	const [slide, setSlide] = useState("")
+	const { dispatchAppState } = useContext(AppContext)
+	const navigate = useNavigate("/")
 
 	const handleSlide = () => {
 		if (slide) setSlide("")
 		else setSlide("translate-y-32")
+	}
+
+	const handleLogout = () => {
+		localStorage.clear()
+		dispatchAppState(LOGOUT())
+		navigate("/")
 	}
 
 	return (

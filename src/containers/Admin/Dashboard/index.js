@@ -38,8 +38,8 @@ export default function AdminDashboard({ pageSelect, setPageSelect }) {
 			</div>
 			<div className="sm:ml-8 w-full">
 				<Routes>
-					<Route path="/admin/dashboard/userlist" element={<UserList />} />
-					<Route path="/admin/dashboard/" element={<AdminStats />} />
+					<Route path="/dashboard/userlist" element={<UserList />} />
+					<Route path="/dashboard/" element={<AdminStats />} />
 				</Routes>
 			</div>
 		</div>
