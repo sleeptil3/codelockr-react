@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Oxygen+Mono&display=swap");
-
-@import url("./highlightjs/styles/night-owl.css");
-@import "aos/dist/aos.css";
+@import url("./lib/highlightjs/styles/night-owl.css");
+@import url("aos/dist/aos.css");
 
 @tailwind base;
 @tailwind components;
@@ -25,16 +24,16 @@
 	}
 }
 @layer utilities {
-	@variants responsive {
-		.cs-border-outset {
-			border-style: outsetf;
-			border-color: #011627;
-			border-width: 5px;
-		}
+	.cs-border-outset {
+		border-style: outsetf;
+		border-color: #011627;
+		border-width: 5px;
 	}
 }
+
 ::-webkit-scrollbar {
 	width: 10px;
+	height: 10px;
 }
 
 /* Track */
