@@ -2,10 +2,10 @@ import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { AppContext } from "../../App"
-import { LOGIN } from "../../state/App/actions"
+import { APP_ACTION_LOGIN, APP_ACTION_REFRESH_USER } from "../../state/actions"
 
-import { forgotPassword, handleLogin } from "../../common/api"
-import { setLocalStorage } from "../../utils"
+import { forgotPassword } from "../../common/api"
+import { handleGetLoginData } from "../../utils"
 
 import ellipse from "../../assets/ellipse-load.png"
 import ellipse2 from "../../assets/ellipse-load@2x.png"
@@ -45,29 +45,25 @@ export default function LoginForm({ setSlide }) {
 		e.preventDefault()
 		setLoggingIn(true)
 		setHideLogin(true)
-		const res = await handleLogin({ ...formData })
+		const userRes = await handleGetLoginData(formData)
 		setFormData({ username: "", password: "" })
-		if (res.error) {
-			console.error("cannot find server")
+		if (userRes.error) {
 			setHideLogin(false)
 			setLoggingIn(false)
+		} else if (userRes.problem || userRes.msg) {
+			setError(true)
+			setHideLogin(false)
+			setLoggingIn(false)
+		} else if (userRes.token && userRes.username) {
+			const { username, token } = userRes
+			setLoggingIn(false)
+			setHideLogin(false)
+			dispatchAppState(APP_ACTION_LOGIN({ username, token }))
+			dispatchAppState(APP_ACTION_REFRESH_USER())
+			if (username === "admin") navigate("/admin/dashboard")
+			else navigate(`/user/${username}/dashboard`)
 		} else {
-			if (res.token && res.username) {
-				const { username, token } = res
-				dispatchAppState(LOGIN({ username, token }))
-				setLocalStorage({ username, token })
-				setLoggingIn(false)
-				setHideLogin(false)
-				if (username === "admin") navigate("/admin/dashboard")
-				else navigate(`/user/${username}/dashboard`)
-			} else if (res.problem || res.msg) {
-				console.error("login error")
-				setError(true)
-				setHideLogin(false)
-				setLoggingIn(false)
-			} else {
-				console.error("Unknown error")
-			}
+			console.error("Unknown error in Login Form")
 		}
 	}
 
@@ -76,43 +72,21 @@ export default function LoginForm({ setSlide }) {
 			{loggingIn && (
 				<div className="ml-10 mt-4 flex flex-col items-center">
 					<h1 className="text-base">Signing In</h1>
-					<img
-						className="m-4 animate-spin"
-						src={ellipse}
-						srcSet={`${ellipse2} 2x, ${ellipse3} 3x`}
-						alt=""
-					/>
+					<img className="m-4 animate-spin" src={ellipse} srcSet={`${ellipse2} 2x, ${ellipse3} 3x`} alt="" />
 					<h1 className="text-md">Sit tight...gathering your stuff.</h1>
 				</div>
 			)}
 			{!hideLogin && (
 				<form noValidate onSubmit={handleSubmit}>
 					<div className="flex flex-col items-start space-y-2 justify-center -mt-7 md:-mt-2">
-						{error ? (
-							<h3 className="font-bold text-red-600">Error: Username or Password incorrect</h3>
-						) : null}
+						{error ? <h3 className="font-bold text-red-600">Error: Username or Password incorrect</h3> : null}
 						<label className="w-full text-gray-50 tracking-wider">
 							Username:
-							<input
-								autoCapitalize="off"
-								className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-xs sm:text-sm"
-								onChange={handleChange}
-								value={formData.username}
-								id="username"
-								type="text"
-								autoComplete="username"
-							/>
+							<input autoCapitalize="off" className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-xs sm:text-sm" onChange={handleChange} value={formData.username} id="username" type="text" autoComplete="username" />
 						</label>
 						<label className="w-full text-gray-50 tracking-wider">
 							Password:
-							<input
-								className="focus:ring-0 w-full px-2 py-1 mb-4 text-gray-900 text-xs sm:text-sm"
-								onChange={handleChange}
-								value={formData.password}
-								id="password"
-								type="password"
-								autoComplete="current-password"
-							/>
+							<input className="focus:ring-0 w-full px-2 py-1 mb-4 text-gray-900 text-xs sm:text-sm" onChange={handleChange} value={formData.password} id="password" type="password" autoComplete="current-password" />
 						</label>
 						<div className="flex items-center justify-end space-x-3 flex-end w-full">
 							<p onClick={() => setSlide("")} className="btn-secondary">
@@ -136,20 +110,13 @@ export default function LoginForm({ setSlide }) {
 						{forgotPwResult &&
 							(forgotPwResult.hasOwnProperty("error") ? (
 								<div>
-									<p className="text-right font-normal tracking-wider w-full text-red-500">
-										Uh oh! We don't recognize that email.
-									</p>
-									<a
-										href="mailto:sleeptil3software@gmail.com"
-										className="underline text-right font-normal tracking-wider w-full text-red-500"
-									>
+									<p className="text-right font-normal tracking-wider w-full text-red-500">Uh oh! We don't recognize that email.</p>
+									<a href="mailto:sleeptil3software@gmail.com" className="underline text-right font-normal tracking-wider w-full text-red-500">
 										Email Support
 									</a>
 								</div>
 							) : (
-								<p className="text-right font-normal tracking-wider w-full text-green-500">
-									Success! Check your email.
-								</p>
+								<p className="text-right font-normal tracking-wider w-full text-green-500">Success! Check your email.</p>
 							))}
 					</div>
 				</form>
@@ -158,23 +125,12 @@ export default function LoginForm({ setSlide }) {
 				<form noValidate onSubmit={handlePwReset}>
 					<div className="-mt-6">
 						<p className="font-bold text-sm sm:text-sm pb-2">Forgot Password?</p>
-						<p className="pb-4">
-							Kindly provide the email you used when you created your account, and provided no
-							tomfoolery is afoot, you will receive a temporary password in your inbox!
-						</p>
+						<p className="pb-4">Kindly provide the email you used when you created your account, and provided no tomfoolery is afoot, you will receive a temporary password in your inbox!</p>
 					</div>
 					<div className="flex flex-col items-start space-y-2 justify-center">
 						<label className="w-full text-gray-50 tracking-wider">
 							Email Address:
-							<input
-								autoCapitalize="off"
-								className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-xs sm:text-sm"
-								onChange={handlePwForm}
-								value={emailFormData}
-								id="userEmail"
-								type="text"
-								autoComplete=""
-							/>
+							<input autoCapitalize="off" className="focus:ring-0 w-full px-2 py-1 text-gray-900 text-xs sm:text-sm" onChange={handlePwForm} value={emailFormData} id="userEmail" type="text" autoComplete="" />
 						</label>
 						<div className="pt-4 flex items-center justify-end space-x-4 flex-end w-full">
 							<p

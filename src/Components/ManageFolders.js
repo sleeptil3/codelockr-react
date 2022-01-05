@@ -1,9 +1,10 @@
 import { useContext } from "react"
-import { UserContext } from "../containers/User"
+import { AppContext } from "../App"
 import FolderDetails from "./FolderDetails"
 
 export default function ManageFolders() {
-	const { userData } = useContext(UserContext)
+	const { appState } = useContext(AppContext)
+	const { userData } = appState
 
 	return (
 		<div>
@@ -15,7 +16,7 @@ export default function ManageFolders() {
 				</p>
 			</div>
 			<div className="mt-8 space-y-4 mr-6">
-				{userData.folders
+				{[...userData.folders]
 					.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))
 					.map(folder => {
 						return <FolderDetails key={folder._id} folder={folder} username={userData.username} />

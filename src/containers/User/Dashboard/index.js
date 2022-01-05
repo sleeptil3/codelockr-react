@@ -1,45 +1,58 @@
 import { useContext } from "react"
 import { Route, Routes, Link } from "react-router-dom"
-import { UserContext } from ".."
-import SnippetView from "./SnippetView"
+
 import SnippetForm from "../../../components/forms/SnippetForm"
+import SnippetView from "../../../components/SnippetView"
+
+import { AppContext } from "../../../App"
+import {
+	APP_ACTION_CLEAR_FOLDER_FILTER,
+	APP_ACTION_SET_FOLDER_FILTER,
+	APP_ACTION_SET_SNIPPET_FORM,
+	APP_ACTION_SET_SUBMIT_MODE,
+} from "../../../state/actions"
+import LoadingRing from "../../../components/LoadingRing"
+import { DEFAULT_SNIPPET_FORM } from "../../../common/constants"
 
 export default function UserDashboard() {
-	const { userData, filter, setFilter, setSnippetSubmitMode } = useContext(UserContext)
+	const { appState, dispatchAppState } = useContext(AppContext)
+	const { userData, searchFilter } = appState
 
 	const handleFilter = e => {
 		e.preventDefault()
-		if (e.target.type === "select-one") setFilter(e.target.value)
-		else setFilter(e.target.id)
+		if (e.target.type === "select-one")
+			dispatchAppState(APP_ACTION_SET_FOLDER_FILTER(e.target.value))
+		else dispatchAppState(APP_ACTION_SET_FOLDER_FILTER(e.target.id))
 	}
 
 	const handleAddSnippet = () => {
-		setSnippetSubmitMode("POST")
-		setFilter("")
+		dispatchAppState(APP_ACTION_SET_SNIPPET_FORM(DEFAULT_SNIPPET_FORM))
+		dispatchAppState(APP_ACTION_SET_SUBMIT_MODE("POST"))
+		dispatchAppState(APP_ACTION_CLEAR_FOLDER_FILTER())
 	}
 
-	return (
+	return !!userData.username ? (
 		<div className="flex flex-col sm:flex-row justify-start items-center sm:items-start">
 			<div className="sm:ml-5 w-full sm:w-max h-max ">
 				<div className="hidden sm:block bg-gray-900 mt-0 w-min space-y-4 px-6 py-3 shadow-lg shrink-0">
-					<p
+					<Link
 						to={`/user/${userData.username}/dashboard`}
 						className="cursor-pointer text-base font-normal"
-						onClick={() => setFilter("")}
+						onClick={() => dispatchAppState(APP_ACTION_CLEAR_FOLDER_FILTER())}
 					>
 						All Snippets
-					</p>
-					{userData.folders.length ? (
+					</Link>
+					{!!userData.folders.length ? (
 						<div>
 							<h3 className="text-md font-normal">Folders</h3>
 							<ul className="ml-2 text-xs space-y-1">
-								{userData.folders
+								{[...userData.folders]
 									.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))
 									.map(folder => {
 										return (
 											<li
 												className={`my-1 cursor-pointer py-1 px-2 w-max ${
-													filter === folder._id
+													searchFilter === folder._id
 														? "hover:text-gray-50 bg-gradient-to-tr from-darkBlue to-red-800 text-gray-50 rounded-md"
 														: "hover:text-red-600"
 												}`}
@@ -60,13 +73,13 @@ export default function UserDashboard() {
 						Filter by folder
 					</label>
 					<select
-						value={filter}
+						value={searchFilter}
 						name="snippetFilter"
 						onChange={handleFilter}
 						className="form-select bg-gray-900 w-3/4 tracking-widest"
 					>
 						<option value="">All Snippets</option>
-						{userData.folders
+						{[...userData.folders]
 							.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))
 							.map(folder => {
 								return (
@@ -110,8 +123,8 @@ export default function UserDashboard() {
 						<div className="flex justify-center items-center">
 							<svg
 								className="mr-2"
-								width="15"
-								height="16"
+								width={"15"}
+								height={"16"}
 								viewBox="0 0 15 16"
 								fill="none"
 								xmlns="http://www.w3.org/2000/svg"
@@ -129,9 +142,11 @@ export default function UserDashboard() {
 			<div className="sm:ml-3 w-full">
 				<Routes>
 					<Route path="dashboard/addsnippet" element={<SnippetForm />} />
-					<Route path="dashboard/" element={<SnippetView />} />
+					<Route path="dashboard" element={<SnippetView />} />
 				</Routes>
 			</div>
 		</div>
+	) : (
+		<LoadingRing classes={"w-max h-max"} />
 	)
 }

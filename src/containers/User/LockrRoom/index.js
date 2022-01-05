@@ -1,11 +1,15 @@
 import { useContext, useState } from "react"
-import { UserContext } from ".."
-import FriendSnippetView from "./FriendSnippetView"
+
+import { AppContext } from "../../../App"
+
 import FriendRequest from "../../../components/FriendRequest"
 import AddFriend from "../../../components/forms/AddFriend"
+import FriendSnippetView from "../../../components/FriendSnippetView"
 
 export default function LockrRoomDashboard() {
-	const { userData, friendsList } = useContext(UserContext)
+	const { appState } = useContext(AppContext)
+	const { userData } = appState
+	const { friends, friendRequestsReceived } = userData
 	const [friendFilter, setFriendFilter] = useState("")
 	const [showAddFriend, setShowAddFriend] = useState(false)
 
@@ -21,11 +25,11 @@ export default function LockrRoomDashboard() {
 					<h2 className="cursor-pointer text-base font-normal" onClick={() => setFriendFilter("")}>
 						View All
 					</h2>
-					{friendsList.length ? (
+					{friends.length ? (
 						<div>
 							<h3 className="text-md font-normal">Friends</h3>
 							<ul className="ml-2 text-xs space-y-1">
-								{friendsList
+								{[...friends]
 									.sort((a, b) => (a.lastName.toUpperCase() < b.lastName.toUpperCase() ? -1 : 1))
 									.map(friend => {
 										return (
@@ -58,7 +62,7 @@ export default function LockrRoomDashboard() {
 						className="form-select bg-gray-900 w-3/4 tracking-widest"
 					>
 						<option value="">Show All</option>
-						{friendsList
+						{[...friends]
 							.sort((a, b) => (a.lastName.toUpperCase() < b.lastName.toUpperCase() ? -1 : 1))
 							.map(friend => {
 								return (
@@ -69,11 +73,11 @@ export default function LockrRoomDashboard() {
 							})}
 					</select>
 				</div>
-				{userData.friendRequestsReceived.length ? (
+				{friendRequestsReceived.length ? (
 					<div className="bg-gray-900 sm:mt-4 w-full space-y-4 flex flex-col px-8 pt-2 pb-2 sm:py-4 shadow-lg shrink-0">
 						<h2 className="cursor-pointer text-md font-normal">Friend Requests</h2>
 						<ul className="ml-2 text-xs space-y-1">
-							{userData.friendRequestsReceived.map(request => {
+							{friendRequestsReceived.map(request => {
 								return (
 									<FriendRequest
 										key={userData._id}

@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import { AppContext } from "../App"
-import { LOGOUT } from "../state/App/actions"
+import { APP_ACTION_LOGOUT } from "../state/actions"
 
-export default function Header({ userData }) {
+export default function Header({ username, firstName, lastName }) {
 	const [slide, setSlide] = useState("")
 	const { dispatchAppState } = useContext(AppContext)
 	const navigate = useNavigate()
@@ -15,7 +15,7 @@ export default function Header({ userData }) {
 
 	const handleLogout = () => {
 		localStorage.clear()
-		dispatchAppState(LOGOUT())
+		dispatchAppState(APP_ACTION_LOGOUT())
 		navigate("/")
 	}
 
@@ -23,7 +23,7 @@ export default function Header({ userData }) {
 		<div className="relative z-40 w-full">
 			<nav className="shadow-lg border-b-2 sm:border-b-4 border-gray-900 relative z-40 py-3 px-8 w-full text-gray-50 bg-gradient-to-r from-darkBlue to-red-800 flex justify-between items-center">
 				<Link
-					to={`/user/${userData.username}/dashboard`}
+					to={`/user/${username}/dashboard`}
 					className="flex items-center space-x-4 w-full sm:w-auto sm:justify-start sm:space-x-5"
 				>
 					<svg
@@ -42,7 +42,7 @@ export default function Header({ userData }) {
 					</svg>
 					<div className="flex sm:flex-none justify-center items-center w-full sm:w-auto">
 						<h2 className="sm:w-auto sm:transform-none sm:static sm:pl-0 text-xl sm:text-xl font-bold uppercase">
-							<span className="hidden sm:inline font-thin">{userData.firstName}'s </span>CODELOCKR
+							<span className="hidden sm:inline font-thin">{firstName}'s </span>CODELOCKR
 						</h2>
 					</div>
 				</Link>
@@ -51,7 +51,7 @@ export default function Header({ userData }) {
 					className="cursor-pointer flex justify-start items-center space-x-5"
 				>
 					<h3 className="hidden sm:block text-xs font-thin uppercase">
-						{userData.firstName} {userData.lastName}
+						{firstName} {lastName}
 					</h3>
 					<svg
 						className=""
@@ -115,13 +115,13 @@ export default function Header({ userData }) {
 			>
 				<ul className="p-4 flex-col font-thin text-xs space-y-2 ">
 					<li className="hover:text-red-500">
-						<Link to={`/user/${userData.username}/dashboard`}>Dashboard</Link>
+						<Link to={`/user/${username}/dashboard`}>Dashboard</Link>
 					</li>
 					<li className="hover:text-red-500">
-						<Link to={`/user/${userData.username}/lockrroom`}>LockrRoom</Link>
+						<Link to={`/user/${username}/lockrroom`}>LockrRoom</Link>
 					</li>
 					<li className="hover:text-red-500">
-						<Link to={`/user/${userData.username}/profile`}>Settings</Link>
+						<Link to={`/user/${username}/profile`}>Settings</Link>
 					</li>
 					<li className="cursor-pointer hover:text-red-500">
 						<p onClick={handleLogout}>Logout</p>

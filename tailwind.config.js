@@ -1,11 +1,13 @@
 module.exports = {
 	content: [
 		"./src/*.js",
-		"./src/**/*.js",
-		"./src/**/**/*.js",
-		"./src/**/**/**/*.js",
+		"./src/components/*.js",
+		"./src/components/forms/*.js",
+		"./src/containers/*.js",
+		"./src/containers/**/*.js",
+		"./src/containers/**/**/*.js",
+		"./src/lib/highlightjs/highlight.pack.js",
 		"./public/index.html",
-		"./src/index.css",
 	],
 	theme: {
 		fontFamily: {

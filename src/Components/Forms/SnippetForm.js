@@ -1,43 +1,45 @@
 import { useState, useContext, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { UserContext } from "../../containers/User"
 
 import { LANGUAGES } from "../../common/constants"
 import { createSnippet, editSnippet, deleteSnippet } from "../../common/api"
 
 import AddFolder from "./AddFolder"
+import { AppContext } from "../../App"
+import {
+	APP_ACTION_CLEAR_SNIPPET_FORM,
+	APP_ACTION_REFRESH_SNIPPETS,
+	APP_ACTION_SET_FOLDER_FILTER,
+	APP_ACTION_SET_SNIPPET_FORM,
+	APP_ACTION_SET_SUBMIT_MODE,
+} from "../../state/actions"
+import LoadingRing from "../LoadingRing"
 
 export default function SnippetForm() {
-	const {
-		userData,
-		setFilter,
-		snippetForm,
-		setSnippetForm,
-		setSnippetSubmitMode,
-		snippetSubmitMode,
-		refreshTrigger,
-		setRefreshTrigger,
-	} = useContext(UserContext)
+	const { appState, dispatchAppState } = useContext(AppContext)
+	const { userData, snippetForm, submitMode, username, token } = appState
+
 	const [showAddFolder, setShowAddFolder] = useState(false)
 	const [newFolder, setNewFolder] = useState()
 	const [showLangList, setShowLangList] = useState(false)
 	const [error, setError] = useState(false)
-	const navigate = useNavigate()
+
 	const codeText = useRef()
+	const navigate = useNavigate()
 
 	const handleChange = e => {
 		if (e.target.type === "checkbox") {
-			setSnippetForm({ ...snippetForm, isPrivate: e.target.checked })
+			dispatchAppState(APP_ACTION_SET_SNIPPET_FORM({ ...snippetForm, isPrivate: e.target.checked }))
 		} else {
 			const { id, value } = e.target
-			setSnippetForm({ ...snippetForm, [id]: value })
+			dispatchAppState(APP_ACTION_SET_SNIPPET_FORM({ ...snippetForm, [id]: value }))
 		}
 	}
 
 	const handleErrors = e => {
 		e.preventDefault()
 		window.scrollTo(0, 0)
-		if (snippetSubmitMode === "PUT") handleSubmit()
+		if (submitMode === "PUT") handleSubmit()
 		else {
 			setError(false)
 			if (!snippetForm.title) {
@@ -53,57 +55,41 @@ export default function SnippetForm() {
 	}
 
 	//  handle adding the new snippet to the user's snippet data
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		const snippetData = { ...snippetForm }
 		snippetData.parseFormat = snippetData.parseFormat.toLowerCase()
-		const token = window.localStorage.getItem("token")
-		if (snippetSubmitMode === "POST") {
-			createSnippet(userData.username, token, snippetData, userData._id)
+		if (submitMode === "POST") {
+			await createSnippet(username, token, snippetData, userData._id)
 		}
-		if (snippetSubmitMode === "PUT") {
-			editSnippet(userData.username, token, snippetData)
+		if (submitMode === "PUT") {
+			await editSnippet(username, token, snippetData)
 		}
-		setSnippetForm({
-			title: "",
-			parentFolder: "",
-			parseFormat: "",
-			code: "",
-			notes: "",
-			isPrivate: false,
-		})
-		setRefreshTrigger(!refreshTrigger)
-		setSnippetSubmitMode("POST")
-		setFilter(snippetData.parentFolder)
-		navigate(`/user/${userData.username}/dashboard`)
+		dispatchAppState(APP_ACTION_CLEAR_SNIPPET_FORM())
+		dispatchAppState(APP_ACTION_SET_SUBMIT_MODE("POST"))
+		dispatchAppState(APP_ACTION_SET_FOLDER_FILTER(snippetData.parentFolder))
+		dispatchAppState(APP_ACTION_REFRESH_SNIPPETS())
+		navigate(`/user/${username}/dashboard`)
 	}
 
 	//  handle removing the snippet from the user's snippet data
-	const handleDelete = e => {
+	const handleDelete = async e => {
 		e.preventDefault()
-		const token = window.localStorage.getItem("token")
-		deleteSnippet(userData.username, token, snippetForm.snippet_id)
-		setSnippetForm({
-			title: "",
-			parentFolder: "",
-			parseFormat: "",
-			code: "",
-			notes: "",
-			isPrivate: false,
-		})
-		setRefreshTrigger(!refreshTrigger)
-		setSnippetSubmitMode("POST")
-		setFilter(snippetForm.parentFolder)
-		navigate(`/user/${userData.username}/dashboard`)
+		await deleteSnippet(username, token, snippetForm.snippet_id)
+		dispatchAppState(APP_ACTION_SET_SUBMIT_MODE("POST"))
+		dispatchAppState(APP_ACTION_SET_FOLDER_FILTER(snippetForm.parentFolder))
+		dispatchAppState(APP_ACTION_CLEAR_SNIPPET_FORM())
+		dispatchAppState(APP_ACTION_REFRESH_SNIPPETS())
+		navigate(`/user/${username}/dashboard`)
 	}
 
-	return (
+	return !!snippetForm ? (
 		<form
 			noValidate
 			className="max-w-4xl mx-4 sm:ml-10 mt-5 sm:mb-14 sm:w-3/4 space-y-4 text-xs sm:text-sm"
 			onSubmit={handleErrors}
 		>
 			<h1 className="text-base sm:text-xl font-bold">
-				{snippetSubmitMode === "POST" ? "Create a New Snippet" : `Edit ${snippetForm.title}`}
+				{submitMode === "POST" ? "Create a New Snippet" : `Edit ${snippetForm.title}`}
 			</h1>
 			{error ? (
 				<h1 className="text-md sm:text-base font-normal text-red-600">
@@ -144,7 +130,7 @@ export default function SnippetForm() {
 					) : (
 						<option className="" value=""></option>
 					)}
-					{userData.folders
+					{[...userData.folders]
 						.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))
 						.map(folder => {
 							return (
@@ -193,14 +179,20 @@ export default function SnippetForm() {
 							size="12"
 							// onChange={}
 						>
-							{LANGUAGES.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1)).map(
-								language => {
+							{[...LANGUAGES]
+								.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1))
+								.map(language => {
 									if (language.name.toUpperCase().includes(snippetForm.parseFormat.toUpperCase())) {
 										return (
 											<option
 												className=""
 												onClick={e => {
-													setSnippetForm({ ...snippetForm, parseFormat: language.name })
+													dispatchAppState(
+														APP_ACTION_SET_SNIPPET_FORM({
+															...snippetForm,
+															parseFormat: language.name,
+														})
+													)
 													codeText.current.focus()
 													setTimeout(() => setShowLangList(false), 0)
 												}}
@@ -212,8 +204,7 @@ export default function SnippetForm() {
 										)
 									}
 									return null
-								}
-							)}
+								})}
 						</select>
 					)}
 				</label>
@@ -284,7 +275,7 @@ export default function SnippetForm() {
 			<div className="w-full pt-10">
 				<div className="w-full flex flex-row justify-between items-center">
 					<div className="justify-self-start">
-						{snippetSubmitMode === "PUT" ? (
+						{submitMode === "PUT" ? (
 							<button
 								onClick={handleDelete}
 								className="bg-red-800 tracking-widest rounded-md shadow-md py-2 px-5 text-xs text-gray-50 font-thin"
@@ -295,27 +286,20 @@ export default function SnippetForm() {
 					</div>
 					<div>
 						<Link
-							onClick={() =>
-								setSnippetForm({
-									title: "",
-									parentFolder: "",
-									parseFormat: "",
-									code: "",
-									notes: "",
-									isPrivate: false,
-								})
-							}
+							onClick={() => dispatchAppState(APP_ACTION_CLEAR_SNIPPET_FORM())}
 							className="mr-10 btn-secondary py-2 px-5"
-							to={`/user/${userData.username}/dashboard/`}
+							to={`/user/${username}/dashboard/`}
 						>
 							Cancel
 						</Link>
 						<button className="btn-primary py-2 px-5">
-							{snippetSubmitMode === "POST" ? "Create" : "Update"}
+							{submitMode === "POST" ? "Create" : "Update"}
 						</button>
 					</div>
 				</div>
 			</div>
 		</form>
+	) : (
+		<LoadingRing />
 	)
 }

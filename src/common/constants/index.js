@@ -1,12 +1,38 @@
 export const BASE_URL = "https://codelockr-api.herokuapp.com"
 // const export BASE_URL = 'http://localhost:3030'
 
+export const DEFAULT_SNIPPET_FORM = {
+	title: "",
+	parentFolder: "",
+	parseFormat: "",
+	code: "",
+	notes: "",
+	isPrivate: false,
+}
+
 export const INITIAL_APP_STATE = {
 	showRegistration: false,
 	loggedIn: false,
 	isAdmin: false,
-	username: null,
-	token: null,
+	username: "",
+	token: "",
+	folderFilter: "",
+	submitMode: "POST",
+	snippetForm: { ...DEFAULT_SNIPPET_FORM },
+	snippets: [],
+	friendSnippets: [],
+	refreshUser: false,
+	refreshSnippets: false,
+	userData: {},
+}
+
+export const DEFAULT_REGISTRATION_FORM = {
+	firstName: "",
+	lastName: "",
+	email: "",
+	username: "",
+	password: "",
+	confirmPassword: "",
 }
 
 export const EMAIL_REGEX =

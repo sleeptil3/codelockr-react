@@ -1,12 +1,15 @@
 import { useContext } from "react"
 import { Link, Routes, Route, useNavigate } from "react-router-dom"
-import { UserContext } from ".."
+
 import DeleteProfile from "../../../components/DeleteProfile"
 import ProfileDetails from "../../../components/ProfileDetails"
 import ManageFolders from "../../../components/ManageFolders"
+import { AppContext } from "../../../App"
 
 export default function UserProfile() {
-	const { userData } = useContext(UserContext)
+	const { appState } = useContext(AppContext)
+	const { userData } = appState
+
 	const navigate = useNavigate()
 
 	const handleChange = e => {

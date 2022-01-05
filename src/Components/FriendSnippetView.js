@@ -1,59 +1,54 @@
 import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-import Snippet from "../../../components/Snippet"
-import { getFriendSnippets } from "../../../common/api"
+import Snippet from "./Snippet"
+import { getFriendSnippets } from "../common/api"
 
-import { UserContext } from ".."
+import { AppContext } from "../App"
 
 import hljs from "highlight.js"
 
 export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
-	const { userData, friendsList } = useContext(UserContext)
+	const { appState } = useContext(AppContext)
+	const { username, token, userData } = appState
+	const { friends } = userData
+
 	const [friendSnippetData, setFriendSnippetData] = useState([])
 	const [search, setSearch] = useState("")
 
-	const history = useNavigate()
+	const navigate = useNavigate()
 
-	const handleChange = e => {
-		setSearch(e.target.value)
-	}
-
-	const handleClear = () => {
-		setSearch("")
-	}
+	const handleChange = e => setSearch(e.target.value)
+	const handleClear = () => setSearch("")
 
 	useEffect(() => {
-		if (friendsList.length > 0) {
+		if (friends > 0) {
 			const fetchFriendSnippets = async () => {
-				const data = await getFriendSnippets(
-					userData.username,
-					window.localStorage.getItem("token")
-				)
+				const data = await getFriendSnippets(username, token)
 				setFriendSnippetData([...data])
 			}
 			fetchFriendSnippets()
 		}
 		window.scrollTo(0, 0)
-	}, [friendsList, userData.username])
+	}, [friends, username, token])
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
 		setFriendFilter("")
-	}, [setFriendFilter, history])
+	}, [setFriendFilter, navigate])
 
-	useLayoutEffect(() => {
-		hljs.highlightAll()
-	}, [friendSnippetData, friendFilter, search])
+	// useLayoutEffect(() => {
+	// 	hljs.highlightAll()
+	// }, [friendSnippetData, friendFilter, search])
 
 	return (
 		<div className="mt-4 sm:mt-0 sm:ml-2">
-			{userData.friends.length ? (
+			{!!friends.length ? (
 				<>
 					<h1 className="ml-6 sm:ml-0 text-base sm:text-xl font-bold">
 						{friendFilter
 							? `${
-									userData.friends.find(friend => friend._id === friendFilter).firstName
+									friends.find(friend => friend._id === friendFilter).firstName
 							  } 's Shared Snippets`
 							: "All Shared Snippets"}
 					</h1>

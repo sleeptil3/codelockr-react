@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 
 import { AppContext } from "../../../App"
 import { CUSTOMER_STORIES } from "../../../common/constants"
-import { TOGGLE_REGISTRATION } from "../../../state/App/actions"
+import { APP_ACTION_TOGGLE_REGISTRATION } from "../../../state/actions"
 
 import LoginForm from "../../../components/forms/LoginForm"
 import UserStory from "../../../components/UserStory"
@@ -59,7 +59,9 @@ export default function Home() {
 								) : (
 									<div className="flex flex-wrap ml-8 pb-4 space-x-4 sm:space-x-5 sm:mt-8">
 										<div className="btn-primary">
-											<p onClick={() => dispatchAppState(TOGGLE_REGISTRATION(true))}>Sign Up</p>
+											<p onClick={() => dispatchAppState(APP_ACTION_TOGGLE_REGISTRATION(true))}>
+												Sign Up
+											</p>
 										</div>
 										<div className="btn-tertiary">
 											<p onClick={revealLogin}>Login</p>
@@ -114,7 +116,7 @@ export default function Home() {
 					</p>
 					<br />
 					<p
-						onClick={() => dispatchAppState(TOGGLE_REGISTRATION(true))}
+						onClick={() => dispatchAppState(APP_ACTION_TOGGLE_REGISTRATION(true))}
 						className="inline cursor-pointer underline hover:text-red-600 font-bold"
 					>
 						Create your free account now

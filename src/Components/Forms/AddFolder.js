@@ -1,9 +1,12 @@
 import { useContext, useState } from "react"
-import { UserContext } from "../../containers/User"
+import { AppContext } from "../../App"
 import { addFolder } from "../../common/api"
+import { APP_ACTION_SET_SNIPPET_FORM } from "../../state/actions"
 
-export default function AddFolder({ owner, setShowAddFolder, setNewFolder, newFolder }) {
-	const { setSnippetForm, snippetForm, setRefreshTrigger, refreshTrigger } = useContext(UserContext)
+export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
+	const { appState, dispatchAppState } = useContext(AppContext)
+	const { token, username, snippetForm } = appState
+
 	const [formData, setFormData] = useState({
 		title: "",
 		owner: owner,
@@ -16,16 +19,13 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder, newFo
 	// handle adding folder to userData
 	const handleSubmit = async e => {
 		e.preventDefault()
-		const token = window.localStorage.getItem("token")
-		const username = window.localStorage.getItem("username")
 		const newFolder = await addFolder(username, token, formData)
 		setFormData({
 			title: "",
 			owner: owner,
 		})
 		setNewFolder({ ...newFolder })
-		setSnippetForm({ ...snippetForm, parentFolder: newFolder._id })
-		setRefreshTrigger(!refreshTrigger)
+		dispatchAppState(APP_ACTION_SET_SNIPPET_FORM({ ...snippetForm, parentFolder: newFolder._id }))
 		setShowAddFolder(false)
 	}
 
@@ -36,16 +36,7 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder, newFo
 					New Folder Title
 				</label>
 				<div className="flex flex-wrap space-y-4 sm:space-y-0 space-x-4 relative bottom-2">
-					<input
-						className="block py-1 px-2 w-96 border border-gray-500 rounded-md bg-transparent"
-						name="title"
-						id="title"
-						type="text"
-						spellCheck="false"
-						autoComplete="off"
-						onChange={handleChange}
-						value={formData.title}
-					></input>
+					<input className="block py-1 px-2 w-96 border border-gray-500 rounded-md bg-transparent" name="title" id="title" type="text" spellCheck="false" autoComplete="off" onChange={handleChange} value={formData.title}></input>
 					<button onClick={handleSubmit} className="btn-primary">
 						Add
 					</button>

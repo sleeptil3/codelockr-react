@@ -1,20 +1,24 @@
 import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import Snippet from "../../../components/Snippet"
-import { UserContext } from ".."
+
+import { AppContext } from "../App"
+
+import Snippet from "./Snippet"
 import hljs from "highlight.js"
 
 export default function SnippetView() {
-	const { userData, filter, setFilter, snippetData } = useContext(UserContext)
+	const { appState } = useContext(AppContext)
+	const { userData, snippets, folderFilter } = appState
+
 	const [search, setSearch] = useState("")
-	const history = useNavigate()
+	const navigate = useNavigate()
 
 	const handleChange = e => setSearch(e.target.value)
 	const handleClear = () => setSearch("")
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
-	}, [setFilter, history])
+	}, [navigate])
 
 	useLayoutEffect(() => {
 		hljs.highlightAll()
@@ -22,12 +26,12 @@ export default function SnippetView() {
 
 	return (
 		<div className="sm:ml-2">
-			{userData.folders.length ? (
+			{!!(userData.folders.length > 0) ? (
 				<>
 					<h1 className="hidden sm:inline text-xl font-bold">
-						{filter === ""
+						{folderFilter === ""
 							? "All Snippets"
-							: userData.folders.find(folder => folder._id === filter).title}
+							: userData.folders.find(folder => folder._id === folderFilter).title}
 					</h1>
 					<div className="ml-5 sm:ml-1 my-4 flex justify-start items-center relative">
 						<svg
@@ -53,7 +57,7 @@ export default function SnippetView() {
 								value={search}
 							/>
 						</div>
-						{search ? (
+						{!!search ? (
 							<span className="cursor-pointer ml-3 text-xs" onClick={handleClear}>
 								Clear
 							</span>
@@ -93,13 +97,14 @@ export default function SnippetView() {
 				</div>
 			)}
 			<div className="grid gap-5 sm:gap-10 mt-2 sm:pr-8 w-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 items-start">
-				{snippetData
+				{snippets
 					.filter(snippet => {
-						if (filter === "") return snippet.title.toUpperCase().includes(search.toUpperCase())
+						if (folderFilter === "")
+							return snippet.title.toUpperCase().includes(search.toUpperCase())
 						else
 							return (
 								snippet.title.toUpperCase().includes(search.toUpperCase()) &&
-								snippet.parentFolder === filter
+								snippet.parentFolder === folderFilter
 							)
 					})
 					.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))

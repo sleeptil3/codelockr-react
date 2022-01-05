@@ -1,20 +1,18 @@
 import { useContext } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { AppContext } from "../App"
-import { UserContext } from "../containers/User"
 import { deleteUser } from "../common/api"
-import { LOGOUT } from "../state/App/actions"
+import { APP_ACTION_LOGOUT } from "../state/actions"
 
 export default function DeleteProfile() {
 	const navigate = useNavigate()
-	const { userData } = useContext(UserContext)
-	const { dispatchAppState } = useContext(AppContext)
+	const { appState, dispatchAppState } = useContext(AppContext)
+	const { username, token } = appState
 
 	const handleDelete = async () => {
-		const token = window.localStorage.getItem("token")
-		await deleteUser(userData.username, token)
+		await deleteUser(username, token)
 		window.localStorage.clear()
-		dispatchAppState(LOGOUT())
+		dispatchAppState(APP_ACTION_LOGOUT())
 		navigate("/")
 	}
 
@@ -36,7 +34,7 @@ export default function DeleteProfile() {
 			<div className="flex justify-between mt-4">
 				<button
 					className="focus:ring-0 btn-secondary px-4 shrink-0 py-2"
-					onClick={() => navigate(`/user/${userData.username}/dashboard`)}
+					onClick={() => navigate(`/user/${username}/dashboard`)}
 				>
 					No, take me back!
 				</button>
