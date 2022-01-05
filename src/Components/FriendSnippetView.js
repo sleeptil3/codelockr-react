@@ -37,9 +37,9 @@ export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
 		setFriendFilter("")
 	}, [setFriendFilter, navigate])
 
-	// useLayoutEffect(() => {
-	// 	hljs.highlightAll()
-	// }, [friendSnippetData, friendFilter, search])
+	useLayoutEffect(() => {
+		hljs.highlightAll()
+	}, [friendSnippetData, friendFilter, search])
 
 	return (
 		<div className="mt-4 sm:mt-0 sm:ml-2">

@@ -43,7 +43,7 @@ export default function App() {
 			dispatchAppState(APP_ACTION_REFRESH_SNIPPETS())
 		}
 		!!username && loadUserInfo(username, token)
-	}, [appState.refreshUser, username, token])
+	}, [appState.refreshUser, username, token, dispatchAppState])
 
 	// Init or Refresh Snippet Data (user and friends)
 	useEffect(() => {
@@ -55,7 +55,7 @@ export default function App() {
 			dispatchAppState(APP_ACTION_SET_FRIEND_SNIPPETS(allFriendSnippets))
 		}
 		objectHasData(userData) && loadSnippets(username, token)
-	}, [appState.refreshSnippets])
+	}, [appState.refreshSnippets, dispatchAppState, username, token, userData])
 
 	console.log("AppState", appState)
 	return (
