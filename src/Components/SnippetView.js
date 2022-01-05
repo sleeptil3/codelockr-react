@@ -28,14 +28,14 @@ export default function SnippetView() {
 		<div className="sm:ml-2">
 			{!!(userData.folders.length > 0) ? (
 				<>
-					<h1 className="hidden sm:inline text-xl font-bold">
+					<h1 className="hidden sm:inline text-2xl">
 						{folderFilter === ""
 							? "All Snippets"
 							: userData.folders.find(folder => folder._id === folderFilter).title}
 					</h1>
 					<div className="ml-5 sm:ml-1 my-4 flex justify-start items-center relative">
 						<svg
-							className="absolute left-2 h-6 sm:h-auto cursor-pointer inline mr-2 sm:mr-4"
+							className="absolute left-6 sm:left-2 h-6 sm:h-auto cursor-pointer inline mr-2 sm:mr-4"
 							width="29"
 							height="29"
 							viewBox="0 0 29 29"

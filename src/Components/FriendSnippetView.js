@@ -32,7 +32,7 @@ export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
 		<div className="mt-4 sm:mt-0 sm:ml-2">
 			{!!friends.length ? (
 				<>
-					<h1 className="ml-6 sm:ml-0 text-base sm:text-xl font-bold">
+					<h1 className="ml-6 sm:ml-0 text-2xl">
 						{friendFilter
 							? `${
 									friends.find(friend => friend._id === friendFilter).firstName
@@ -41,7 +41,7 @@ export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
 					</h1>
 					<div className="relative ml-6 sm:ml-0 my-4 flex items-center">
 						<svg
-							className="absolute left-2 h-6 sm:h-auto cursor-pointer inline mr-2 sm:mr-4"
+							className="absolute left-2 h-6 sm:h-auto cursor-pointer inline ml-3 sm:ml-0 sm:mr-4"
 							width="29"
 							height="29"
 							viewBox="0 0 29 29"
@@ -57,7 +57,7 @@ export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
 						<div className="w-full pr-20 ml-4 sm:ml-0 sm:pr-0 sm:w-auto">
 							<input
 								placeholder="Filter by title"
-								className="tracking-wider placeholder-gray-500 focus:ring-0 focus:outline-none bg-transparent border-2 border-gray-700 text-md pl-11 py-2 w-full"
+								className="tracking-wider placeholder-gray-500 focus:ring-0 focus:outline-none bg-transparent border-2 border-gray-700 text-md pl-9 sm:pl-11 py-2 w-full"
 								type="text"
 								onChange={handleChange}
 								value={search}
