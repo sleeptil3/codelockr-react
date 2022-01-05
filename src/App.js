@@ -29,7 +29,6 @@ export default function App() {
 
 	// Get Previously Logged-In User, if applicable
 	useEffect(() => {
-		console.log("CURRENT LOCAL STORAGE RAN")
 		const currentLocalStorage = getLocalStorage(["username", "token"])
 		if (currentLocalStorage) dispatch(APP_ACTION_LOGIN(currentLocalStorage))
 	}, [dispatch])
@@ -47,7 +46,6 @@ export default function App() {
 
 	// Init or Refresh Snippet Data (user and friends)
 	useEffect(() => {
-		console.log("INIT SNIPPET DATA RAN")
 		const loadSnippets = async (username, token) => {
 			const allUserSnippets = await getAllSnippets(username, token, userData._id)
 			const allFriendSnippets = await getFriendSnippets(username, token)
@@ -58,15 +56,12 @@ export default function App() {
 	}, [appState.refreshSnippets, dispatch, username, token, userData])
 
 	useEffect(() => {
-		console.log("INIT FRIEND SNIPPET DATA RAN")
 		const loadFriendSnippets = async (username, token) => {
 			const allFriendSnippets = await getFriendSnippets(username, token)
 			dispatch(APP_ACTION_SET_FRIEND_SNIPPETS(allFriendSnippets))
 		}
 		objectHasData(userData) && loadFriendSnippets(username, token)
 	}, [appState.refreshFriendSnippets, dispatch, username, token, userData])
-
-	console.log("AppState", appState)
 
 	return (
 		<div>

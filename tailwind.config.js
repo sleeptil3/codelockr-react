@@ -6,7 +6,6 @@ module.exports = {
 		"./src/containers/*.js",
 		"./src/containers/**/*.js",
 		"./src/containers/**/**/*.js",
-		"./src/lib/highlightjs/highlight.pack.js",
 		"./public/index.html",
 	],
 	theme: {
