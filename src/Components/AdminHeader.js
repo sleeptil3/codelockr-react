@@ -5,7 +5,7 @@ import { AppContext } from "../App"
 
 export default function AdminHeader({ setPageSelect }) {
 	const [slide, setSlide] = useState("")
-	const { dispatchAppState } = useContext(AppContext)
+	const { dispatch } = useContext(AppContext)
 	const navigate = useNavigate("/")
 
 	const handleSlide = () => {
@@ -15,7 +15,7 @@ export default function AdminHeader({ setPageSelect }) {
 
 	const handleLogout = () => {
 		localStorage.clear()
-		dispatchAppState(APP_ACTION_LOGOUT())
+		dispatch(APP_ACTION_LOGOUT())
 		navigate("/")
 	}
 

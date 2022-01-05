@@ -12,7 +12,7 @@ import { APP_ACTION_LOGIN, APP_ACTION_TOGGLE_REGISTRATION } from "../../state/ac
 
 export default function RegistrationForm() {
 	const navigate = useNavigate()
-	const { appState, dispatchAppState } = useContext(AppContext)
+	const { appState, dispatch } = useContext(AppContext)
 	const { showRegistration } = appState
 
 	// Local State
@@ -40,7 +40,9 @@ export default function RegistrationForm() {
 			setPasswordError(true)
 		}
 		if (!PASSWORD_REGEX.test(formData.password)) {
-			errors.push("Password must be at least 8 characters long and contain at least one lowercase letter, capital letter, number, and a special character (!@#$%^&*)")
+			errors.push(
+				"Password must be at least 8 characters long and contain at least one lowercase letter, capital letter, number, and a special character (!@#$%^&*)"
+			)
 			setPasswordError(true)
 		}
 		if (!EMAIL_REGEX.test(formData.email)) {
@@ -67,7 +69,7 @@ export default function RegistrationForm() {
 		} else {
 			const { token, createdUser } = newUser
 			const { username, firstName, lastName } = createdUser
-			dispatchAppState(APP_ACTION_LOGIN({ username, firstName, lastName, token }))
+			dispatch(APP_ACTION_LOGIN({ username, firstName, lastName, token }))
 			setFormData({
 				firstName: "",
 				lastName: "",
@@ -76,7 +78,7 @@ export default function RegistrationForm() {
 				password: "",
 				confirmPassword: "",
 			})
-			dispatchAppState(APP_ACTION_TOGGLE_REGISTRATION(false))
+			dispatch(APP_ACTION_TOGGLE_REGISTRATION(false))
 			navigate(`/user/${username}/dashboard`)
 		}
 	}
@@ -96,7 +98,7 @@ export default function RegistrationForm() {
 			confirmPassword: "",
 		})
 		setDisplayErrors(null)
-		dispatchAppState(APP_ACTION_TOGGLE_REGISTRATION(false))
+		dispatch(APP_ACTION_TOGGLE_REGISTRATION(false))
 	}
 
 	if (!showRegistration) return null
@@ -113,15 +115,24 @@ export default function RegistrationForm() {
 					) : (
 						<>
 							<h1 className="text-lg sm:text-xl text-black">Create an account</h1>
-							<p className="text-xs sm:text-md text-gray-700">Welcome to the CodeLockr family! You're just minutes away from having a space to store all of your most used (and often forgot) coding stuff.</p>
 							<p className="text-xs sm:text-md text-gray-700">
-								Don't forget to tell your friends so you can take advantage of Snippet Sharing in your <strong>LockrRoom</strong>. Sharing is caring!
+								Welcome to the CodeLockr family! You're just minutes away from having a space to
+								store all of your most used (and often forgot) coding stuff.
+							</p>
+							<p className="text-xs sm:text-md text-gray-700">
+								Don't forget to tell your friends so you can take advantage of Snippet Sharing in
+								your <strong>LockrRoom</strong>. Sharing is caring!
 							</p>
 						</>
 					)}
 					{registering ? (
 						<div className="pt-20 flex justify-center items-center">
-							<img className="animate-spin" src={ellipse} srcSet={`${ellipse2} 2x, ${ellipse3} 3x`} alt="" />
+							<img
+								className="animate-spin"
+								src={ellipse}
+								srcSet={`${ellipse2} 2x, ${ellipse3} 3x`}
+								alt=""
+							/>
 						</div>
 					) : null}
 					{!!displayErrors ? (
@@ -142,7 +153,11 @@ export default function RegistrationForm() {
 				<div className="sm:w-1/2 bg-gradient-to-br from-darkBlue to-black rounded-2xl">
 					<form noValidate className="my-5 pt-4" onSubmit={handleErrors}>
 						<div className="font-thin tracking-wider text-xs sm:text-xs text-gray-50 flex flex-col items-center justify-evenly w-full px-4 sm:px-8">
-							<label className={`w-full ${displayErrors && !formData.firstName ? "border-l-2 pl-4 border-red-600" : null}`}>
+							<label
+								className={`w-full ${
+									displayErrors && !formData.firstName ? "border-l-2 pl-4 border-red-600" : null
+								}`}
+							>
 								<input
 									onChange={handleChange}
 									value={formData.firstName}
@@ -153,7 +168,11 @@ export default function RegistrationForm() {
 								/>
 								First Name
 							</label>
-							<label className={`w-full ${displayErrors && !formData.lastName ? "border-l-2 pl-4 border-red-600" : null}`}>
+							<label
+								className={`w-full ${
+									displayErrors && !formData.lastName ? "border-l-2 pl-4 border-red-600" : null
+								}`}
+							>
 								<input
 									onChange={handleChange}
 									value={formData.lastName}
@@ -164,7 +183,14 @@ export default function RegistrationForm() {
 								/>
 								Last Name
 							</label>
-							<label className={`w-full ${displayErrors && (!formData.email || emailError || displayErrors[0].includes("email")) ? "border-l-2 pl-4 border-red-600" : null}`}>
+							<label
+								className={`w-full ${
+									displayErrors &&
+									(!formData.email || emailError || displayErrors[0].includes("email"))
+										? "border-l-2 pl-4 border-red-600"
+										: null
+								}`}
+							>
 								<input
 									onChange={handleChange}
 									value={formData.email}
@@ -175,7 +201,13 @@ export default function RegistrationForm() {
 								/>
 								Email Address
 							</label>
-							<label className={`w-full ${displayErrors && (!formData.username || displayErrors[0].includes("username")) ? "border-l-2 pl-4 border-red-600" : null}`}>
+							<label
+								className={`w-full ${
+									displayErrors && (!formData.username || displayErrors[0].includes("username"))
+										? "border-l-2 pl-4 border-red-600"
+										: null
+								}`}
+							>
 								<input
 									onChange={handleChange}
 									value={formData.username}
@@ -186,7 +218,14 @@ export default function RegistrationForm() {
 								/>
 								Username
 							</label>
-							<div className={`w-full ${displayErrors && (passwordError || !formData.password || !formData.confirmPassword) ? "border-l-2 pl-4 border-red-600" : null}`}>
+							<div
+								className={`w-full ${
+									displayErrors &&
+									(passwordError || !formData.password || !formData.confirmPassword)
+										? "border-l-2 pl-4 border-red-600"
+										: null
+								}`}
+							>
 								<label className="w-full">
 									<input
 										onChange={handleChange}

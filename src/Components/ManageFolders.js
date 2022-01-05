@@ -9,7 +9,7 @@ export default function ManageFolders() {
 	return (
 		<div>
 			<div className="mr-4">
-				<h1 className="mb-6 text-base font-bold">Manage Folders</h1>
+				<h1 className="mb-6 text-2xl">Manage Folders</h1>
 				<p className="">
 					<span className="text-red-700 font-bold">CAUTION</span>: Deleting a folder will delete{" "}
 					<strong>all</strong> of the Snippets it contains!
@@ -19,7 +19,7 @@ export default function ManageFolders() {
 				{[...userData.folders]
 					.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))
 					.map(folder => {
-						return <FolderDetails key={folder._id} folder={folder} username={userData.username} />
+						return <FolderDetails key={folder._id} folder={folder} />
 					})}
 			</div>
 		</div>

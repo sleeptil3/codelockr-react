@@ -15,12 +15,12 @@ export default function Snippet({
 	snippet_id,
 	owner,
 }) {
-	const { appState, dispatchAppState } = useContext(AppContext)
+	const { appState, dispatch } = useContext(AppContext)
 	const { userData } = appState
 	const [isCopied, setIsCopied] = useState(false)
 
 	const handleClick = () => {
-		dispatchAppState(
+		dispatch(
 			APP_ACTION_SET_SNIPPET_FORM({
 				title: title,
 				code: code,
@@ -31,7 +31,7 @@ export default function Snippet({
 				parentFolder: parentFolder,
 			})
 		)
-		dispatchAppState(APP_ACTION_SET_SUBMIT_MODE("PUT"))
+		dispatch(APP_ACTION_SET_SUBMIT_MODE("PUT"))
 	}
 
 	const copySnippet = () => {

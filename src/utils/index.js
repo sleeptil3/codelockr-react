@@ -42,6 +42,6 @@ export const isEmptyObject = obj => {
 }
 
 export const objectHasData = obj => {
-	if (!obj) return undefined
+	if (!obj || obj === null) return undefined
 	return !!(Object.keys(obj).length > 0)
 }

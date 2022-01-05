@@ -1,13 +1,16 @@
 import { useContext, useState } from "react"
+import { useNavigate } from "react-router"
 
 import { AppContext } from "../App"
 
 import { editUser } from "../common/api"
+import { APP_ACTION_REFRESH_USER } from "../state/actions"
+import { setLocalStorage } from "../utils"
 import PasswordReset from "./forms/PasswordReset"
 import ProfileField from "./forms/ProfileField"
 
 export default function ProfileDetails() {
-	const { appState } = useContext(AppContext)
+	const { appState, dispatch } = useContext(AppContext)
 	const { userData, username, token } = appState
 
 	const [editMode, setEditMode] = useState(false)
@@ -19,6 +22,8 @@ export default function ProfileDetails() {
 		email: userData.email,
 	})
 
+	const navigate = useNavigate()
+
 	const handleChange = e => {
 		const { id, value } = e.target
 		setFormData({ ...formData, [id]: value })
@@ -29,29 +34,70 @@ export default function ProfileDetails() {
 		e.preventDefault()
 		const data = await editUser(username, token, formData)
 		if (formData.username !== username) {
-			window.localStorage.setItem("token", data.token)
-			window.localStorage.setItem("username", formData.username)
+			setLocalStorage({ token: data.token, username: formData.username })
 		}
-		setEditMode(false)
+		dispatch(APP_ACTION_REFRESH_USER())
+		navigate(`/user/${formData.username}/dashboard`)
+		window.location.reload()
 	}
 
 	return (
 		<div>
 			{!editPassword ? (
 				<div>
-					<form onSubmit={handleSubmit} className="rounded-lg">
+					<form autoComplete="off" onSubmit={handleSubmit} className="rounded-lg">
+						<input hidden autoComplete={false} />
 						<div>
-							<h1 className="mb-6 text-lg font-bold">Profile Details</h1>
+							<h1 className="mb-6 text-2xl">Profile Details</h1>
 						</div>
 						<div className="space-y-4">
-							<ProfileField editMode={editMode} field="Username" type="text" autoComplete="off" id="username" handleChange={handleChange} value={formData.username} data={userData.username} />
-							<ProfileField editMode={editMode} field="First Name" type="text" autoComplete="off" id="firstName" handleChange={handleChange} value={formData.firstName} data={userData.firstName} />
-							<ProfileField editMode={editMode} field="Last Name" type="text" autoComplete="off" id="lastName" handleChange={handleChange} value={formData.lastName} data={userData.lastName} />
-							<ProfileField editMode={editMode} field="Email" type="text" autoComplete="off" id="email" handleChange={handleChange} value={formData.email} data={userData.email} />
+							<ProfileField
+								editMode={editMode}
+								field="Username"
+								type="text"
+								autoComplete="off"
+								id="username"
+								handleChange={handleChange}
+								value={formData.username}
+								data={userData.username}
+							/>
+							<ProfileField
+								editMode={editMode}
+								field="First Name"
+								type="text"
+								autoComplete="off"
+								id="firstName"
+								handleChange={handleChange}
+								value={formData.firstName}
+								data={userData.firstName}
+							/>
+							<ProfileField
+								editMode={editMode}
+								field="Last Name"
+								type="text"
+								autoComplete="off"
+								id="lastName"
+								handleChange={handleChange}
+								value={formData.lastName}
+								data={userData.lastName}
+							/>
+							<ProfileField
+								editMode={editMode}
+								field="Email"
+								type="text"
+								autoComplete="off"
+								id="email"
+								handleChange={handleChange}
+								value={formData.email}
+								data={userData.email}
+							/>
 						</div>
 						{editMode ? (
 							<div className="text-right space-x-4">
-								<button onClick={() => setEditMode(false)} className="btn-secondary py-2 sm:text-sm text-xs">
+								<button
+									onClick={() => setEditMode(false)}
+									className="btn-secondary py-2 sm:text-sm text-xs"
+								>
 									Cancel
 								</button>
 								<button className="btn-primary mt-8" type="submit">
@@ -63,7 +109,10 @@ export default function ProfileDetails() {
 					<div className="flex space-x-7 mt-8 justify-between items-baseline">
 						{!editMode ? (
 							<>
-								<p className="transition hover:text-red-500 cursor-pointer py-2 sm:text-sm text-xs" onClick={() => setEditPassword(true)}>
+								<p
+									className="transition hover:text-red-500 cursor-pointer py-2 sm:text-sm text-xs"
+									onClick={() => setEditPassword(true)}
+								>
 									Reset Password
 								</p>
 								<button onClick={() => setEditMode(true)} className="btn-primary py-2">

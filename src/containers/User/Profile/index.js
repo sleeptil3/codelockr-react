@@ -21,8 +21,8 @@ export default function UserProfile() {
 
 	return (
 		<div className="flex sm:flex-row flex-col justify-start items-start w-screen">
-			<div className="hidden sm:block ml-5 shrink-0 bg-gray-900 h-max px-6 py-4 shadow-md">
-				<h1 className="cursor-pointer mb-2 text-base font-normal">Settings</h1>
+			<div className="hidden sm:block ml-5 shrink-0 bg-gray-900 h-max px-6 py-4 shadow-md w-52">
+				<h1 className="mb-2 text-base font-normal">Settings</h1>
 				<Link to={`/user/${userData.username}/profile`}>
 					<h1 className="my-2 ml-2 text-xs font-light hover:text-red-600">My Profile</h1>
 				</Link>
@@ -37,7 +37,7 @@ export default function UserProfile() {
 					</h1>
 				</Link>
 				<Link to={`/user/${userData.username}/dashboard`}>
-					<h1 className="cursor-pointer my-4 text-xs font-normal hover:text-red-600">
+					<h1 className="cursor-pointer mt-4 text-xs font-normal hover:text-red-600">
 						Back to Dashboard
 					</h1>
 				</Link>

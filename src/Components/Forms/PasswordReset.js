@@ -47,7 +47,7 @@ export default function PasswordReset({ setEditPassword, username }) {
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit} className="mt-2">
+			<form novalidate onSubmit={handleSubmit} className="mt-2">
 				<div>
 					<h1 className="mb-6 text-base font-bold">Reset Password</h1>
 					{error ? (
@@ -61,7 +61,6 @@ export default function PasswordReset({ setEditPassword, username }) {
 						className="hidden"
 						type="text"
 						value={passwordData.username}
-						autoComplete="username"
 						readOnly
 						name="username"
 						id="username"
@@ -85,16 +84,16 @@ export default function PasswordReset({ setEditPassword, username }) {
 						value={passwordData.confirmPassword}
 					/>
 				</div>
-				<div className="mt-8 flex space-x-8 items-baseline">
-					<button className="btn-primary py-2 sm:text-sm text-xs" type="submit">
-						Update
-					</button>
+				<div className="mt-8 flex items-baseline justify-end">
 					<p
-						className="cursor-pointer btn-secondary py-2 sm:text-sm text-xs"
+						className="cursor-pointer btn-secondary py-2 sm:text-sm text-xs mr-4"
 						onClick={handleCancel}
 					>
 						Cancel
 					</p>
+					<button className="btn-primary py-2 sm:text-sm text-xs" type="submit">
+						Update
+					</button>
 				</div>
 			</form>
 		</div>

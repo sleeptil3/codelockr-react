@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import { AppContext } from "../App"
-import { APP_ACTION_LOGOUT } from "../state/actions"
+import { APP_ACTION_LOGOUT, APP_ACTION_CLEAR_FOLDER_FILTER } from "../state/actions"
 
 export default function Header({ username, firstName, lastName }) {
 	const [slide, setSlide] = useState("")
-	const { dispatchAppState } = useContext(AppContext)
+	const { dispatch } = useContext(AppContext)
 	const navigate = useNavigate()
 
 	const handleSlide = () => {
@@ -15,8 +15,12 @@ export default function Header({ username, firstName, lastName }) {
 
 	const handleLogout = () => {
 		localStorage.clear()
-		dispatchAppState(APP_ACTION_LOGOUT())
+		dispatch(APP_ACTION_LOGOUT())
 		navigate("/")
+	}
+
+	const handleHome = () => {
+		dispatch(APP_ACTION_CLEAR_FOLDER_FILTER())
 	}
 
 	return (
@@ -25,6 +29,7 @@ export default function Header({ username, firstName, lastName }) {
 				<Link
 					to={`/user/${username}/dashboard`}
 					className="flex items-center space-x-4 w-full sm:w-auto sm:justify-start sm:space-x-5"
+					onClick={handleHome}
 				>
 					<svg
 						width="28"

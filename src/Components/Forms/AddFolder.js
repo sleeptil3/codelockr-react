@@ -1,10 +1,10 @@
 import { useContext, useState } from "react"
 import { AppContext } from "../../App"
 import { addFolder } from "../../common/api"
-import { APP_ACTION_SET_SNIPPET_FORM } from "../../state/actions"
+import { APP_ACTION_REFRESH_USER, APP_ACTION_SET_SNIPPET_FORM } from "../../state/actions"
 
 export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
-	const { appState, dispatchAppState } = useContext(AppContext)
+	const { appState, dispatch } = useContext(AppContext)
 	const { token, username, snippetForm } = appState
 
 	const [formData, setFormData] = useState({
@@ -16,7 +16,6 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 		setFormData({ ...formData, [e.target.id]: e.target.value })
 	}
 
-	// handle adding folder to userData
 	const handleSubmit = async e => {
 		e.preventDefault()
 		const newFolder = await addFolder(username, token, formData)
@@ -25,7 +24,8 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 			owner: owner,
 		})
 		setNewFolder({ ...newFolder })
-		dispatchAppState(APP_ACTION_SET_SNIPPET_FORM({ ...snippetForm, parentFolder: newFolder._id }))
+		dispatch(APP_ACTION_SET_SNIPPET_FORM({ ...snippetForm, parentFolder: newFolder._id }))
+		dispatch(APP_ACTION_REFRESH_USER())
 		setShowAddFolder(false)
 	}
 
@@ -36,7 +36,16 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 					New Folder Title
 				</label>
 				<div className="flex flex-wrap space-y-4 sm:space-y-0 space-x-4 relative bottom-2">
-					<input className="block py-1 px-2 w-96 border border-gray-500 rounded-md bg-transparent" name="title" id="title" type="text" spellCheck="false" autoComplete="off" onChange={handleChange} value={formData.title}></input>
+					<input
+						className="block py-1 px-2 w-96 border border-gray-500 rounded-md bg-transparent"
+						name="title"
+						id="title"
+						type="text"
+						spellCheck="false"
+						autoComplete="off"
+						onChange={handleChange}
+						value={formData.title}
+					></input>
 					<button onClick={handleSubmit} className="btn-primary">
 						Add
 					</button>

@@ -1,47 +1,34 @@
 import { useContext, useState, useEffect, useLayoutEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import hljs from "highlight.js"
 
 import Snippet from "./Snippet"
-import { getFriendSnippets } from "../common/api"
+import { objectHasData } from "../utils"
+import LoadingRing from "./LoadingRing"
 
 import { AppContext } from "../App"
 
-import hljs from "highlight.js"
-
 export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
 	const { appState } = useContext(AppContext)
-	const { username, token, userData } = appState
+	const { userData, friendSnippets } = appState
 	const { friends } = userData
 
-	const [friendSnippetData, setFriendSnippetData] = useState([])
 	const [search, setSearch] = useState("")
-
 	const navigate = useNavigate()
 
 	const handleChange = e => setSearch(e.target.value)
 	const handleClear = () => setSearch("")
 
 	useEffect(() => {
-		if (friends > 0) {
-			const fetchFriendSnippets = async () => {
-				const data = await getFriendSnippets(username, token)
-				setFriendSnippetData([...data])
-			}
-			fetchFriendSnippets()
-		}
-		window.scrollTo(0, 0)
-	}, [friends, username, token])
-
-	useEffect(() => {
 		window.scrollTo(0, 0)
 		setFriendFilter("")
-	}, [setFriendFilter, navigate])
+	}, [navigate, setFriendFilter])
 
 	useLayoutEffect(() => {
 		hljs.highlightAll()
-	}, [friendSnippetData, friendFilter, search])
+	})
 
-	return (
+	return objectHasData(userData) ? (
 		<div className="mt-4 sm:mt-0 sm:ml-2">
 			{!!friends.length ? (
 				<>
@@ -85,12 +72,12 @@ export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
 				</>
 			) : (
 				<div>
-					<h1 className="text-xl font-bold ml-8">Find Friends</h1>{" "}
+					<h1 className="text-xl font-bold ml-8">Find Friends</h1>
 					<h3 className="text-lg font-light mt-8 ml-8">Get started by adding a friend now!</h3>
 				</div>
 			)}
 			<div className="grid gap-5 sm:gap-10 mt-6 sm:mt-8 sm:pr-8 grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3">
-				{friendSnippetData
+				{friendSnippets
 					.filter(snippet => {
 						return (
 							snippet.title.toUpperCase().includes(search.toUpperCase()) &&
@@ -114,5 +101,7 @@ export default function FriendSnippetView({ friendFilter, setFriendFilter }) {
 					})}
 			</div>
 		</div>
+	) : (
+		<LoadingRing />
 	)
 }

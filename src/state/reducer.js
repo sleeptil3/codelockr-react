@@ -50,6 +50,10 @@ export const appStateImmerReducer = (draft, action) => {
 			draft.refreshSnippets = !draft.refreshSnippets
 			break
 		}
+		case "REFRESH_FRIEND_SNIPPETS": {
+			draft.refreshFriendSnippets = !draft.refreshFriendSnippets
+			break
+		}
 		case "SET_SNIPPETS": {
 			draft.snippets = action.payload
 			break

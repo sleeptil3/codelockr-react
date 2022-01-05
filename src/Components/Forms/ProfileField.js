@@ -10,7 +10,7 @@ export default function ProfileField({
 }) {
 	return (
 		<div className="w-full flex sm:flex-row flex-col items-baseline sm:space-x-4">
-			<label htmlFor={id} className="shrink-0 text-xs font-normal">
+			<label htmlFor={id} className="shrink-0">
 				{field}:
 			</label>
 			{editMode ? (

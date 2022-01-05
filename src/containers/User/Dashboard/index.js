@@ -15,30 +15,29 @@ import LoadingRing from "../../../components/LoadingRing"
 import { DEFAULT_SNIPPET_FORM } from "../../../common/constants"
 
 export default function UserDashboard() {
-	const { appState, dispatchAppState } = useContext(AppContext)
+	const { appState, dispatch } = useContext(AppContext)
 	const { userData, searchFilter } = appState
 
 	const handleFilter = e => {
 		e.preventDefault()
-		if (e.target.type === "select-one")
-			dispatchAppState(APP_ACTION_SET_FOLDER_FILTER(e.target.value))
-		else dispatchAppState(APP_ACTION_SET_FOLDER_FILTER(e.target.id))
+		if (e.target.type === "select-one") dispatch(APP_ACTION_SET_FOLDER_FILTER(e.target.value))
+		else dispatch(APP_ACTION_SET_FOLDER_FILTER(e.target.id))
 	}
 
 	const handleAddSnippet = () => {
-		dispatchAppState(APP_ACTION_SET_SNIPPET_FORM(DEFAULT_SNIPPET_FORM))
-		dispatchAppState(APP_ACTION_SET_SUBMIT_MODE("POST"))
-		dispatchAppState(APP_ACTION_CLEAR_FOLDER_FILTER())
+		dispatch(APP_ACTION_SET_SNIPPET_FORM(DEFAULT_SNIPPET_FORM))
+		dispatch(APP_ACTION_SET_SUBMIT_MODE("POST"))
+		dispatch(APP_ACTION_CLEAR_FOLDER_FILTER())
 	}
 
-	return !!userData.username ? (
+	return !!userData && !!userData.username ? (
 		<div className="flex flex-col sm:flex-row justify-start items-center sm:items-start">
 			<div className="sm:ml-5 w-full sm:w-max h-max ">
 				<div className="hidden sm:block bg-gray-900 mt-0 w-min space-y-4 px-6 py-3 shadow-lg shrink-0">
 					<Link
 						to={`/user/${userData.username}/dashboard`}
 						className="cursor-pointer text-base font-normal"
-						onClick={() => dispatchAppState(APP_ACTION_CLEAR_FOLDER_FILTER())}
+						onClick={() => dispatch(APP_ACTION_CLEAR_FOLDER_FILTER())}
 					>
 						All Snippets
 					</Link>

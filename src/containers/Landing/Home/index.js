@@ -12,7 +12,7 @@ import dashboard from "../../../assets/dashboard.png"
 import snippetGif from "../../../assets/snippet.gif"
 
 export default function Home() {
-	const { appState, dispatchAppState } = useContext(AppContext)
+	const { appState, dispatch } = useContext(AppContext)
 	const { loggedIn, username } = appState
 	const [slide, setSlide] = useState("")
 	const [showLogin, setShowLogin] = useState(false)
@@ -59,9 +59,7 @@ export default function Home() {
 								) : (
 									<div className="flex flex-wrap ml-8 pb-4 space-x-4 sm:space-x-5 sm:mt-8">
 										<div className="btn-primary">
-											<p onClick={() => dispatchAppState(APP_ACTION_TOGGLE_REGISTRATION(true))}>
-												Sign Up
-											</p>
+											<p onClick={() => dispatch(APP_ACTION_TOGGLE_REGISTRATION(true))}>Sign Up</p>
 										</div>
 										<div className="btn-tertiary">
 											<p onClick={revealLogin}>Login</p>
@@ -116,7 +114,7 @@ export default function Home() {
 					</p>
 					<br />
 					<p
-						onClick={() => dispatchAppState(APP_ACTION_TOGGLE_REGISTRATION(true))}
+						onClick={() => dispatch(APP_ACTION_TOGGLE_REGISTRATION(true))}
 						className="inline cursor-pointer underline hover:text-red-600 font-bold"
 					>
 						Create your free account now

@@ -9,6 +9,7 @@ import Footer from "../../components/Footer"
 
 import { AppContext } from "../../App"
 import LoadingRing from "../../components/LoadingRing"
+import { objectHasData } from "../../utils"
 
 export default function User() {
 	const { appState } = useContext(AppContext)
@@ -26,7 +27,7 @@ export default function User() {
 					<Header username={username} firstName={firstName} lastName={lastName} />
 					<main className="relative mt-4 z-0 text-gray-50">
 						<Routes>
-							<Route path=":username/lockrroom/*" element={<LockrRoomDashboard />} />
+							<Route path=":username/lockrroom" element={<LockrRoomDashboard />} />
 							<Route path=":username/profile/*" element={<UserProfile />} />
 							<Route path=":username/*" element={<UserDashboard />} />
 						</Routes>

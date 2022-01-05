@@ -40,6 +40,10 @@ export const APP_ACTION_REFRESH_SNIPPETS = () => {
 	return { type: "REFRESH_SNIPPETS" }
 }
 
+export const ACTION_REFRESH_FRIEND_SNIPPETS = () => {
+	return { type: "REFRESH_FRIEND_SNIPPETS" }
+}
+
 export const APP_ACTION_SET_SNIPPETS = userSnippets => {
 	return { type: "SET_SNIPPETS", payload: userSnippets }
 }

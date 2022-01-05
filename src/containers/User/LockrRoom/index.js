@@ -10,6 +10,7 @@ export default function LockrRoomDashboard() {
 	const { appState } = useContext(AppContext)
 	const { userData } = appState
 	const { friends, friendRequestsReceived } = userData
+
 	const [friendFilter, setFriendFilter] = useState("")
 	const [showAddFriend, setShowAddFriend] = useState(false)
 
@@ -25,7 +26,7 @@ export default function LockrRoomDashboard() {
 					<h2 className="cursor-pointer text-base font-normal" onClick={() => setFriendFilter("")}>
 						View All
 					</h2>
-					{friends.length ? (
+					{!!friends.length ? (
 						<div>
 							<h3 className="text-md font-normal">Friends</h3>
 							<ul className="ml-2 text-xs space-y-1">
@@ -73,7 +74,7 @@ export default function LockrRoomDashboard() {
 							})}
 					</select>
 				</div>
-				{friendRequestsReceived.length ? (
+				{!!friendRequestsReceived.length ? (
 					<div className="bg-gray-900 sm:mt-4 w-full space-y-4 flex flex-col px-8 pt-2 pb-2 sm:py-4 shadow-lg shrink-0">
 						<h2 className="cursor-pointer text-md font-normal">Friend Requests</h2>
 						<ul className="ml-2 text-xs space-y-1">
@@ -96,11 +97,9 @@ export default function LockrRoomDashboard() {
 					>
 						<span className="sm:hidden">+ </span>Add a friend
 					</h2>
-					{showAddFriend ? (
-						<AddFriend username={userData.username} setShowAddFriend={setShowAddFriend} />
-					) : null}
+					{showAddFriend ? <AddFriend setShowAddFriend={setShowAddFriend} /> : null}
 					<div className="hidden sm:block">
-						<AddFriend username={userData.username} />
+						<AddFriend />
 					</div>
 				</div>
 			</div>

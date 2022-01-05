@@ -23,27 +23,27 @@ export const AppContext = createContext()
 
 export default function App() {
 	// App State Setup
-	const [appState, dispatchAppState] = useImmerReducer(appStateImmerReducer, INITIAL_APP_STATE)
-	const appContextValue = { appState, dispatchAppState }
+	const [appState, dispatch] = useImmerReducer(appStateImmerReducer, INITIAL_APP_STATE)
+	const appContextValue = { appState, dispatch }
 	const { username, token, userData } = appState
 
 	// Get Previously Logged-In User, if applicable
 	useEffect(() => {
 		console.log("CURRENT LOCAL STORAGE RAN")
 		const currentLocalStorage = getLocalStorage(["username", "token"])
-		if (currentLocalStorage) dispatchAppState(APP_ACTION_LOGIN(currentLocalStorage))
-	}, [dispatchAppState])
+		if (currentLocalStorage) dispatch(APP_ACTION_LOGIN(currentLocalStorage))
+	}, [dispatch])
 
 	// Init or refresh User Data
 	useEffect(() => {
 		console.log("INIT USER DATA RAN")
 		const loadUserInfo = async (username, token) => {
 			const userInfo = await getUserData(username, token)
-			dispatchAppState(APP_ACTION_UPDATE_USER(userInfo))
-			dispatchAppState(APP_ACTION_REFRESH_SNIPPETS())
+			dispatch(APP_ACTION_UPDATE_USER(userInfo))
+			dispatch(APP_ACTION_REFRESH_SNIPPETS())
 		}
 		!!username && loadUserInfo(username, token)
-	}, [appState.refreshUser, username, token, dispatchAppState])
+	}, [appState.refreshUser, username, token, dispatch])
 
 	// Init or Refresh Snippet Data (user and friends)
 	useEffect(() => {
@@ -51,13 +51,23 @@ export default function App() {
 		const loadSnippets = async (username, token) => {
 			const allUserSnippets = await getAllSnippets(username, token, userData._id)
 			const allFriendSnippets = await getFriendSnippets(username, token)
-			dispatchAppState(APP_ACTION_SET_SNIPPETS(allUserSnippets))
-			dispatchAppState(APP_ACTION_SET_FRIEND_SNIPPETS(allFriendSnippets))
+			dispatch(APP_ACTION_SET_SNIPPETS(allUserSnippets))
+			dispatch(APP_ACTION_SET_FRIEND_SNIPPETS(allFriendSnippets))
 		}
 		objectHasData(userData) && loadSnippets(username, token)
-	}, [appState.refreshSnippets, dispatchAppState, username, token, userData])
+	}, [appState.refreshSnippets, dispatch, username, token, userData])
+
+	useEffect(() => {
+		console.log("INIT FRIEND SNIPPET DATA RAN")
+		const loadFriendSnippets = async (username, token) => {
+			const allFriendSnippets = await getFriendSnippets(username, token)
+			dispatch(APP_ACTION_SET_FRIEND_SNIPPETS(allFriendSnippets))
+		}
+		objectHasData(userData) && loadFriendSnippets(username, token)
+	}, [appState.refreshFriendSnippets, dispatch, username, token, userData])
 
 	console.log("AppState", appState)
+
 	return (
 		<div>
 			<AppContext.Provider value={appContextValue}>
