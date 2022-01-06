@@ -4,8 +4,8 @@ import { useImmerReducer } from "use-immer"
 
 import { INITIAL_APP_STATE } from "./common/constants"
 import {
-	APP_ACTION_LOGIN,
-	APP_ACTION_REFRESH_SNIPPETS,
+	ACTION_LOGIN,
+	ACTION_REFRESH_SNIPPETS,
 	APP_ACTION_SET_FRIEND_SNIPPETS,
 	APP_ACTION_SET_SNIPPETS,
 	APP_ACTION_UPDATE_USER,
@@ -30,7 +30,7 @@ export default function App() {
 	// Get Previously Logged-In User, if applicable
 	useEffect(() => {
 		const currentLocalStorage = getLocalStorage(["username", "token"])
-		if (currentLocalStorage) dispatch(APP_ACTION_LOGIN(currentLocalStorage))
+		if (currentLocalStorage) dispatch(ACTION_LOGIN(currentLocalStorage))
 	}, [dispatch])
 
 	// Init or refresh User Data
@@ -39,7 +39,7 @@ export default function App() {
 		const loadUserInfo = async (username, token) => {
 			const userInfo = await getUserData(username, token)
 			dispatch(APP_ACTION_UPDATE_USER(userInfo))
-			dispatch(APP_ACTION_REFRESH_SNIPPETS())
+			dispatch(ACTION_REFRESH_SNIPPETS())
 		}
 		!!username && loadUserInfo(username, token)
 	}, [appState.refreshUser, username, token, dispatch])

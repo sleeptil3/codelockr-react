@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
-import { APP_ACTION_LOGOUT } from "../state/actions"
+import { ACTION_LOGOUT } from "../state/actions"
 import { AppContext } from "../App"
 
 export default function AdminHeader({ setPageSelect }) {
@@ -15,7 +15,7 @@ export default function AdminHeader({ setPageSelect }) {
 
 	const handleLogout = () => {
 		localStorage.clear()
-		dispatch(APP_ACTION_LOGOUT())
+		dispatch(ACTION_LOGOUT())
 		navigate("/")
 	}
 

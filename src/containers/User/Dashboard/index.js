@@ -6,10 +6,10 @@ import SnippetView from "../../../components/SnippetView"
 
 import { AppContext } from "../../../App"
 import {
-	APP_ACTION_CLEAR_FOLDER_FILTER,
-	APP_ACTION_SET_FOLDER_FILTER,
-	APP_ACTION_SET_SNIPPET_FORM,
-	APP_ACTION_SET_SUBMIT_MODE,
+	ACTION_CLEAR_FOLDER_FILTER,
+	ACTION_SET_FOLDER_FILTER,
+	ACTION_SET_SNIPPET_FORM,
+	ACTION_SET_SUBMIT_MODE,
 } from "../../../state/actions"
 import LoadingRing from "../../../components/LoadingRing"
 import { DEFAULT_SNIPPET_FORM } from "../../../common/constants"
@@ -20,14 +20,14 @@ export default function UserDashboard() {
 
 	const handleFilter = e => {
 		e.preventDefault()
-		if (e.target.type === "select-one") dispatch(APP_ACTION_SET_FOLDER_FILTER(e.target.value))
-		else dispatch(APP_ACTION_SET_FOLDER_FILTER(e.target.id))
+		if (e.target.type === "select-one") dispatch(ACTION_SET_FOLDER_FILTER(e.target.value))
+		else dispatch(ACTION_SET_FOLDER_FILTER(e.target.id))
 	}
 
 	const handleAddSnippet = () => {
-		dispatch(APP_ACTION_SET_SNIPPET_FORM(DEFAULT_SNIPPET_FORM))
-		dispatch(APP_ACTION_SET_SUBMIT_MODE("POST"))
-		dispatch(APP_ACTION_CLEAR_FOLDER_FILTER())
+		dispatch(ACTION_SET_SNIPPET_FORM(DEFAULT_SNIPPET_FORM))
+		dispatch(ACTION_SET_SUBMIT_MODE("POST"))
+		dispatch(ACTION_CLEAR_FOLDER_FILTER())
 	}
 
 	return !!userData && !!userData.username ? (
@@ -37,7 +37,7 @@ export default function UserDashboard() {
 					<Link
 						to={`/user/${userData.username}/dashboard`}
 						className="cursor-pointer text-base font-normal"
-						onClick={() => dispatch(APP_ACTION_CLEAR_FOLDER_FILTER())}
+						onClick={() => dispatch(ACTION_CLEAR_FOLDER_FILTER())}
 					>
 						All Snippets
 					</Link>

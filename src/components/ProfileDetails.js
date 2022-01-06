@@ -4,7 +4,7 @@ import { useNavigate } from "react-router"
 import { AppContext } from "../App"
 
 import { editUser } from "../common/api"
-import { APP_ACTION_REFRESH_USER } from "../state/actions"
+import { ACTION_REFRESH_USER } from "../state/actions"
 import { setLocalStorage } from "../utils"
 import PasswordReset from "./forms/PasswordReset"
 import ProfileField from "./forms/ProfileField"
@@ -36,7 +36,7 @@ export default function ProfileDetails() {
 		if (formData.username !== username) {
 			setLocalStorage({ token: data.token, username: formData.username })
 		}
-		dispatch(APP_ACTION_REFRESH_USER())
+		dispatch(ACTION_REFRESH_USER())
 		navigate(`/user/${formData.username}/dashboard`)
 		window.location.reload()
 	}
@@ -46,7 +46,7 @@ export default function ProfileDetails() {
 			{!editPassword ? (
 				<div>
 					<form autoComplete="off" onSubmit={handleSubmit} className="rounded-lg">
-						<input hidden autoComplete={false} />
+						<input hidden autoComplete="off" />
 						<div>
 							<h1 className="mb-6 text-2xl">Profile Details</h1>
 						</div>

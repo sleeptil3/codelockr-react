@@ -47,7 +47,7 @@ export default function PasswordReset({ setEditPassword, username }) {
 
 	return (
 		<div>
-			<form novalidate onSubmit={handleSubmit} className="mt-2">
+			<form noValidate onSubmit={handleSubmit} className="mt-2">
 				<div>
 					<h1 className="mb-6 text-base font-bold">Reset Password</h1>
 					{error ? (

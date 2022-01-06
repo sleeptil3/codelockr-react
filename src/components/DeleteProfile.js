@@ -1,8 +1,9 @@
 import { useContext } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { AppContext } from "../App"
+import { ACTION_LOGOUT } from "../state/actions"
+
 import { deleteUser } from "../common/api"
-import { APP_ACTION_LOGOUT } from "../state/actions"
 
 export default function DeleteProfile() {
 	const navigate = useNavigate()
@@ -12,7 +13,7 @@ export default function DeleteProfile() {
 	const handleDelete = async () => {
 		await deleteUser(username, token)
 		window.localStorage.clear()
-		dispatch(APP_ACTION_LOGOUT())
+		dispatch(ACTION_LOGOUT())
 		navigate("/")
 	}
 

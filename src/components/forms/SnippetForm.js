@@ -7,11 +7,11 @@ import { createSnippet, editSnippet, deleteSnippet } from "../../common/api"
 import AddFolder from "./AddFolder"
 import { AppContext } from "../../App"
 import {
-	APP_ACTION_CLEAR_SNIPPET_FORM,
-	APP_ACTION_REFRESH_SNIPPETS,
-	APP_ACTION_SET_FOLDER_FILTER,
-	APP_ACTION_SET_SNIPPET_FORM,
-	APP_ACTION_SET_SUBMIT_MODE,
+	ACTION_CLEAR_SNIPPET_FORM,
+	ACTION_REFRESH_SNIPPETS,
+	ACTION_SET_FOLDER_FILTER,
+	ACTION_SET_SNIPPET_FORM,
+	ACTION_SET_SUBMIT_MODE,
 } from "../../state/actions"
 import LoadingRing from "../LoadingRing"
 
@@ -29,10 +29,10 @@ export default function SnippetForm() {
 
 	const handleChange = e => {
 		if (e.target.type === "checkbox") {
-			dispatch(APP_ACTION_SET_SNIPPET_FORM({ ...snippetForm, isPrivate: e.target.checked }))
+			dispatch(ACTION_SET_SNIPPET_FORM({ ...snippetForm, isPrivate: e.target.checked }))
 		} else {
 			const { id, value } = e.target
-			dispatch(APP_ACTION_SET_SNIPPET_FORM({ ...snippetForm, [id]: value }))
+			dispatch(ACTION_SET_SNIPPET_FORM({ ...snippetForm, [id]: value }))
 		}
 	}
 
@@ -64,10 +64,10 @@ export default function SnippetForm() {
 		if (submitMode === "PUT") {
 			await editSnippet(username, token, snippetData)
 		}
-		dispatch(APP_ACTION_CLEAR_SNIPPET_FORM())
-		dispatch(APP_ACTION_SET_SUBMIT_MODE("POST"))
-		dispatch(APP_ACTION_SET_FOLDER_FILTER(snippetData.parentFolder))
-		dispatch(APP_ACTION_REFRESH_SNIPPETS())
+		dispatch(ACTION_CLEAR_SNIPPET_FORM())
+		dispatch(ACTION_SET_SUBMIT_MODE("POST"))
+		dispatch(ACTION_SET_FOLDER_FILTER(snippetData.parentFolder))
+		dispatch(ACTION_REFRESH_SNIPPETS())
 		navigate(`/user/${username}/dashboard`)
 	}
 
@@ -75,10 +75,10 @@ export default function SnippetForm() {
 	const handleDelete = async e => {
 		e.preventDefault()
 		await deleteSnippet(username, token, snippetForm.snippet_id)
-		dispatch(APP_ACTION_SET_SUBMIT_MODE("POST"))
-		dispatch(APP_ACTION_SET_FOLDER_FILTER(snippetForm.parentFolder))
-		dispatch(APP_ACTION_CLEAR_SNIPPET_FORM())
-		dispatch(APP_ACTION_REFRESH_SNIPPETS())
+		dispatch(ACTION_SET_SUBMIT_MODE("POST"))
+		dispatch(ACTION_SET_FOLDER_FILTER(snippetForm.parentFolder))
+		dispatch(ACTION_CLEAR_SNIPPET_FORM())
+		dispatch(ACTION_REFRESH_SNIPPETS())
 		navigate(`/user/${username}/dashboard`)
 	}
 
@@ -188,7 +188,7 @@ export default function SnippetForm() {
 												className=""
 												onClick={e => {
 													dispatch(
-														APP_ACTION_SET_SNIPPET_FORM({
+														ACTION_SET_SNIPPET_FORM({
 															...snippetForm,
 															parseFormat: language.name,
 														})
@@ -286,7 +286,7 @@ export default function SnippetForm() {
 					</div>
 					<div>
 						<Link
-							onClick={() => dispatch(APP_ACTION_CLEAR_SNIPPET_FORM())}
+							onClick={() => dispatch(ACTION_CLEAR_SNIPPET_FORM())}
 							className="mr-10 btn-secondary py-2 px-5"
 							to={`/user/${username}/dashboard/`}
 						>

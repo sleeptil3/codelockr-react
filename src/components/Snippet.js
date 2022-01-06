@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import { AppContext } from "../App"
-import { APP_ACTION_SET_SNIPPET_FORM, APP_ACTION_SET_SUBMIT_MODE } from "../state/actions"
+import { ACTION_SET_SNIPPET_FORM, ACTION_SET_SUBMIT_MODE } from "../state/actions"
 import LoadingRing from "./LoadingRing"
 
 export default function Snippet({
@@ -21,7 +21,7 @@ export default function Snippet({
 
 	const handleClick = () => {
 		dispatch(
-			APP_ACTION_SET_SNIPPET_FORM({
+			ACTION_SET_SNIPPET_FORM({
 				title: title,
 				code: code,
 				notes: notes,
@@ -31,7 +31,7 @@ export default function Snippet({
 				parentFolder: parentFolder,
 			})
 		)
-		dispatch(APP_ACTION_SET_SUBMIT_MODE("PUT"))
+		dispatch(ACTION_SET_SUBMIT_MODE("PUT"))
 	}
 
 	const copySnippet = () => {

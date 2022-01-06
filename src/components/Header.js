@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useContext, useState } from "react"
 import { AppContext } from "../App"
-import { APP_ACTION_LOGOUT, APP_ACTION_CLEAR_FOLDER_FILTER } from "../state/actions"
+import { ACTION_LOGOUT, ACTION_CLEAR_FOLDER_FILTER } from "../state/actions"
 
 export default function Header({ username, firstName, lastName }) {
 	const [slide, setSlide] = useState("")
@@ -15,12 +15,12 @@ export default function Header({ username, firstName, lastName }) {
 
 	const handleLogout = () => {
 		localStorage.clear()
-		dispatch(APP_ACTION_LOGOUT())
+		dispatch(ACTION_LOGOUT())
 		navigate("/")
 	}
 
 	const handleHome = () => {
-		dispatch(APP_ACTION_CLEAR_FOLDER_FILTER())
+		dispatch(ACTION_CLEAR_FOLDER_FILTER())
 	}
 
 	return (

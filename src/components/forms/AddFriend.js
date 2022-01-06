@@ -43,7 +43,7 @@ export default function AddFriend({ setShowAddFriend }) {
 	} else {
 		return (
 			<form noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<input hidden autoComplete={false} />
+				<input hidden autoComplete="off" />
 				<div className="font-thin tracking-wider text-xs text-gray-50 flex items-baseline justify-evenly h-full sm:w-48">
 					<label>
 						<input

@@ -1,5 +1,3 @@
-// APP STATE REDUCER
-
 import { DEFAULT_SNIPPET_FORM } from "../common/constants"
 
 export const appStateImmerReducer = (draft, action) => {

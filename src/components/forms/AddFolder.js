@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { AppContext } from "../../App"
 import { addFolder } from "../../common/api"
-import { APP_ACTION_REFRESH_USER, APP_ACTION_SET_SNIPPET_FORM } from "../../state/actions"
+import { ACTION_REFRESH_USER, ACTION_SET_SNIPPET_FORM } from "../../state/actions"
 
 export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 	const { appState, dispatch } = useContext(AppContext)
@@ -24,8 +24,8 @@ export default function AddFolder({ owner, setShowAddFolder, setNewFolder }) {
 			owner: owner,
 		})
 		setNewFolder({ ...newFolder })
-		dispatch(APP_ACTION_SET_SNIPPET_FORM({ ...snippetForm, parentFolder: newFolder._id }))
-		dispatch(APP_ACTION_REFRESH_USER())
+		dispatch(ACTION_SET_SNIPPET_FORM({ ...snippetForm, parentFolder: newFolder._id }))
+		dispatch(ACTION_REFRESH_USER())
 		setShowAddFolder(false)
 	}
 

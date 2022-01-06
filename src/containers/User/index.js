@@ -1,15 +1,14 @@
 import { useContext, useEffect } from "react"
 import { Routes, Route } from "react-router-dom"
 
+import { AppContext } from "../../App"
+
 import UserDashboard from "./Dashboard"
 import UserProfile from "./Profile"
 import LockrRoomDashboard from "./LockrRoom"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
-
-import { AppContext } from "../../App"
 import LoadingRing from "../../components/LoadingRing"
-import { objectHasData } from "../../utils"
 
 export default function User() {
 	const { appState } = useContext(AppContext)

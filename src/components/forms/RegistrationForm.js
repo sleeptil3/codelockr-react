@@ -8,7 +8,7 @@ import { EMAIL_REGEX, PASSWORD_REGEX } from "../../common/constants"
 import ellipse from "../../assets/ellipse-load.png"
 import ellipse2 from "../../assets/ellipse-load@2x.png"
 import ellipse3 from "../../assets/ellipse-load@3x.png"
-import { APP_ACTION_LOGIN, APP_ACTION_TOGGLE_REGISTRATION } from "../../state/actions"
+import { ACTION_LOGIN, ACTION_TOGGLE_REGISTRATION } from "../../state/actions"
 
 export default function RegistrationForm() {
 	const navigate = useNavigate()
@@ -69,7 +69,7 @@ export default function RegistrationForm() {
 		} else {
 			const { token, createdUser } = newUser
 			const { username, firstName, lastName } = createdUser
-			dispatch(APP_ACTION_LOGIN({ username, firstName, lastName, token }))
+			dispatch(ACTION_LOGIN({ username, firstName, lastName, token }))
 			setFormData({
 				firstName: "",
 				lastName: "",
@@ -78,7 +78,7 @@ export default function RegistrationForm() {
 				password: "",
 				confirmPassword: "",
 			})
-			dispatch(APP_ACTION_TOGGLE_REGISTRATION(false))
+			dispatch(ACTION_TOGGLE_REGISTRATION(false))
 			navigate(`/user/${username}/dashboard`)
 		}
 	}
@@ -98,7 +98,7 @@ export default function RegistrationForm() {
 			confirmPassword: "",
 		})
 		setDisplayErrors(null)
-		dispatch(APP_ACTION_TOGGLE_REGISTRATION(false))
+		dispatch(ACTION_TOGGLE_REGISTRATION(false))
 	}
 
 	if (!showRegistration) return null

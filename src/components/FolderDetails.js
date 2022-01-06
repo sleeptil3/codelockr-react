@@ -1,12 +1,11 @@
 import { useState, useContext } from "react"
 import { AppContext } from "../App"
 import { editFolder, deleteFolder } from "../common/api"
-import { APP_ACTION_CLEAR_FOLDER_FILTER, APP_ACTION_REFRESH_USER } from "../state/actions"
+import { ACTION_CLEAR_FOLDER_FILTER, ACTION_REFRESH_USER } from "../state/actions"
 
 export default function FolderDetails({ folder }) {
 	const { appState, dispatch } = useContext(AppContext)
 	const { username, token } = appState
-	// const { setFilter, refreshTrigger, setRefreshTrigger } = useContext(UserContext)
 
 	const [editMode, setEditMode] = useState(false)
 	const [deleteMode, setDeleteMode] = useState(false)
@@ -21,7 +20,7 @@ export default function FolderDetails({ folder }) {
 	const handleSubmit = async e => {
 		e.preventDefault()
 		await editFolder(username, token, folder._id, formData)
-		dispatch(APP_ACTION_REFRESH_USER())
+		dispatch(ACTION_REFRESH_USER())
 		setFormData({ title: "" })
 		setEditMode(false)
 	}
@@ -29,8 +28,8 @@ export default function FolderDetails({ folder }) {
 	// Handle removing the folder to the users data
 	const handleDelete = async e => {
 		await deleteFolder(username, token, folder._id)
-		dispatch(APP_ACTION_CLEAR_FOLDER_FILTER())
-		dispatch(APP_ACTION_REFRESH_USER())
+		dispatch(ACTION_CLEAR_FOLDER_FILTER())
+		dispatch(ACTION_REFRESH_USER())
 		setDeleteMode(false)
 	}
 

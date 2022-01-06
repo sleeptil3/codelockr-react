@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { AppContext } from "../../App"
-import { APP_ACTION_LOGIN, APP_ACTION_REFRESH_USER } from "../../state/actions"
+import { ACTION_LOGIN, ACTION_REFRESH_USER } from "../../state/actions"
 
 import { forgotPassword } from "../../common/api"
 import { handleGetLoginData } from "../../utils"
@@ -58,8 +58,8 @@ export default function LoginForm({ setSlide }) {
 			const { username, token } = userRes
 			setLoggingIn(false)
 			setHideLogin(false)
-			dispatch(APP_ACTION_LOGIN({ username, token }))
-			dispatch(APP_ACTION_REFRESH_USER())
+			dispatch(ACTION_LOGIN({ username, token }))
+			dispatch(ACTION_REFRESH_USER())
 			if (username === "admin") navigate("/admin/dashboard")
 			else navigate(`/user/${username}/dashboard`)
 		} else {
