@@ -34,7 +34,7 @@ export default function LoginForm({ setSlide }) {
 
 	const handlePwReset = async e => {
 		e.preventDefault()
-		const data = await forgotPassword({ ...emailFormData })
+		const data = await forgotPassword(emailFormData)
 		setForgotPwResult({ ...data })
 		setEmailFormData("")
 		setShowForgotPw(false)
@@ -66,6 +66,8 @@ export default function LoginForm({ setSlide }) {
 			console.error("Unknown error in Login Form")
 		}
 	}
+
+	console.log(emailFormData)
 
 	return (
 		<div className="">

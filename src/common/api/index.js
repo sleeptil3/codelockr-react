@@ -286,6 +286,7 @@ export const forgotPassword = async userEmail => {
 		} else return data
 	} catch (error) {
 		console.error("Error: forgotPassword failed (codelockr-react)", error)
+		return { err: error }
 	}
 }
 
