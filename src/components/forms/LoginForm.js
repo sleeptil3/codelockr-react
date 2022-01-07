@@ -12,6 +12,8 @@ import ellipse2 from "../../assets/ellipse-load@2x.png"
 import ellipse3 from "../../assets/ellipse-load@3x.png"
 
 export default function LoginForm({ setSlide }) {
+	const PWR_USER = process.env.REACT_APP_PWR_USER
+	const PWR_PASS = process.env.REACT_APP_PWR_PASS
 	const { dispatch } = useContext(AppContext)
 	const navigate = useNavigate()
 
@@ -34,7 +36,7 @@ export default function LoginForm({ setSlide }) {
 
 	const handlePwReset = async e => {
 		e.preventDefault()
-		const data = await forgotPassword(emailFormData)
+		const data = await forgotPassword(PWR_USER, PWR_PASS, emailFormData)
 		setForgotPwResult({ ...data })
 		setEmailFormData("")
 		setShowForgotPw(false)
@@ -66,8 +68,6 @@ export default function LoginForm({ setSlide }) {
 			console.error("Unknown error in Login Form")
 		}
 	}
-
-	console.log(emailFormData)
 
 	return (
 		<div className="">

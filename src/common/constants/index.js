@@ -1,5 +1,5 @@
-export const BASE_URL = "https://codelockr-api.herokuapp.com"
-// const export BASE_URL = 'http://localhost:3030'
+// export const BASE_URL = "https://codelockr-api.herokuapp.com"
+export const BASE_URL = "http://localhost:3030"
 
 export const DEFAULT_SNIPPET_FORM = {
 	title: "",

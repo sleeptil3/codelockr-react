@@ -1,6 +1,4 @@
 import { BASE_URL } from "../constants"
-const PWR_USER = process.env.REACT_APP_PWR_USER
-const PWR_PASS = process.env.REACT_APP_PWR_PASS
 
 export const handleLogin = async formData => {
 	try {
@@ -265,13 +263,13 @@ export const requestFriend = async (username, token, friend_username) => {
 	}
 }
 
-export const forgotPassword = async userEmail => {
+export const forgotPassword = async (PWR_USER, PWR_PASS, userEmail) => {
+	const body = {
+		PWR_USER: PWR_USER,
+		PWR_PASS: PWR_PASS,
+		userEmail: userEmail,
+	}
 	try {
-		const body = {
-			PWR_USER: PWR_USER,
-			PWR_PASS: PWR_PASS,
-			userEmail: userEmail,
-		}
 		const res = await fetch(`${BASE_URL}/pwr/auth`, {
 			method: "POST",
 			headers: {
@@ -279,7 +277,7 @@ export const forgotPassword = async userEmail => {
 			},
 			body: JSON.stringify(body),
 		})
-		const data = res.json()
+		const data = await res.json()
 		if (data.error) {
 			console.error("Error: forgotPassword error message from codelockr-api", data)
 			return data
