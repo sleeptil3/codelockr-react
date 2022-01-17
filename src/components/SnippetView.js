@@ -29,9 +29,7 @@ export default function SnippetView() {
 			{!!(userData.folders.length > 0) ? (
 				<>
 					<h1 className="hidden sm:inline text-2xl">
-						{folderFilter === ""
-							? "All Snippets"
-							: userData.folders.find(folder => folder._id === folderFilter).title}
+						{folderFilter === "" ? "All Snippets" : userData.folders.find(folder => folder._id === folderFilter).title}
 					</h1>
 					<div className="ml-5 sm:ml-1 my-4 flex justify-start items-center relative">
 						<svg
@@ -68,14 +66,11 @@ export default function SnippetView() {
 				<div>
 					<h1 className="text-xl font-bold mt-2 ml-8">Welcome to CodeLockr!</h1>
 					<h3 className="text-lg font-light mt-8 ml-8">A message from the creator of CodeLockr:</h3>
+					<p className="text-md font-light mt-8 mx-8">Thank you for joining the CodeLockr community!</p>
 					<p className="text-md font-light mt-8 mx-8">
-						Thank you for joining the CodeLockr community!
-					</p>
-					<p className="text-md font-light mt-8 mx-8">
-						I created CodeLockr because it's something that I found myself needing so I hope you
-						find it useful as well. It was actually created as a capstone project for a software
-						engineering immersive program I was a part of. With that in mind, it's quite possible
-						you may run into bugs in this infancy period of CodeLockr. If you do, please{" "}
+						I created CodeLockr because it's something that I found myself needing so I hope you find it useful as well. It
+						was actually created as a capstone project for a software engineering immersive program I was a part of. With
+						that in mind, it's quite possible you may run into bugs in this infancy period of CodeLockr. If you do, please{" "}
 						<a
 							className="hover:text-red-600 underline"
 							href="https://github.com/sleeptil3/codelockr-react/issues"
@@ -90,22 +85,15 @@ export default function SnippetView() {
 						</a>
 						.
 					</p>
-					<p className="text-md font-light mt-8 ml-8">
-						Now, get started by creating your first Snippet!
-					</p>
+					<p className="text-md font-light mt-8 ml-8">Now, get started by creating your first Snippet!</p>
 					<h3 className="text-lg font-light mt-8 ml-8">-Shawn</h3>
 				</div>
 			)}
 			<div className="grid gap-5 sm:gap-10 mt-2 sm:pr-8 w-full grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 items-start">
 				{snippets
-					.filter(snippet => {
-						if (folderFilter === "")
-							return snippet.title.toUpperCase().includes(search.toUpperCase())
-						else
-							return (
-								snippet.title.toUpperCase().includes(search.toUpperCase()) &&
-								snippet.parentFolder === folderFilter
-							)
+					?.filter(snippet => {
+						if (folderFilter === "") return snippet.title.toUpperCase().includes(search.toUpperCase())
+						else return snippet.title.toUpperCase().includes(search.toUpperCase()) && snippet.parentFolder === folderFilter
 					})
 					.sort((a, b) => (a.title.toUpperCase() < b.title.toUpperCase() ? -1 : 1))
 					.map(snippet => {

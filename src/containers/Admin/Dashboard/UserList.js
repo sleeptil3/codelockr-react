@@ -20,17 +20,9 @@ export default function UserList() {
 
 	return (
 		<div className="mb-10">
-			<h2 className="pl-5 sm:pl-0 text-xl font-bold uppercase sm:mt-0 mt-4 mb-4 sm:mb-6">
-				Manage Users
-			</h2>
-			<input
-				className="ml-5 sm:ml-0 mb-8 bg-transparent text-base py-1"
-				type="text"
-				onChange={handleChange}
-				value={filter}
-			/>
+			<h2 className="pl-5 sm:pl-0 text-xl font-bold uppercase sm:mt-0 mt-4 mb-4 sm:mb-6">Manage Users</h2>
 			<svg
-				className="inline ml-4"
+				className="inline ml-2 mr-3"
 				width="28"
 				height="28"
 				viewBox="0 0 28 28"
@@ -42,6 +34,12 @@ export default function UserList() {
 					fill="#F9FAFB"
 				/>
 			</svg>
+			<input
+				className="ml-5 sm:ml-0 mb-8 bg-transparent text-base py-1 border"
+				type="text"
+				onChange={handleChange}
+				value={filter}
+			/>
 			{filter ? (
 				<span className="cursor-pointer ml-5 hover:text-red-500" onClick={() => setFilter("")}>
 					Clear

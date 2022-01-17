@@ -33,7 +33,7 @@ export default function UserDashboard() {
 	return !!userData && !!userData.username ? (
 		<div className="flex flex-col sm:flex-row justify-start items-center sm:items-start">
 			<div className="sm:ml-5 w-full sm:w-max h-max ">
-				<div className="hidden sm:block bg-gray-900 mt-0 w-min space-y-4 px-6 py-3 shadow-lg shrink-0">
+				<div className="hidden sm:block bg-gray-900 mt-0 w-max space-y-4 px-6 py-3 shadow-lg shrink-0">
 					<Link
 						to={`/user/${userData.username}/dashboard`}
 						className="cursor-pointer text-base font-normal"
@@ -67,7 +67,7 @@ export default function UserDashboard() {
 						</div>
 					) : null}
 				</div>
-				<div className="sm:hidden bg-gray-900 -mt-4 w-full py-2 shadow-lg flex justify-evenly items-center">
+				<div className="sm:hidden bg-gray-900 -mt-4 py-2 shadow-lg flex justify-evenly items-center">
 					<label className="hidden" htmlFor="snippetFilter">
 						Filter by folder
 					</label>
@@ -94,13 +94,7 @@ export default function UserDashboard() {
 							onClick={handleAddSnippet}
 							className="btn-primary flex justify-center items-center px-2 py-2"
 						>
-							<svg
-								width="17"
-								height="17"
-								viewBox="0 0 17 17"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
+							<svg width={17} height={17} viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
 									d="M8.47266 2.52344H9.52734C9.62109 2.52344 9.66797 2.56771 9.66797 2.65625V14.3438C9.66797 14.4323 9.62109 14.4766 9.52734 14.4766H8.47266C8.37891 14.4766 8.33203 14.4323 8.33203 14.3438V2.65625C8.33203 2.56771 8.37891 2.52344 8.47266 2.52344Z"
 									fill="#D5D5D5"
@@ -122,8 +116,8 @@ export default function UserDashboard() {
 						<div className="flex justify-center items-center">
 							<svg
 								className="mr-2"
-								width={"15"}
-								height={"16"}
+								width="15"
+								height="16"
 								viewBox="0 0 15 16"
 								fill="none"
 								xmlns="http://www.w3.org/2000/svg"
@@ -133,6 +127,7 @@ export default function UserDashboard() {
 									fill="white"
 								/>
 							</svg>
+
 							<p className="">Snippet</p>
 						</div>
 					</Link>
